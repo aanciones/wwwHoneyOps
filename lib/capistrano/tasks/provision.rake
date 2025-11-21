@@ -1,26 +1,22 @@
+# lib/capistrano/tasks/provision.rake
+
 namespace :provision do
-  def invoke_task!(task_name)
-    unless Rake::Task.task_defined?(task_name)
-      abort "La tarea #{task_name} no está disponible. Asegúrate de tener capistrano3-puma cargado en Capfile."
-    end
-
-    Rake::Task[task_name].invoke
-    Rake::Task[task_name].reenable
-  end
-
-  desc "Generar la configuración de Puma"
+  desc "Generar la configuración de Puma (capistrano3-puma)"
   task :puma_config do
-    invoke_task!("puma:config")
+    invoke "puma:config"
   end
 
-  desc "Configurar y arrancar Puma via systemd"
+  desc "Configurar y arrancar Puma via systemd (capistrano3-puma)"
   task :puma_systemd do
-    %w[puma:systemd:config puma:systemd:enable puma:systemd:start].each { |task_name| invoke_task!(task_name) }
+    invoke "puma:systemd:config"
+    invoke "puma:systemd:enable"
+    invoke "puma:systemd:start"
   end
 
-  desc "Generar configuración de Nginx para Puma"
+  desc "Generar configuración de Nginx para Puma (capistrano3-puma)"
   task :nginx do
-    invoke_task!("puma:nginx_config")
-    %w[puma:nginx:enable puma:nginx:reload].each { |task_name| invoke_task!(task_name) }
+    invoke "puma:nginx_config"
+    invoke "puma:nginx:enable"
+    invoke "puma:nginx:reload"
   end
 end
