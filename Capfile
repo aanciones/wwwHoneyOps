@@ -12,14 +12,14 @@ install_plugin Capistrano::SCM::Git
 require "capistrano/rbenv"
 require "capistrano/bundler"
 
-# SOLO assets de Rails, SIN migraciones ni db
+# Rails: solo assets, sin migraciones (no usas DB)
 require "capistrano/rails/assets"
 
 require "capistrano/yarn"
 
-# Puma (usa el que ya tenías)
-require "capistrano/puma"
-require "capistrano/puma/nginx"
+# Puma (OJO: capistrano3)
+require "capistrano3/puma"
+require "capistrano3/puma/nginx"
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").sort.each { |r| import r }
