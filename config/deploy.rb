@@ -13,7 +13,6 @@ set :server_name, "portal.honeyops.net"
 set :rbenv_type, :user
 set :rbenv_ruby, "3.3.0"
 
-append :linked_files, "config/credentials/production.key", ".env"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "storage", "node_modules"
 
 set :bundle_without, %w[development test].join(" ")
