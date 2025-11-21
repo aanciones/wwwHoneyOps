@@ -11,8 +11,13 @@ install_plugin Capistrano::SCM::Git
 # Framework and tools
 require "capistrano/rbenv"
 require "capistrano/bundler"
-require "capistrano/rails"
+
+# SOLO assets de Rails, SIN migraciones ni db
+require "capistrano/rails/assets"
+
 require "capistrano/yarn"
+
+# Puma (usa el que ya tenías)
 require "capistrano/puma"
 require "capistrano/puma/nginx"
 
