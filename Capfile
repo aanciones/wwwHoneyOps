@@ -36,6 +36,14 @@ require "capistrano/puma"          # tareas base (puma:config, puma:start, etc.)
 require "capistrano/puma/systemd"  # servicio systemd (puma:systemd:config/enable/start)
 require "capistrano/puma/nginx"    # vhost nginx (puma:nginx_config/enable/reload)
 
+# Registrar los plugins para que las tareas de Puma, systemd y Nginx estén
+# disponibles durante el deploy. Sin estas llamadas, Rake no define las
+# tareas (ej. puma:config), provocando los mensajes de "Tarea ... no
+# disponible" en los hooks de provision.
+install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma::Systemd
+install_plugin Capistrano::Puma::Nginx
+
 # ===============================
 # Custom tasks
 # ===============================
