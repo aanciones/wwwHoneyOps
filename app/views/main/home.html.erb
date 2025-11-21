@@ -4,9 +4,22 @@
   <!-- Header -->
   <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-      <a href="#top" class="flex items-center gap-2">
-        <span class="text-amber-400"> <%= honey_icon(:shield, classes: "h-6 w-6") %> </span>
-        <span class="text-lg font-semibold">HoneyOps</span>
+      <a href="#top" class="flex items-center gap-3">
+        <div class="flex items-center gap-3">
+          <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2">
+            <span class="text-amber-400">
+              <%= honey_icon(:shield, classes: "h-6 w-6") %>
+            </span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-bold leading-tight text-slate-100">
+              HoneyOps
+            </span>
+            <span class="text-xs leading-tight text-slate-400">
+              Portal de Honey Pots
+            </span>
+          </div>
+        </div>
       </a>
       <nav class="hidden items-center gap-6 text-sm font-medium md:flex">
         <a href="#features" class="text-slate-300 hover:text-amber-400">Features</a>

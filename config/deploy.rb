@@ -59,17 +59,21 @@ set :puma_error_log,  "#{shared_path}/log/puma_error.log"
 # Nombre del servicio systemd generado por capistrano3-puma
 set :puma_service_unit_name, "#{fetch(:application)}_puma"
 
-# Para los templates de nginx
+# Para los templates de nginx (si algún día los usas)
 set :nginx_server_name, fetch(:server_name)
 
 # ===============================
 #   PUMA & NGINX HOOKS
 # ===============================
+#
+# IMPORTANTE:
+# - No llamamos ya a provision:puma_systemd ni provision:nginx.
+# - El propio plugin capistrano3-puma ya engancha puma:restart
+#   al ciclo de deploy.
+#
+# Si algún día quieres automatizar nginx, lo hacemos aparte.
 
-# Usamos nuestras tareas de `provision`, que a su vez invocan las oficiales
-before "deploy:publishing", "provision:puma_config"
-after  "deploy:published",  "provision:puma_systemd"
-after  "deploy:published",  "provision:nginx"
+# (sin hooks personalizados)
 
 # ===============================
 #   CRON / WHENEVER

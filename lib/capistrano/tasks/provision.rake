@@ -1,22 +1,18 @@
 # lib/capistrano/tasks/provision.rake
 
 namespace :provision do
-  desc "Generar la configuración de Puma (capistrano3-puma)"
+  desc "Obsoleto: la configuración de Puma la gestiona capistrano3-puma"
   task :puma_config do
-    invoke "puma:config"
+    # no-op
   end
 
-  desc "Configurar y arrancar Puma via systemd (capistrano3-puma)"
+  desc "Obsoleto: gestión systemd de Puma (ya no se usa)"
   task :puma_systemd do
-    invoke "puma:systemd:config"
-    invoke "puma:systemd:enable"
-    invoke "puma:systemd:start"
+    # no-op
   end
 
-  desc "Generar configuración de Nginx para Puma (capistrano3-puma)"
+  desc "Obsoleto: generación automática de nginx (lo haremos a mano)"
   task :nginx do
-    invoke "puma:nginx_config"
-    invoke "puma:nginx:enable"
-    invoke "puma:nginx:reload"
+    # no-op
   end
 end
