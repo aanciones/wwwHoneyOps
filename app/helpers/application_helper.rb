@@ -80,6 +80,18 @@ module ApplicationHelper
 <path d="M2 14h2" />\
 <path d="M20 10h2" />\
 <path d="M20 14h2" />'
+when :docs
+    '<path d="M7 3h8l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />\
+<path d="M15 3v4h4" />\
+<line x1="9" y1="9" x2="13" y2="9" />\
+<line x1="9" y1="13" x2="15" y2="13" />\
+<line x1="9" y1="17" x2="13" y2="17" />'
+  when :linkedin
+    '<rect x="4" y="4" width="16" height="16" rx="2" />\
+<path d="M8 11v5" />\
+<circle cx="8" cy="8" r="1" />\
+<path d="M12 16v-3a2 2 0 0 1 4 0v3" />\
+<path d="M12 13h4" />'
     else
       '<circle cx="12" cy="12" r="10" />'
     end
