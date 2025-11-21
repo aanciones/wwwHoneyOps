@@ -3,7 +3,7 @@
 <div class="min-h-screen bg-slate-950 text-slate-100">
   <!-- Header -->
   <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
       <a href="#top" class="flex items-center gap-3">
         <div class="flex items-center gap-3">
           <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2">
@@ -132,12 +132,12 @@
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <% [
-          { icon: :network, title: "Honeypots", desc: "Create, pair, tag, and monitor realistic decoys across sites and clouds." },
+          { icon: :server, title: "Honeypots", desc: "Create, pair, tag, and monitor realistic decoys across sites and clouds." },
           { icon: :settings, title: "Policies", desc: "Define per-pot rules: incident destination, health-check cadence, maintenance windows and mute periods." },
-          { icon: :ticket, title: "Tickets", desc: "Every alert becomes a trackable ticket you can assign, comment on, and close." },
+          { icon: :activity, title: "Activity", desc: "Activity logging on honeypots with all the information needed to perform forensic analysis." },
+          { icon: :bell, title: "Alerts", desc: "Activity on honeypots becomes a trackable alert that you must review, comment on, and close." },
           { icon: :report, title: "Reports", desc: "Digest activity trends and export weekly, monthly, or on-demand reports for your stakeholders." },
-          { icon: :users, title: "Users & Roles", desc: "Granular access controls with SSO-ready authentication and role-based permissions." },
-          { icon: :server, title: "Syslog & Integrations", desc: "Stream alerts into your SIEM or syslog endpoints in real time without extra agents." }
+          { icon: :users, title: "Users & Roles", desc: "Granular access for the IT team to ensure optimal management of activity and alerts." },
         ].each do |feature| %>
           <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm hover:shadow md:p-7">
             <div class="mb-4 inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
