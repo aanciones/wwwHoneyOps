@@ -16,7 +16,7 @@
               HoneyOps
             </span>
             <span class="text-xs leading-tight text-slate-400">
-              Portal de Honey Pots
+              Honeypots as a Service
             </span>
           </div>
         </div>
@@ -28,11 +28,21 @@
         <a href="#faq" class="text-slate-300 hover:text-amber-400">FAQ</a>
       </nav>
       <div class="flex items-center gap-3">
-        <button type="button" class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-900">
-          <%= honey_icon(:log_in, classes: "h-4 w-4 text-amber-400") %> Sign in
-        </button>
-        <a href="#pricing" class="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow hover:bg-amber-400">
-          Get started
+        <a
+          href="https://portal.honeyops.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-900"
+        >
+          <%= honey_icon(:log_in, classes: "h-4 w-4 text-amber-400") %> Console
+        </a>
+        <a
+          href="https://docs.honeyops.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow hover:bg-amber-400"
+        >
+          Honey Docs
         </a>
       </div>
     </div>
@@ -44,39 +54,65 @@
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2">
       <div>
         <div class="mb-4 flex flex-wrap gap-2">
-          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200"><%= honey_icon(:shield, classes: "h-4 w-4") %> Deception-first security</span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200"><%= honey_icon(:server, classes: "h-4 w-4") %> Agentless OVA</span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200"><%= honey_icon(:network, classes: "h-4 w-4") %> On-prem &amp; cloud</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
+            <%= honey_icon(:shield, classes: "h-4 w-4") %> Deception-first security
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
+            <%= honey_icon(:server, classes: "h-4 w-4") %> Agentless OVA
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
+            <%= honey_icon(:network, classes: "h-4 w-4") %> On-prem &amp; cloud
+          </span>
         </div>
         <h1 class="text-4xl font-extrabold tracking-tight text-slate-100 sm:text-6xl">Honeypots as a Service</h1>
         <p class="mt-6 text-lg leading-8 text-slate-300">
-          Spin up realistic decoys in minutes. HoneyOps ships as a lightweight <code class="text-amber-300">.ova</code> VM that pairs securely to your console using a 256-character one-time hook key and checks in every 30 seconds until matched.
+          Set up a powerful intrusion-detection trap in minutes — simple to deploy, effortless to manage, and ready to alert you at the first sign of trouble.
+          HoneyOps delivers realistic decoys as a lightweight <code class="text-amber-300">.ova</code> VM, managed from a single secure console.
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-3">
-          <a href="#pricing" class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 font-semibold text-slate-950 shadow hover:bg-amber-400">See pricing</a>
-          <a href="#how" class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:bg-slate-900">How it works</a>
+          <a href="#pricing" class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 font-semibold text-slate-950 shadow hover:bg-amber-400">
+            See pricing
+          </a>
+          <a href="#how" class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:bg-slate-900">
+            How it works
+          </a>
         </div>
-        <p class="mt-4 text-xs text-slate-400">Brand ideas: honeypots.app · honeyops.app · potgrid.com</p>
+        <p class="mt-4 text-xs text-slate-400">
+          Your first three honeypots are free.
+        </p>
       </div>
       <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl backdrop-blur">
         <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="text-amber-400"><%= honey_icon(:cpu, classes: "h-5 w-5") %></span>
-            <span class="text-sm font-semibold text-slate-100">Decoy VM</span>
+            <span class="text-sm font-semibold text-slate-100">Getting started</span>
           </div>
           <span class="rounded-full bg-emerald-400/15 px-2 py-1 text-xs font-semibold text-emerald-300">Ready</span>
         </div>
-        <div class="rounded-xl bg-black p-4 font-mono text-xs text-emerald-300 shadow-inner ring-1 ring-emerald-500/20">
-          <div class="mb-2 text-emerald-400/70">/console</div>
-          <div>$ setup network --mode dhcp</div>
-          <div>$ show hook-key</div>
-          <div class="truncate text-emerald-200">7e5c…1a | 256-char pairing key</div>
-          <div class="mt-2 text-emerald-400/70">polling: 30s | target: console.honeyops.app</div>
+        <div class="rounded-xl overflow-hidden border border-slate-800 bg-black shadow-inner">
+          <img
+            src="/hpot_screen.png"
+            alt="HoneyOps VM registration screen"
+            class="w-full object-cover"
+          >
         </div>
         <ul class="mt-4 space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><%= honey_icon(:download, classes: "h-4 w-4 text-amber-400") %> Download <code class="text-amber-300">.ova</code></li>
-          <li class="flex items-center gap-2"><%= honey_icon(:key, classes: "h-4 w-4 text-amber-400") %> Paste 256-char hook key</li>
-          <li class="flex items-center gap-2"><%= honey_icon(:settings, classes: "h-4 w-4 text-amber-400") %> Name, policy &amp; maintenance window</li>
+          <li class="flex items-center gap-2">
+            <%= honey_icon(:download, classes: "h-4 w-4 text-amber-400") %>
+            Download the <code class="text-amber-300">.ova</code> image
+          </li>
+          <li class="flex items-center gap-2">
+            <%= honey_icon(:key, classes: "h-4 w-4 text-amber-400") %>
+            Secure enrollment with a one-time hook key
+          </li>
+          <li class="flex items-center gap-2">
+            <%= honey_icon(:settings, classes: "h-4 w-4 text-amber-400") %>
+            Name, policy &amp; maintenance window
+          </li>
+          <li class="flex items-center gap-2">
+            <%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %>
+            You're already safer
+          </li>
         </ul>
       </div>
     </div>
@@ -87,17 +123,21 @@
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Platform</div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">Everything you need to run and act on honeypots</h2>
-        <p class="mt-3 text-slate-300">From provisioning to triage, HoneyOps keeps your team focused on signal, not noise.</p>
+        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+          Everything you need to run and act on honeypots
+        </h2>
+        <p class="mt-3 text-slate-300">
+          From provisioning to triage, HoneyOps keeps your team focused on signal, not noise.
+        </p>
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <% [
-          { icon: :network, title: "Honeypots", desc: "Create, pair, tag, and monitor decoys across sites and clouds." },
-          { icon: :settings, title: "Policies", desc: "Define per-pot rules: incident destination, status cadence, maintenance windows." },
-          { icon: :ticket, title: "Tickets", desc: "Every incident opens a ticket you can assign, comment, and close." },
-          { icon: :report, title: "Reports", desc: "Digest activity trends and export weekly, monthly, or on-demand." },
-          { icon: :users, title: "Users & Roles", desc: "Granular access with SSO-ready authentication and password controls." },
-          { icon: :server, title: "Syslog & Integrations", desc: "Stream alerts to your SIEM or syslog endpoints in real time." }
+          { icon: :network, title: "Honeypots", desc: "Create, pair, tag, and monitor realistic decoys across sites and clouds." },
+          { icon: :settings, title: "Policies", desc: "Define per-pot rules: incident destination, health-check cadence, maintenance windows and mute periods." },
+          { icon: :ticket, title: "Tickets", desc: "Every alert becomes a trackable ticket you can assign, comment on, and close." },
+          { icon: :report, title: "Reports", desc: "Digest activity trends and export weekly, monthly, or on-demand reports for your stakeholders." },
+          { icon: :users, title: "Users & Roles", desc: "Granular access controls with SSO-ready authentication and role-based permissions." },
+          { icon: :server, title: "Syslog & Integrations", desc: "Stream alerts into your SIEM or syslog endpoints in real time without extra agents." }
         ].each do |feature| %>
           <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm hover:shadow md:p-7">
             <div class="mb-4 inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
@@ -116,20 +156,26 @@
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Setup</div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">From download to decoy in six steps</h2>
-        <p class="mt-3 text-slate-300">No agents. No firewall surgery. Just import our OVA and pair.</p>
+        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+          From download to decoy in six steps
+        </h2>
+        <p class="mt-3 text-slate-300">
+          No agents. No firewall surgery. Just import our OVA and pair it with your console.
+        </p>
       </div>
       <ol class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
         <% [
-          { n: 1, icon: :users, title: "Create your account", desc: "Sign up in the console to manage your decoys and policies." },
-          { n: 2, icon: :download, title: "Download the .ova", desc: "Import into your hypervisor (VirtualBox, VMware, etc.)." },
-          { n: 3, icon: :network, title: "Network setup", desc: "Use DHCP or set a static IP directly from the VM console." },
-          { n: 4, icon: :key, title: "Get hook key", desc: "The VM displays a unique 256-character pairing key." },
-          { n: 5, icon: :shield, title: "Create honeypot", desc: "In the web console, create a new honeypot and paste the key. The VM polls every 30s and auto-pairs when it finds a match." },
-          { n: 6, icon: :settings, title: "Finish configuration", desc: "Name the pot and set its policy: incident destination, health status cadence (daily/weekly/monthly), and maintenance periods (mute notifications)." }
+          { n: 1, icon: :users, title: "Create your account", desc: "Sign up in the HoneyOps console to manage your decoys, policies and users." },
+          { n: 2, icon: :download, title: "Download the .ova", desc: "Import the virtual appliance into your hypervisor (VirtualBox, VMware, ESXi, etc.)." },
+          { n: 3, icon: :network, title: "Network setup", desc: "Use DHCP or set a static IP directly from the VM console, aligned with your network segment." },
+          { n: 4, icon: :key, title: "Get the hook key", desc: "On first boot, the VM generates a unique 256-character one-time pairing key and shows it on the console." },
+          { n: 5, icon: :shield, title: "Create your honeypot", desc: "In the web console, create a new honeypot and paste the key. The VM polls every 30s and auto-pairs when it finds a match." },
+          { n: 6, icon: :settings, title: "Finish configuration", desc: "Name the honeypot and set its policy: incident destination, health status cadence (daily/weekly/monthly), and maintenance periods to mute noise during planned work." }
         ].each do |step| %>
           <li class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm hover:shadow-md">
-            <div class="absolute -right-4 -top-4 rounded-full bg-amber-500/15 px-4 py-2 text-4xl font-black text-amber-600/40"><%= step[:n] %></div>
+            <div class="absolute -right-4 -top-4 rounded-full bg-amber-500/15 px-4 py-2 text-4xl font-black text-amber-600/40">
+              <%= step[:n] %>
+            </div>
             <div class="mb-3 inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
               <%= honey_icon(step[:icon], classes: "h-5 w-5") %>
             </div>
@@ -140,8 +186,15 @@
       </ol>
       <div class="mx-auto mt-10 max-w-3xl rounded-2xl border border-dashed border-amber-500/30 bg-amber-500/10 p-6 text-sm text-amber-200">
         <p class="flex items-start gap-2">
-          <span class="mt-0.5 text-amber-300"><%= honey_icon(:bell, classes: "h-4 w-4") %></span>
-          <span><span class="font-semibold">Policy controls</span>: set the <span class="font-medium">incident destination</span> (email, webhook, syslog), the <span class="font-medium">status reporting address</span> and cadence (daily / weekly / monthly), and a <span class="font-medium">maintenance window</span> that suppresses notifications.</span>
+          <span class="mt-0.5 text-amber-300">
+            <%= honey_icon(:bell, classes: "h-4 w-4") %>
+          </span>
+          <span>
+            <span class="font-semibold">Policy controls</span> let you define the
+            <span class="font-medium">incident destination</span> (email, webhook, syslog),
+            the <span class="font-medium">status reporting address</span> and cadence (daily / weekly / monthly),
+            plus a <span class="font-medium">maintenance window</span> that temporarily suppresses notifications while you work.
+          </span>
         </p>
       </div>
     </div>
@@ -152,19 +205,25 @@
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Pricing</div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">Simple, startup-friendly pricing</h2>
-        <p class="mt-3 text-slate-300">Pay only for the number of honeypots you run. Upgrade or cancel any time.</p>
+        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+          Simple, startup-friendly pricing
+        </h2>
+        <p class="mt-3 text-slate-300">
+          Pay only for the number of honeypots you run. Upgrade or cancel any time. Your first three honeypots are free to try.
+        </p>
       </div>
       <div class="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <% [
-          { name: "Solo", price: "$6", unit: "/month", bullets: ["1 honeypot", "All core features", "Email support"], cta: "Start Solo" },
-          { name: "Trio", price: "$9", unit: "/month", bullets: ["3 honeypots", "All core features", "Priority support"], cta: "Start Trio" },
-          { name: "Growth", price: "$15", unit: "/month", bullets: ["6 honeypots", "All core features", "Priority support"], cta: "Start Growth" },
-          { name: "Scale", price: "$20", unit: "/month", bullets: ["10 honeypots", "All core features", "Priority support"], cta: "Start Scale", highlight: true }
+          { name: "Solo",   price: "$6",  unit: "/month", bullets: ["1 honeypot", "All core features", "Email support"],        cta: "Start Solo" },
+          { name: "Trio",   price: "$9",  unit: "/month", bullets: ["3 honeypots", "All core features", "Priority support"],    cta: "Start Trio" },
+          { name: "Growth", price: "$15", unit: "/month", bullets: ["6 honeypots", "All core features", "Priority support"],    cta: "Start Growth" },
+          { name: "Scale",  price: "$20", unit: "/month", bullets: ["10 honeypots", "All core features", "Priority support"],   cta: "Start Scale", highlight: true }
         ].each do |plan| %>
           <div class="relative rounded-3xl border p-8 shadow-sm <%= plan[:highlight] ? "border-amber-500/60 bg-amber-500/10" : "border-slate-800 bg-slate-900" %>">
             <% if plan[:highlight] %>
-              <div class="absolute -top-3 left-8 rounded-full bg-amber-500 px-3 py-1 text-xs font-semibold text-slate-950 shadow">Best value</div>
+              <div class="absolute -top-3 left-8 rounded-full bg-amber-500 px-3 py-1 text-xs font-semibold text-slate-950 shadow">
+                Best value
+              </div>
             <% end %>
             <h3 class="text-lg font-semibold text-slate-100"><%= plan[:name] %></h3>
             <div class="mt-4 flex items-baseline gap-1">
@@ -173,11 +232,21 @@
             </div>
             <ul class="mt-6 space-y-2 text-sm">
               <% plan[:bullets].each do |bullet| %>
-                <li class="flex items-center gap-2"><%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %> <span class="text-slate-300"><%= bullet %></span></li>
+                <li class="flex items-center gap-2">
+                  <%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %>
+                  <span class="text-slate-300"><%= bullet %></span>
+                </li>
               <% end %>
             </ul>
-            <button type="button" class="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 font-semibold text-slate-950 shadow hover:bg-amber-400"><%= plan[:cta] %></button>
-            <p class="mt-3 text-xs text-slate-400">Need more honeypots? <a href="#contact" class="underline">Contact us</a>.</p>
+            <button
+              type="button"
+              class="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 font-semibold text-slate-950 shadow hover:bg-amber-400"
+            >
+              <%= plan[:cta] %>
+            </button>
+            <p class="mt-3 text-xs text-slate-400">
+              Need more honeypots? <a href="#contact" class="underline">Contact us</a>.
+            </p>
           </div>
         <% end %>
       </div>
@@ -188,16 +257,36 @@
   <section id="faq" class="py-20">
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">Frequently asked questions</h2>
+        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+          Frequently asked questions
+        </h2>
       </div>
       <div class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
         <% [
-          { q: "What hypervisors does the .ova support?", a: "Any OVA-compatible hypervisor such as VMware Workstation/ESXi and Oracle VirtualBox." },
-          { q: "How does the 256-character hook key work?", a: "On first boot, the VM generates a one-time key and displays it on the console. Paste it when creating a honeypot in the web portal. The VM polls every 30 seconds and auto-pairs when your console has a matching record." },
-          { q: "Can I run on a static IP?", a: "Yes. Configure DHCP or a static IP directly from the VM console during setup." },
-          { q: "What notifications will I receive?", a: "Per policy you can set: an incident destination (email/webhook/syslog), a health status address and cadence (daily/weekly/monthly), and maintenance windows to pause notifications." },
-          { q: "Do you support SSO and role-based access?", a: "Yes. Manage users and roles from the admin area. SSO integration is available for paid plans." },
-          { q: "Is there an API?", a: "Yes. Our JSON API lets you provision honeypots, policies, and pull incidents for your ticketing system." }
+          {
+            q: "What hypervisors does the .ova support?",
+            a: "Any OVA-compatible hypervisor such as VMware Workstation/ESXi and Oracle VirtualBox."
+          },
+          {
+            q: "How does the 256-character hook key work?",
+            a: "On first boot, the VM generates a one-time key and displays it on the console. Paste it when creating a honeypot in the web portal. The VM polls every 30 seconds and auto-pairs when your console has a matching record."
+          },
+          {
+            q: "Can I run on a static IP?",
+            a: "Yes. Configure DHCP or a static IP directly from the VM console during setup, according to your network policy."
+          },
+          {
+            q: "What notifications will I receive?",
+            a: "Per policy you can set: an incident destination (email/webhook/syslog), a health status address and cadence (daily/weekly/monthly), and maintenance windows to pause notifications during planned work."
+          },
+          {
+            q: "Do you support SSO and role-based access?",
+            a: "Yes. Manage users and roles from the admin area. SSO integration is available for paid plans and enterprise customers."
+          },
+          {
+            q: "Is there an API?",
+            a: "Yes. Our JSON API lets you provision honeypots, manage policies, and pull incidents into your existing ticketing or SOAR platform."
+          }
         ].each do |item| %>
           <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm">
             <h4 class="font-semibold text-slate-100"><%= item[:q] %></h4>
@@ -210,13 +299,15 @@
 
   <!-- Footer -->
   <footer id="contact" class="border-t border-slate-900 bg-slate-950 py-12 text-sm">
-    <div class="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mx-auto grid max-w-7xl gap-6 px-6 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <div class="flex items-center gap-2 text-slate-100">
           <span class="text-amber-400"><%= honey_icon(:shield, classes: "h-5 w-5") %></span>
           <span class="font-semibold">HoneyOps</span>
         </div>
-        <p class="mt-3 text-slate-300">Honeypots as a Service. Built for fast, reliable deception at any scale.</p>
+        <p class="mt-3 text-slate-300">
+          Honeypots as a Service. Built for fast, reliable deception at any scale.
+        </p>
       </div>
       <div>
         <div class="font-semibold text-slate-100">Product</div>
@@ -228,22 +319,45 @@
         </ul>
       </div>
       <div>
-        <div class="font-semibold text-slate-100">Admin areas</div>
+        <div class="font-semibold text-slate-100">Areas</div>
         <ul class="mt-3 space-y-2 text-slate-300">
-          <li>Honeypots</li>
-          <li>Policies</li>
-          <li>Tickets</li>
-          <li>Reports</li>
-          <li>Configuration (License, Syslog, Users)</li>
+          <li>
+            <a href="https://docs.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
+              Honey Docs
+            </a>
+          </li>
+          <li>
+            <a href="https://portal.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
+              Console
+            </a>
+          </li>
         </ul>
       </div>
       <div>
         <div class="font-semibold text-slate-100">Contact</div>
-        <p class="mt-3 text-slate-300">Questions or larger deployments?</p>
-        <button type="button" class="mt-3 inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 font-semibold text-slate-200 hover:bg-slate-900">
+        <p class="mt-3 text-slate-300">
+          Questions, larger deployments, or partner plans?
+        </p>
+        <button
+          type="button"
+          class="mt-3 inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 font-semibold text-slate-200 hover:bg-slate-900"
+        >
           Get in touch
         </button>
-        <p class="mt-6 text-xs text-slate-400">© 2025 HoneyOps. Domains in consideration: honeypots.app · honeyops.app · potgrid.com</p>
+        <div class="mt-4 flex items-center gap-2 text-slate-300">
+          <%= honey_icon(:linkedin, classes: "h-4 w-4 text-amber-400") %>
+          <a
+            href="https://www.linkedin.com/company/honeyops"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:underline"
+          >
+            Follow us on LinkedIn
+          </a>
+        </div>
+        <p class="mt-6 text-xs text-slate-400">
+          © 2025 HoneyOps. Your first three honeypots are free to try.
+        </p>
       </div>
     </div>
   </footer>
