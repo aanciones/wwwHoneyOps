@@ -106,7 +106,9 @@ when :file_text
 <polyline points="14 2 14 8 20 8" />\
 <line x1="10" y1="12" x2="14" y2="12" />\
 <line x1="10" y1="16" x2="18" y2="16" />'
-
+when :mail
+  '<rect x="3" y="5" width="18" height="14" rx="2" ry="2" />\
+<polyline points="3 7 12 13 21 7" />'
 when :user
   '<circle cx="12" cy="8" r="4" />\
 <path d="M6 20v-1a6 6 0 0 1 12 0v1" />'
