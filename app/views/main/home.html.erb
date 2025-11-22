@@ -1,10 +1,16 @@
 <% content_for :title, "HoneyOps | Honeypots as a Service" %>
 
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
 <div class="min-h-screen bg-slate-950 text-slate-100">
   <!-- Header -->
   <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-      <a href="#top" class="flex items-center gap-3">
+      <a href="#top" onclick="scrollTopOverride(event)" class="flex items-center gap-3">
         <div class="flex items-center gap-3">
           <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2">
             <span class="text-amber-400">
@@ -21,12 +27,14 @@
           </div>
         </div>
       </a>
+
       <nav class="hidden items-center gap-6 text-sm font-medium md:flex">
         <a href="#features" class="text-slate-300 hover:text-amber-400">Features</a>
         <a href="#how" class="text-slate-300 hover:text-amber-400">How it works</a>
         <a href="#pricing" class="text-slate-300 hover:text-amber-400">Pricing</a>
         <a href="#faq" class="text-slate-300 hover:text-amber-400">FAQ</a>
       </nav>
+
       <div class="flex items-center gap-3">
         <a
           href="https://portal.honeyops.net"
@@ -45,6 +53,7 @@
           <%= honey_icon(:docs, classes: "h-4 w-4 text-slate-950") %>
           Docs
         </a>
+      </div>
     </div>
   </header>
 
@@ -64,11 +73,16 @@
             <%= honey_icon(:network, classes: "h-4 w-4") %> On-prem &amp; cloud
           </span>
         </div>
-        <h1 class="text-4xl font-extrabold tracking-tight text-slate-100 sm:text-6xl">Honeypots as a Service</h1>
+
+        <h1 class="text-4xl font-extrabold tracking-tight text-slate-100 sm:text-6xl">
+          Honeypots as a Service
+        </h1>
+
         <p class="mt-6 text-lg leading-8 text-slate-300">
           Set up a powerful intrusion-detection trap in minutes — simple to deploy, effortless to manage, and ready to alert you at the first sign of trouble.
           HoneyOps delivers realistic decoys as a lightweight <code class="text-amber-300">.ova</code> VM, managed from a single secure console.
         </p>
+
         <div class="mt-8 flex flex-wrap items-center gap-3">
           <a href="#pricing" class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 font-semibold text-slate-950 shadow hover:bg-amber-400">
             See pricing
@@ -77,10 +91,13 @@
             How it works
           </a>
         </div>
+
         <p class="mt-4 text-xs text-slate-400">
-          Your first three honeypots are free.
+          Your first honeypot is free.
         </p>
       </div>
+
+      <!-- VM Card -->
       <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl backdrop-blur">
         <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-2">
@@ -89,13 +106,11 @@
           </div>
           <span class="rounded-full bg-emerald-400/15 px-2 py-1 text-xs font-semibold text-emerald-300">Ready</span>
         </div>
+
         <div class="rounded-xl overflow-hidden border border-slate-800 bg-black shadow-inner">
-          <img
-            src="/hpot_screen.png"
-            alt="HoneyOps VM registration screen"
-            class="w-full object-cover"
-          >
+          <img src="/hpot_screen.png" alt="HoneyOps VM" class="w-full object-cover">
         </div>
+
         <ul class="mt-4 space-y-2 text-sm text-slate-300">
           <li class="flex items-center gap-2">
             <%= honey_icon(:download, classes: "h-4 w-4 text-amber-400") %>
@@ -119,7 +134,7 @@
   </section>
 
   <!-- Features -->
-  <section id="features" class="border-t border-slate-900 bg-slate-950 py-20">
+  <section id="features" class="border-t border-slate-900 bg-slate-950 py-20 scroll-mt-14">
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Platform</div>
@@ -130,14 +145,15 @@
           From provisioning to triage, HoneyOps keeps your team focused on signal, not noise.
         </p>
       </div>
+
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <% [
-          { icon: :server, title: "Honeypots", desc: "Create, pair, tag, and monitor realistic decoys across sites and clouds." },
-          { icon: :settings, title: "Policies", desc: "Define per-pot rules: incident destination, health-check cadence, maintenance windows and mute periods." },
-          { icon: :activity, title: "Activity", desc: "Activity logging on honeypots with all the information needed to perform forensic analysis." },
-          { icon: :bell, title: "Alerts", desc: "Activity on honeypots becomes a trackable alert that you must review, comment on, and close." },
-          { icon: :report, title: "Reports", desc: "Digest activity trends and export weekly, monthly, or on-demand reports for your stakeholders." },
-          { icon: :users, title: "Users & Roles", desc: "Granular access for the IT team to ensure optimal management of activity and alerts." },
+          { icon: :server,  title: "Honeypots",    desc: "Create, pair, tag, and monitor realistic decoys across sites and clouds." },
+          { icon: :settings, title: "Policies",    desc: "Define per-pot rules: incident destination, health-check cadence, maintenance windows and mute periods." },
+          { icon: :activity, title: "Activity",    desc: "Activity logging on honeypots with all the information needed to perform forensic analysis." },
+          { icon: :bell,     title: "Alerts",      desc: "Activity on honeypots becomes a trackable alert that you must review, comment on, and close." },
+          { icon: :report,   title: "Reports",     desc: "Digest activity trends and export weekly, monthly, or on-demand reports for your stakeholders." },
+          { icon: :users,    title: "Users & Roles", desc: "Granular access for the IT team to ensure optimal management of activity and alerts." },
         ].each do |feature| %>
           <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm hover:shadow md:p-7">
             <div class="mb-4 inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
@@ -151,8 +167,78 @@
     </div>
   </section>
 
+  <!-- Why honeypots matter -->
+  <section class="border-t border-slate-900 bg-slate-950/95 py-16">
+    <div class="mx-auto max-w-7xl px-6 grid gap-10 lg:grid-cols-2 lg:items-center">
+      <!-- Text -->
+      <div>
+        <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">
+          Why detection still matters
+        </div>
+        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+          When prevention fails, you still need a tripwire inside your network
+        </h2>
+        <p class="mt-4 text-slate-300">
+          Most organisations invest heavily in preventive controls – firewalls, VPNs, endpoint protection,
+          authentication policies. That’s essential. But if an attacker manages to slip past those layers,
+          you need a way to <span class="font-semibold text-slate-100">detect that they are already inside</span>
+          and moving through your environment.
+        </p>
+        <p class="mt-4 text-slate-300">
+          A honeypot gives you exactly that: a realistic, low–risk asset that should never be touched in
+          normal operations. If an attacker scans it, logs in, or tries to move laterally through it,
+          you immediately know something is wrong – and you know where to start looking.
+        </p>
+        <ul class="mt-6 space-y-2 text-sm text-slate-300">
+          <li class="flex gap-2">
+            <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
+            <span><span class="font-medium text-slate-100">Assume breach</span> instead of relying only on perimeter controls.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
+            <span><span class="font-medium text-slate-100">Turn attacker curiosity into signal</span> with believable decoys.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
+            <span><span class="font-medium text-slate-100">Gain time to respond</span> before real assets are touched.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Visual / image placeholder -->
+      <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl">
+        <div class="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-400">
+          Conceptual diagram
+        </div>
+        <div class="rounded-2xl border border-dashed border-amber-500/40 bg-slate-950/60 p-5 text-sm text-slate-300">
+          <p class="font-medium text-slate-100 mb-3">
+            How a honeypot turns a silent intrusion into a clear alert
+          </p>
+          <ol class="space-y-2 text-xs sm:text-sm">
+            <li>
+              <span class="font-semibold text-amber-300">1. </span>
+              Attacker bypasses preventive controls and lands inside the network.
+            </li>
+            <li>
+              <span class="font-semibold text-amber-300">2. </span>
+              While scanning or moving laterally, they interact with a HoneyOps honeypot.
+            </li>
+            <li>
+              <span class="font-semibold text-amber-300">3. </span>
+              The honeypot triggers a high-fidelity alert into your console, SIEM or email.
+            </li>
+            <li>
+              <span class="font-semibold text-amber-300">4. </span>
+              Your team investigates early, before production assets are compromised.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- How it works -->
-  <section id="how" class="py-20">
+  <section id="how" class="py-20 scroll-mt-14">
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Setup</div>
@@ -165,70 +251,23 @@
       </div>
 
       <ol class="mx-auto max-w-4xl space-y-5">
-        <!-- Step 1 -->
-        <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
-            1
-          </div>
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">Create your account</h3>
-            <p class="mt-1 text-sm text-slate-300">
-              Sign up in the HoneyOps console to manage your honeypots, policies and users from a central, secure dashboard.
-            </p>
-          </div>
-        </li>
-
-        <!-- Step 2 -->
-        <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
-            2
-          </div>
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">Download the .ova</h3>
-            <p class="mt-1 text-sm text-slate-300">
-              Import the HoneyOps virtual appliance into your preferred hypervisor (VirtualBox, VMware, ESXi, Proxmox, etc.).
-            </p>
-          </div>
-        </li>
-
-        <!-- Step 3 -->
-        <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
-            3
-          </div>
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">Enroll the honeypot</h3>
-            <p class="mt-1 text-sm text-slate-300">
-              Boot the VM, retrieve the one-time pairing key, and register the honeypot so it becomes securely managed by your account.
-            </p>
-          </div>
-        </li>
-
-        <!-- Step 4 -->
-        <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
-            4
-          </div>
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">Configure its policy</h3>
-            <p class="mt-1 text-sm text-slate-300">
-              Define listening ports, maintenance windows, and the notification channel for alerts (email, webhook, syslog/SIEM).
-            </p>
-          </div>
-        </li>
-
-        <!-- Step 5 -->
-        <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
-            5
-          </div>
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">Stay alert</h3>
-            <p class="mt-1 text-sm text-slate-300">
-              Once active, every interaction with your honeypots becomes a high-signal alert. Review, triage and act directly from the console.
-            </p>
-          </div>
-        </li>
+        <% [
+          { n: 1, title: "Create your account", desc: "Sign up in the HoneyOps console to manage your honeypots, policies and users from a central, secure dashboard." },
+          { n: 2, title: "Download the .ova",   desc: "Import the HoneyOps virtual appliance into your preferred hypervisor (VirtualBox, VMware, ESXi, Proxmox, etc.)." },
+          { n: 3, title: "Enroll the honeypot", desc: "Boot the VM, retrieve the one-time pairing key, and register the honeypot so it becomes securely managed by your account." },
+          { n: 4, title: "Configure its policy", desc: "Define listening ports, maintenance windows, and the notification channel for alerts (email, webhook, syslog/SIEM)." },
+          { n: 5, title: "Stay alert",          desc: "Once active, every interaction with your honeypots becomes a high-signal alert. Review, triage and act directly from the console." }
+        ].each do |step| %>
+          <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
+            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
+              <%= step[:n] %>
+            </div>
+            <div>
+              <h3 class="text-base font-semibold text-slate-100"><%= step[:title] %></h3>
+              <p class="mt-1 text-sm text-slate-300"><%= step[:desc] %></p>
+            </div>
+          </li>
+        <% end %>
       </ol>
 
       <div class="mx-auto mt-10 max-w-3xl rounded-2xl border border-dashed border-amber-500/30 bg-amber-500/10 p-6 text-sm text-amber-200">
@@ -248,7 +287,7 @@
   </section>
 
   <!-- Pricing -->
-  <section id="pricing" class="border-t border-slate-900 bg-slate-950 py-20">
+  <section id="pricing" class="border-t border-slate-900 bg-slate-950 py-20 scroll-mt-14">
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Pricing</div>
@@ -333,12 +372,13 @@
 
             <div class="mt-auto pt-4">
               <div class="flex flex-wrap items-center gap-3">
-                <a
-                  href="mailto:aanciones@grupoactive.es?subject=HoneyOps%20-%20Additional%20honeypots%20request"
+                <button
+                  type="button"
                   class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow hover:bg-amber-400"
+                  onclick="openContactSalesModal()"
                 >
                   Contact Sales
-                </a>
+                </button>
                 <p class="text-xs text-slate-400">
                   Prefer another channel? You can also reach us via the contact section below.
                 </p>
@@ -351,41 +391,48 @@
     </div>
   </section>
 
-
-
   <!-- FAQ -->
-  <section id="faq" class="py-20">
+  <section id="faq" class="py-20 scroll-mt-14">
     <div class="mx-auto max-w-7xl px-6">
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
           Frequently asked questions
         </h2>
       </div>
+
       <div class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
         <% [
           {
             q: "What hypervisors does the .ova support?",
-            a: "Any OVA-compatible hypervisor such as VMware Workstation/ESXi and Oracle VirtualBox."
-          },
-          {
-            q: "How does the 256-character hook key work?",
-            a: "On first boot, the VM generates a one-time key and displays it on the console. Paste it when creating a honeypot in the web portal. The VM polls every 30 seconds and auto-pairs when your console has a matching record."
+            a: "Any OVA-compatible hypervisor such as VMware Workstation, ESXi, Proxmox, and Oracle VirtualBox."
           },
           {
             q: "Can I run on a static IP?",
-            a: "Yes. Configure DHCP or a static IP directly from the VM console during setup, according to your network policy."
+            a: "Yes. You can configure either DHCP or a static IP directly from the VM console during initial setup."
+          },
+          {
+            q: "How does the pairing token work?",
+            a: "On first boot, the honeypot generates a unique pairing token displayed on the console. Paste it into HoneyOps when creating a new honeypot, and the agent will automatically link to your account."
           },
           {
             q: "What notifications will I receive?",
-            a: "Per policy you can set: an incident destination (email/webhook/syslog), a health status address and cadence (daily/weekly/monthly), and maintenance windows to pause notifications during planned work."
-          },
-          {
-            q: "Do you support SSO and role-based access?",
-            a: "Yes. Manage users and roles from the admin area. SSO integration is available for paid plans and enterprise customers."
+            a: "You can configure email notifications for incidents and health checks. You may also set maintenance windows to temporarily pause notifications during planned work."
           },
           {
             q: "Is there an API?",
-            a: "Yes. Our JSON API lets you provision honeypots, manage policies, and pull incidents into your existing ticketing or SOAR platform."
+            a: "A public JSON API is coming soon. It will allow you to automate honeypot provisioning, manage policies, and pull incidents into your existing security tooling."
+          },
+          {
+            q: "Do honeypots auto-update?",
+            a: "Yes. Honeypots periodically check for new agent versions and can update automatically, or you may choose manual updates from the dashboard."
+          },
+          {
+            q: "What data does the honeypot collect?",
+            a: "Only security-related interaction data and minimal operational metadata. No legitimate network traffic or internal system data is collected."
+          },
+          {
+            q: "Are honeypots monitored?",
+            a: "Yes. If a honeypot is detected as disconnected or unresponsive, HoneyOps immediately triggers an alert so you can verify the cause and ensure it is not related to a potential intrusion."
           }
         ].each do |item| %>
           <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm">
@@ -397,68 +444,191 @@
     </div>
   </section>
 
+
   <!-- Footer -->
   <footer id="contact" class="border-t border-slate-900 bg-slate-950 py-12 text-sm">
-    <div class="mx-auto grid max-w-7xl gap-6 px-6 sm:grid-cols-2 lg:grid-cols-4">
-      <div>
-        <div class="flex items-center gap-2 text-slate-100">
-          <span class="text-amber-400"><%= honey_icon(:shield, classes: "h-5 w-5") %></span>
-          <span class="font-semibold">HoneyOps</span>
+    <div class="mx-auto max-w-7xl px-6">
+      <!-- Top part: left 50% + right 50% (3 columns inside) -->
+      <div class="grid gap-8 lg:grid-cols-2">
+        <!-- LEFT: HoneyOps blurb -->
+        <div>
+          <div class="flex items-center gap-2 text-slate-100">
+            <span class="text-amber-400"><%= honey_icon(:shield, classes: "h-5 w-5") %></span>
+            <span class="font-semibold">HoneyOps</span>
+          </div>
+          <p class="mt-3 text-slate-300 text-base max-w-md">
+            Honeypots as a Service. Built for fast, reliable deception at any scale.
+          </p>
         </div>
-        <p class="mt-3 text-slate-300">
-          Honeypots as a Service. Built for fast, reliable deception at any scale.
-        </p>
-      </div>
-      <div>
-        <div class="font-semibold text-slate-100">Product</div>
-        <ul class="mt-3 space-y-2 text-slate-300">
-          <li><a href="#features" class="hover:underline">Features</a></li>
-          <li><a href="#how" class="hover:underline">How it works</a></li>
-          <li><a href="#pricing" class="hover:underline">Pricing</a></li>
-          <li><a href="#faq" class="hover:underline">FAQ</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="font-semibold text-slate-100">Areas</div>
-        <ul class="mt-3 space-y-2 text-slate-300">
-          <li>
-            <a href="https://docs.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
-              Honey Docs
-            </a>
-          </li>
-          <li>
-            <a href="https://portal.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
-              Console
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <div class="font-semibold text-slate-100">Contact</div>
-        <p class="mt-3 text-slate-300">
-          Questions, larger deployments, or partner plans?
-        </p>
-        <button
-          type="button"
-          class="mt-3 inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 font-semibold text-slate-200 hover:bg-slate-900"
-        >
-          Get in touch
-        </button>
-        <div class="mt-4 flex items-center gap-2 text-slate-300">
-          <%= honey_icon(:linkedin, classes: "h-4 w-4 text-amber-400") %>
-          <a
-            href="https://www.linkedin.com/company/honeyops"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hover:underline"
-          >
-            Follow us on LinkedIn
-          </a>
+
+        <!-- RIGHT: 3 columns grouped in the other half -->
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Product -->
+          <div>
+            <div class="font-semibold text-slate-100">Product</div>
+            <ul class="mt-3 space-y-2 text-slate-300">
+              <li><a href="#features" class="hover:underline">Features</a></li>
+              <li><a href="#how" class="hover:underline">How it works</a></li>
+              <li><a href="#pricing" class="hover:underline">Pricing</a></li>
+              <li><a href="#faq" class="hover:underline">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Areas -->
+          <div>
+            <div class="font-semibold text-slate-100">Areas</div>
+            <ul class="mt-3 space-y-2 text-slate-300">
+              <li>
+                <a
+                  href="https://portal.honeyops.net"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                >
+                  Console
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://docs.honeyops.net"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                >
+                  Honey Docs
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <div class="font-semibold text-slate-100">Contact</div>
+            <p class="mt-3 text-slate-300">
+              Questions, larger deployments, or partner plans?
+            </p>
+            <button
+              type="button"
+              class="mt-3 inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 font-semibold text-slate-200 hover:bg-slate-900"
+              onclick="openContactSalesModal()"
+            >
+              Get in touch
+            </button>
+            <div class="mt-4 flex items-center gap-2 text-slate-300">
+              <%= honey_icon(:linkedin, classes: "h-4 w-4 text-amber-400") %>
+              <a
+                href="https://www.linkedin.com/company/honeyops"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:underline"
+              >
+                Follow us on LinkedIn
+              </a>
+            </div>
+          </div>
         </div>
-        <p class="mt-6 text-xs text-slate-400">
-          © 2025 HoneyOps. Your first three honeypots are free to try.
-        </p>
+      </div>
+
+      <!-- Bottom centered line -->
+      <div class="mt-10 text-center text-xs text-slate-500">
+        © 2025 HoneyOps. All rights reserved. All trademarks and brands are the property of their respective owners.
       </div>
     </div>
+
+    <!-- Contact Sales Modal -->
+    <div
+      id="contact-sales-modal"
+      class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center px-4 opacity-0 transition-opacity duration-200"
+    >
+      <!-- Modal content -->
+      <div
+        data-modal-card
+        class="relative w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl opacity-0 translate-y-3 scale-95 transform transition-all duration-200"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="text-lg font-semibold text-slate-100">Contact Sales</h3>
+
+        <p class="mt-2 text-sm text-slate-300">
+          To increase your honeypot capacity, please contact our sales team with a few details about your
+          environment (number of sites, expected decoys, approximate timeline).
+        </p>
+
+        <div class="mt-4 rounded-xl border border-slate-700 bg-slate-950/60 p-3 text-sm">
+          <p class="text-slate-300">
+            Email:
+            <a
+              href="mailto:sales@honeyops.net?subject=HoneyOps%20-%20Additional%20honeypots%20request"
+              class="font-medium text-amber-400 hover:underline"
+            >
+              sales@honeyops.net
+            </a>
+          </p>
+          <p class="mt-1 text-xs text-slate-400">
+            Include your company name, estimated number of honeypots and any specific requirements.
+          </p>
+        </div>
+
+        <div class="mt-6 flex justify-end gap-2">
+          <button
+            type="button"
+            class="rounded-xl border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800"
+            onclick="closeContactSalesModal()"
+          >
+            Close
+          </button>
+
+          <a
+            href="mailto:sales@honeyops.net?subject=HoneyOps%20-%20Additional%20honeypots%20request"
+            class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow hover:bg-amber-400"
+          >
+            Open email client
+          </a>
+        </div>
+      </div>
+
+      <!-- Click outside to close -->
+      <div
+        class="absolute inset-0"
+        onclick="closeContactSalesModal()"
+      ></div>
+    </div>
+
+    <!-- Modal animation helpers -->
+    <script>
+      function openContactSalesModal() {
+        var modal = document.getElementById('contact-sales-modal');
+        if (!modal) return;
+        var card = modal.querySelector('[data-modal-card]');
+        if (!card) return;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('opacity-0');
+        card.classList.add('opacity-0', 'translate-y-3', 'scale-95');
+
+        requestAnimationFrame(function () {
+          modal.classList.remove('opacity-0');
+          card.classList.remove('opacity-0', 'translate-y-3', 'scale-95');
+        });
+      }
+
+      function closeContactSalesModal() {
+        var modal = document.getElementById('contact-sales-modal');
+        if (!modal) return;
+        var card = modal.querySelector('[data-modal-card]');
+        if (!card) return;
+
+        modal.classList.add('opacity-0');
+        card.classList.add('opacity-0', 'translate-y-3', 'scale-95');
+
+        setTimeout(function () {
+          modal.classList.add('hidden');
+        }, 200);
+      }
+
+      function scrollTopOverride(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    </script>
   </footer>
 </div>
