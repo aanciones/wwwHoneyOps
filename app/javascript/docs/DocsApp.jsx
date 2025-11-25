@@ -219,13 +219,37 @@ export default function DocsApp() {
 
       {/* Footer */}
       <footer className="mt-auto border-t border-slate-900 bg-slate-950/95">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <p className="text-center text-[11px] text-slate-500">
-            © 2025 HoneyOps. All rights reserved. All trademarks and brands are the
-            property of their respective owners.
+        <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col items-center gap-2 md:flex-row md:items-center md:justify-between">
+
+          {/* Left: copyright */}
+          <p className="text-[11px] text-slate-500 text-center md:text-left">
+            © 2025 HoneyOps. All rights reserved.
           </p>
+
+          {/* Right: legal links */}
+          <div className="flex items-center gap-4 text-[11px] text-slate-500">
+            <a
+              href="https://honeyops.net/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-amber-400 transition-colors"
+            >
+              Privacy Policy
+            </a>
+            <span className="text-slate-700">•</span>
+            <a
+              href="https://honeyops.net/cookies"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-amber-400 transition-colors"
+            >
+              Cookie Policy
+            </a>
+          </div>
+
         </div>
       </footer>
+
     </div>
   );
 }

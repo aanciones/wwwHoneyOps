@@ -15,9 +15,10 @@ Rails.application.routes.draw do
   }) do
     root to: "main#home"
 
-    # Ejemplos de rutas públicas:
-    # get "/features", to: "main#features"
-    # get "/pricing",  to: "main#pricing"
+    # Legal
+    get "/cookies", to: "legal#cookies", as: :cookies
+    get "/privacy", to: "legal#privacy", as: :privacy   # opcional, para más adelante
+
   end
 
   # --- MANTENIMIENTO / SALUD ---
