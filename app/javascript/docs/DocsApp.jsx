@@ -13,6 +13,7 @@ import {
 
 import { nav, findPage, findSectionByChildId } from "./nav";
 
+
 const brandName = "HoneyOps";
 const brandTagline = "Honeypots as a Service";
 
@@ -25,19 +26,19 @@ export default function DocsApp() {
   const [activeId, setActiveId] = useState(initialId || "overview");
   const [content, setContent] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [pageFile, setPageFile] = useState(null);
 
-  // Cargar markdown cuando cambia la página (excepto overview)
+  // Cargar markdown (incluido overview)
   useEffect(() => {
-    if (activeId === "overview") {
-      setContent("");
-      return;
-    }
-
     const page = findPage(activeId);
+
     if (!page || !page.file) {
       setContent("# Not found\n\nThis page does not exist yet.");
+      setPageFile(null);
       return;
     }
+
+    setPageFile(page.file);
 
     fetch(`/docs-content/${page.file}`)
       .then((res) => (res.ok ? res.text() : Promise.reject("Load error")))
@@ -45,7 +46,21 @@ export default function DocsApp() {
       .catch(() => setContent("# Error\n\nCould not load this page."));
   }, [activeId]);
 
-  // Mantener el hash en la URL
+  // Escuchar clicks en DocCard
+  useEffect(() => {
+    const handler = (e) => {
+      const id = e.detail?.id;
+      if (id) {
+        setActiveId(id);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+
+    window.addEventListener("honeyops-doc-nav", handler);
+    return () => window.removeEventListener("honeyops-doc-nav", handler);
+  }, []);
+
+  // Mantener hash en URL
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.history.replaceState(null, "", `#${activeId}`);
@@ -60,18 +75,23 @@ export default function DocsApp() {
     setSidebarOpen(false);
   };
 
+  const baseDir =
+    pageFile && pageFile.includes("/")
+      ? pageFile.replace(/\/[^/]+$/, "")
+      : "";
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          {/* Logo + texto, calcado de la landing */}
           <button
             type="button"
             onClick={() => {
               if (typeof window !== "undefined") {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
+              setActiveId("overview");
             }}
             className="flex items-center gap-3"
           >
@@ -122,167 +142,241 @@ export default function DocsApp() {
         </div>
       </header>
 
-      {/* Layout principal: mismo ancho que el header */}
-      <div id="docs-top" className="mx-auto flex max-w-7xl px-6">
-        {/* Sidebar */}
-        <aside
-          className={`fixed inset-y-0 left-0 z-30 w-72 border-r border-slate-900 bg-slate-950/95 py-6 text-sm transition-transform duration-200 md:static md:translate-x-0 ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-          }`}
-        >
-          {/* wrapper interior para margen derecho, pero sin mover el borde izquierdo */}
-          <div className="pr-6">
-            <nav className="space-y-4">
-              {nav.map((section) => (
-                <div key={section.id}>
-                  <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                    {section.label}
+      {/* Contenido principal */}
+      <div className="flex-1">
+        <div id="docs-top" className="mx-auto flex max-w-7xl px-6">
+          {/* Sidebar */}
+          <aside
+            className={`fixed inset-y-0 left-0 z-30 w-72 border-r border-slate-900 bg-slate-950/95 py-6 text-sm transition-transform duration-200 md:static md:translate-x-0 ${
+              sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+            }`}
+          >
+            <div className="pr-6">
+              <nav className="space-y-4">
+                {nav.map((section) => (
+                  <div key={section.id}>
+                    <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                      {section.label}
+                    </div>
+
+                    <ul className="space-y-1">
+                      {section.children ? (
+                        section.children.map((child) => {
+                          const isActive = activeId === child.id;
+                          return (
+                            <li key={child.id}>
+                              <button
+                                onClick={() => handleNavClick(child.id)}
+                                className={`flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left ${
+                                  isActive
+                                    ? "bg-amber-500/15 text-amber-200"
+                                    : "text-slate-300 hover:bg-slate-900"
+                                }`}
+                              >
+                                <span className="truncate">{child.label}</span>
+                                {isActive && (
+                                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                                )}
+                              </button>
+                            </li>
+                          );
+                        })
+                      ) : (
+                        <li>
+                          <button
+                            onClick={() => handleNavClick(section.id)}
+                            className={`mt-1 flex w-full items-center rounded-lg px-2 py-1.5 text-left ${
+                              activeId === section.id
+                                ? "bg-amber-500/15 text-amber-200"
+                                : "text-slate-300 hover:bg-slate-900"
+                            }`}
+                          >
+                            {section.label}
+                          </button>
+                        </li>
+                      )}
+                    </ul>
                   </div>
+                ))}
+              </nav>
 
-                  <ul className="space-y-1">
-                    {section.children ? (
-                      section.children.map((child) => {
-                        const isActive = activeId === child.id;
-                        return (
-                          <li key={child.id}>
-                            <button
-                              onClick={() => handleNavClick(child.id)}
-                              className={`flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left ${
-                                isActive
-                                  ? "bg-amber-500/15 text-amber-200"
-                                  : "text-slate-300 hover:bg-slate-900"
-                              }`}
-                            >
-                              <span className="truncate">{child.label}</span>
-                              {isActive && (
-                                <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-                              )}
-                            </button>
-                          </li>
-                        );
-                      })
-                    ) : (
-                      <li>
-                        <button
-                          onClick={() => handleNavClick(section.id)}
-                          className={`mt-1 flex w-full items-center rounded-lg px-2 py-1.5 text-left ${
-                            activeId === section.id
-                              ? "bg-amber-500/15 text-amber-200"
-                              : "text-slate-300 hover:bg-slate-900"
-                          }`}
-                        >
-                          {section.label}
-                        </button>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              ))}
-            </nav>
-
-            <div className="mt-8 border-t border-slate-800 pt-4 text-xs text-slate-500">
-              {brandTagline}. Docs v1.0
+              <div className="mt-8 border-t border-slate-800 pt-4 text-xs text-slate-500">
+                {brandTagline}. Docs v1.0
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
 
-        {/* Main content */}
-        <main className="flex-1 px-4 py-8 md:px-8">
-          {activeId === "overview" ? (
-            <OverviewSection />
-          ) : (
-            <MarkdownSection activeId={activeId} content={content} />
-          )}
-        </main>
+          {/* Main content */}
+          <main className="flex-1 px-4 py-8 md:px-8">
+            <MarkdownSection
+              activeId={activeId}
+              content={content}
+              baseDir={baseDir}
+            />
+          </main>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="mt-auto border-t border-slate-900 bg-slate-950/95">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <p className="text-center text-[11px] text-slate-500">
+            © 2025 HoneyOps. All rights reserved. All trademarks and brands are the
+            property of their respective owners.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
 
 /* -------------------
-   Sección Overview
+   Sección Markdown genérica
 -------------------- */
 
-function OverviewSection() {
-  return (
-    <section id="overview" className="mb-12 scroll-mt-24">
-      <p className="text-xs font-semibold uppercase tracking-wide text-amber-400">
-        Overview
-      </p>
-
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-50">
-        HoneyOps technical documentation
-      </h1>
-
-      <p className="mt-3 max-w-2xl text-sm text-slate-300">
-        HoneyOps is a SaaS platform for deploying and operating honeypots. It
-        ships as a lightweight <code className="text-amber-300">.ova</code> virtual
-        appliance that pairs with your cloud console using a one-time hook key
-        and continuously sends health and incident telemetry.
-      </p>
-
-      <div className="mt-5 grid gap-4 text-sm sm:grid-cols-3">
-        <DocCard
-          title="Getting started"
-          description="Create your account, deploy your first honeypot and verify end-to-end events."
-          hrefId="getting-started-quickstart-console"
-        />
-        <DocCard
-          title="Deployment"
-          description="OVA requirements, import procedures and networking recommendations."
-          hrefId="getting-started-quickstart-ova"
-        />
-        <DocCard
-          title="API & Integrations"
-          description="REST API, webhooks, syslog and SSO integration with your stack."
-          hrefId="getting-started-quickstart-console"
-        />
-      </div>
-    </section>
-  );
-}
-
-/* -------------------
-   Sección Markdown
--------------------- */
-
-function MarkdownSection({ activeId, content }) {
+function MarkdownSection({ activeId, content, baseDir }) {
   const section = findSectionByChildId(activeId);
 
   return (
-    <article className="prose prose-invert prose-slate max-w-3xl">
-      {/* Eyebrow */}
+    <article className="docs-markdown prose prose-invert prose-slate max-w-5xl">
       {section && (
-        <p className="text-xs font-semibold uppercase tracking-wide text-amber-400">
+        <p className="text-sm font-semibold uppercase tracking-wide text-amber-400">
           {section.label}
         </p>
       )}
 
-      {/* Contenido Markdown */}
-      <ReactMarkdown>{content}</ReactMarkdown>
+      <ReactMarkdown components={markdownComponents(baseDir)}>
+        {content}
+      </ReactMarkdown>
     </article>
   );
 }
 
 /* -------------------
-         Cards
+   Componentes markdown personalizados
 -------------------- */
 
-function DocCard({ title, description, hrefId }) {
+function markdownComponents(_baseDir) {
+  return {
+    img: ({ src, alt, ...props }) => {
+      let finalSrc = src || "";
+
+      if (
+        finalSrc &&
+        !finalSrc.startsWith("http://") &&
+        !finalSrc.startsWith("https://") &&
+        !finalSrc.startsWith("/")
+      ) {
+        if (finalSrc.startsWith("docs-images/")) {
+          finalSrc = "/" + finalSrc;
+        } else {
+          finalSrc = `/docs-images/${finalSrc}`;
+        }
+      }
+
+      return (
+        <img
+          src={finalSrc}
+          alt={alt}
+          // 👇 Aquí limitamos tamaño y centramos con Tailwind
+          className="mt-4 max-w-[820px] w-full mx-auto rounded-xl border border-amber-500/40 bg-slate-950/60 shadow-lg"
+          {...props}
+        />
+      );
+    },
+
+    pre: ({ node }) => {
+      const codeNode =
+        node && node.children && node.children.length > 0
+          ? node.children[0]
+          : null;
+
+      const className = Array.isArray(codeNode?.properties?.className)
+        ? codeNode.properties.className
+        : [];
+
+      const isCard = className.includes("language-card");
+
+      if (isCard) {
+        const raw =
+          (codeNode.children || [])
+            .map((c) => (c.value ? c.value : ""))
+            .join("") || "";
+
+        const lines = raw
+          .split("\n")
+          .map((l) => l.trim())
+          .filter(Boolean);
+
+        const data = {};
+        lines.forEach((line) => {
+          const m = line.match(/^(\w+)\s*=\s*"([^"]*)"$/);
+          if (m) data[m[1]] = m[2];
+        });
+
+        const hrefId = data.href || "";
+        const title = data.title || "Card";
+        const description =
+          data.description ||
+          lines.filter((l) => !/^(\w+)\s*=/.test(l)).join("\n");
+
+        return (
+          <div className="my-4 inline-block w-full align-top md:w-[31%] md:mr-4 md:mb-4">
+            <DocCard
+              title={title}
+              description={description}
+              hrefId={hrefId}
+            />
+          </div>
+        );
+      }
+
+      const fallbackText =
+        codeNode &&
+        codeNode.children &&
+        codeNode.children[0] &&
+        codeNode.children[0].value
+          ? codeNode.children[0].value
+          : "";
+
+      return <pre>{fallbackText}</pre>;
+    },
+
+    code: ({ children, ...props }) => <code {...props}>{children}</code>,
+  };
+}
+
+/* -------------------
+         Card
+-------------------- */
+
+function DocCard({ title, description, hrefId, ...rest }) {
   const handleClick = () => {
-    window.location.hash = hrefId;
+    if (hrefId) {
+      window.location.hash = hrefId;
+
+      if (typeof window !== "undefined") {
+        const event = new CustomEvent("honeyops-doc-nav", {
+          detail: { id: hrefId },
+        });
+        window.dispatchEvent(event);
+      }
+    }
   };
 
   return (
     <button
+      {...rest}
       onClick={handleClick}
-      className="flex h-full flex-col items-start rounded-2xl border border-slate-800 bg-slate-900 p-4 text-left shadow-sm hover:border-amber-500/60 hover:bg-slate-900/80"
+      className="flex h-full w-full flex-col items-start rounded-2xl border border-slate-800 bg-slate-900 p-5 text-left shadow-sm hover:border-amber-500/60 hover:bg-slate-900/80"
     >
-      <div className="mb-1 flex items-center gap-2 text-xs font-semibold text-slate-100">
+      <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-100">
         <LinkIcon className="h-3 w-3 text-amber-400" />
         {title}
       </div>
-      <p className="text-xs text-slate-300">{description}</p>
+      <p className="text-sm text-slate-300 whitespace-pre-line">
+        {description}
+      </p>
     </button>
   );
 }

@@ -1,0 +1,153 @@
+HoneyOps Docs – Authoring guide (Markdown)
+
+========================================
+1. Folder structure
+========================================
+
+All public documentation is driven from Markdown files + images:
+
+- Markdown pages:
+  public/docs-content/*.md
+
+- Images (screenshots, diagrams, etc.):
+  public/docs-images/*
+
+Rails serves them as:
+
+- Markdown:
+  https://docs.honeyops.net/docs-content/<file>.md
+
+- Images:
+  https://docs.honeyops.net/docs-images/<file>.png
+
+
+========================================
+2. Navigation: adding and renaming pages
+========================================
+
+The left-hand menu (sidebar) is defined in:
+
+  app/javascript/docs/nav.js
+
+Each top-level section looks like:
+
+  export const nav = [
+    {
+      id: "overview",
+      label: "Overview",
+      file: "overview.md",
+    },
+    {
+      id: "getting-started",
+      label: "Getting started",
+      children: [
+        {
+          id: "getting-started-introduction",
+          label: "1. Introduction",
+          file: "getting-started/introduction.md",
+        },
+        ...
+      ],
+    },
+    ...
+  ];
+
+Rules:
+
+- id:
+  - Must be unique in the whole nav.
+  - Used in URL hash (#getting-started-introduction).
+  - Used as link target for cards (href="...").
+
+- label:
+  - Text shown in the sidebar.
+
+- file:
+  - Path to the .md file, relative to public/docs-content.
+  - Example: "getting-started/introduction.md" =>
+    public/docs-content/getting-started/introduction.md
+
+If a section has "children", the children are the clickable pages.
+If a section has "file" directly, that id is the page itself.
+
+
+========================================
+3. Basic Markdown usage
+========================================
+
+Any .md file under public/docs-content can include normal Markdown:
+
+Headings:
+  # H1 – main title
+  ## H2 – section
+  ### H3 – subsection
+
+Text:
+  Normal paragraph text.
+
+  You can use **bold**, *italic* and `inline code`.
+
+Lists:
+  - Bullet item 1
+  - Bullet item 2
+
+  1. Numbered item
+  2. Numbered item
+
+Links:
+  [Text to console](https://console.honeyops.net)
+  [Internal link to another section](#getting-started-prerequisites)
+
+
+========================================
+4. Images (screenshots)
+========================================
+
+Put all images in:
+
+  public/docs-images/
+
+For example:
+  public/docs-images/overview01.png
+  public/docs-images/console-dashboard.png
+
+In Markdown, reference them by filename:
+
+  ![Screenshot – console dashboard](overview01.png)
+
+The docs app will automatically turn that into:
+
+  /docs-images/overview01.png
+
+If you prefer, you can also write the full path yourself:
+
+  ![Screenshot – console dashboard](/docs-images/console-dashboard.png)
+
+Visual styling applied automatically:
+
+- Rounded corners
+- Border with amber tint
+- Dark background
+- Shadow
+
+This makes HoneOps screenshots stand out against the page background.
+
+Optional caption (just a paragraph under the image):
+
+  ![Screenshot – console dashboard](overview01.png)
+
+  _Console dashboard with active honeypots and recent incidents._
+
+
+========================================
+5. Code blocks
+========================================
+
+Inline code:
+  Use backticks: `hpotctl status`
+
+Block code:
+
+  ```bash
+  ping console.honeyops.net
+  curl https://console.honeyops.net/health

@@ -20,4 +20,7 @@ address). This will be used for invoicing and partner discounts.
 
 ## 4. Invite an additional admin (optional)
 
+## 4. Invite an additional admin (optional)
+ the asdasdasdas
+ 
 Go to **Settings → Users** and invite at least one more admin…sdfsd
