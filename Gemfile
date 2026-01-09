@@ -46,7 +46,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "capistrano", "~> 3.19"
+  gem "capistrano", "~> 3.20"
   gem "capistrano-bundler"
   gem "capistrano-rails"
   gem "capistrano-rbenv"
