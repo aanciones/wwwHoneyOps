@@ -381,51 +381,63 @@ export default function DocsApp() {
           >
             <div className="pr-6">
               <nav className="space-y-4">
-                {nav.map((section) => (
-                  <div key={section.id}>
-                    <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                      {section.label}
-                    </div>
+                {nav
+                  .filter((section) => !section.hidden)
+                  .map((section) => {
+                    const visibleChildren = section.children
+                      ? section.children.filter((child) => !child.hidden)
+                      : null;
 
-                    <ul className="space-y-1">
-                      {section.children ? (
-                        section.children.map((child) => {
-                          const isActive = activeId === child.id;
-                          return (
-                            <li key={child.id}>
+                    if (section.children && (!visibleChildren || visibleChildren.length === 0)) {
+                      return null;
+                    }
+
+                    return (
+                      <div key={section.id}>
+                        <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                          {section.label}
+                        </div>
+
+                        <ul className="space-y-1">
+                          {section.children ? (
+                            visibleChildren.map((child) => {
+                              const isActive = activeId === child.id;
+                              return (
+                                <li key={child.id}>
+                                  <button
+                                    onClick={() => handleNavClick(child.id)}
+                                    className={`flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left ${
+                                      isActive
+                                        ? "bg-amber-500/15 text-amber-200"
+                                        : "text-slate-300 hover:bg-slate-900"
+                                    }`}
+                                  >
+                                    <span className="truncate">{child.label}</span>
+                                    {isActive && (
+                                      <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                                    )}
+                                  </button>
+                                </li>
+                              );
+                            })
+                          ) : (
+                            <li>
                               <button
-                                onClick={() => handleNavClick(child.id)}
-                                className={`flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left ${
-                                  isActive
+                                onClick={() => handleNavClick(section.id)}
+                                className={`mt-1 flex w-full items-center rounded-lg px-2 py-1.5 text-left ${
+                                  activeId === section.id
                                     ? "bg-amber-500/15 text-amber-200"
                                     : "text-slate-300 hover:bg-slate-900"
                                 }`}
                               >
-                                <span className="truncate">{child.label}</span>
-                                {isActive && (
-                                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-                                )}
+                                {section.label}
                               </button>
                             </li>
-                          );
-                        })
-                      ) : (
-                        <li>
-                          <button
-                            onClick={() => handleNavClick(section.id)}
-                            className={`mt-1 flex w-full items-center rounded-lg px-2 py-1.5 text-left ${
-                              activeId === section.id
-                                ? "bg-amber-500/15 text-amber-200"
-                                : "text-slate-300 hover:bg-slate-900"
-                            }`}
-                          >
-                            {section.label}
-                          </button>
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                ))}
+                          )}
+                        </ul>
+                      </div>
+                    );
+                  })}
               </nav>
 
               <div className="mt-8 border-t border-slate-800 pt-4 text-xs text-slate-500">
@@ -440,6 +452,7 @@ export default function DocsApp() {
               activeId={activeId}
               content={content}
               baseDir={baseDir}
+              onNavigate={handleNavClick}
             />
           </main>
         </div>
@@ -458,18 +471,14 @@ export default function DocsApp() {
           <div className="flex items-center gap-4 text-[11px] text-slate-500">
             <a
               href="https://honeyops.net/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-amber-400 transition-colors"
+              className="transition-colors hover:text-amber-400"
             >
               Privacy Policy
             </a>
             <span className="text-slate-700">•</span>
             <a
               href="https://honeyops.net/cookies"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-amber-400 transition-colors"
+              className="transition-colors hover:text-amber-400"
             >
               Cookie Policy
             </a>
@@ -486,7 +495,7 @@ export default function DocsApp() {
    Sección Markdown genérica
 -------------------- */
 
-function MarkdownSection({ activeId, content, baseDir }) {
+function MarkdownSection({ activeId, content, baseDir, onNavigate }) {
   const section = findSectionByChildId(activeId);
 
   return (
@@ -497,7 +506,7 @@ function MarkdownSection({ activeId, content, baseDir }) {
         </p>
       )}
 
-      <ReactMarkdown components={markdownComponents(baseDir)}>
+      <ReactMarkdown components={markdownComponents(baseDir, onNavigate)}>
         {content}
       </ReactMarkdown>
     </article>
@@ -508,8 +517,37 @@ function MarkdownSection({ activeId, content, baseDir }) {
    Componentes markdown personalizados
 -------------------- */
 
-function markdownComponents(_baseDir) {
+function markdownComponents(_baseDir, onNavigate) {
   return {
+    a: ({ href, children, ...props }) => {
+      const isHashLink = typeof href === "string" && href.startsWith("#");
+
+      if (isHashLink && onNavigate) {
+        const targetId = href.replace(/^#/, "");
+        const targetPage = findPage(targetId);
+
+        if (targetPage) {
+          return (
+            <a
+              href={href}
+              onClick={(event) => {
+                event.preventDefault();
+                onNavigate(targetId);
+              }}
+              {...props}
+            >
+              {children}
+            </a>
+          );
+        }
+      }
+
+      return (
+        <a href={href} {...props}>
+          {children}
+        </a>
+      );
+    },
     img: ({ src, alt, ...props }) => {
       let finalSrc = src || "";
 
