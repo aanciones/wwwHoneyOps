@@ -1,6 +1,6 @@
 // app/javascript/docs/DocsApp.jsx
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import {
   Shield,
@@ -17,6 +17,17 @@ import { nav, findPage, findSectionByChildId } from "./nav";
 const brandName = "HoneyOps";
 const brandTagline = "Honeypots as a Service";
 
+function stripMarkdown(input) {
+  return input
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+    .replace(/\[[^\]]*]\([^)]*\)/g, " ")
+    .replace(/[#>*_~\-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export default function DocsApp() {
   const initialId =
     typeof window !== "undefined" && window.location.hash
@@ -27,6 +38,88 @@ export default function DocsApp() {
   const [content, setContent] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageFile, setPageFile] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [highlightIndex, setHighlightIndex] = useState(-1);
+  const [searchIndex, setSearchIndex] = useState([]);
+  const [isIndexing, setIsIndexing] = useState(false);
+  const searchInputRef = useRef(null);
+
+  const searchPages = useMemo(() => {
+    const pages = [];
+    nav.forEach((section) => {
+      if (section.children && section.children.length > 0) {
+        section.children.forEach((child) => {
+          pages.push({
+            id: child.id,
+            label: child.label,
+            sectionLabel: section.label,
+            file: child.file,
+          });
+        });
+      } else if (section.file) {
+        pages.push({
+          id: section.id,
+          label: section.label,
+          sectionLabel: section.label,
+          file: section.file,
+        });
+      }
+    });
+    return pages;
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const buildSearchIndex = async () => {
+      setIsIndexing(true);
+      const results = await Promise.all(
+        searchPages.map(async (page) => {
+          if (!page.file) {
+            return { ...page, content: "" };
+          }
+
+          try {
+            const res = await fetch(`/docs-content/${page.file}`);
+            if (!res.ok) throw new Error("Load error");
+            const text = await res.text();
+            const content = stripMarkdown(text).toLowerCase();
+            return { ...page, content };
+          } catch (error) {
+            return { ...page, content: "" };
+          }
+        })
+      );
+
+      if (isMounted) {
+        setSearchIndex(results);
+        setIsIndexing(false);
+      }
+    };
+
+    if (searchPages.length > 0) {
+      buildSearchIndex();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [searchPages]);
+
+  const searchResults = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return [];
+
+    const sourcePages = searchIndex.length ? searchIndex : searchPages;
+
+    return sourcePages.filter((page) => {
+      const haystack = `${page.label} ${page.sectionLabel} ${
+        page.content || ""
+      }`.toLowerCase();
+      return haystack.includes(query);
+    });
+  }, [searchIndex, searchPages, searchQuery]);
 
   // Cargar markdown (incluido overview)
   useEffect(() => {
@@ -67,12 +160,91 @@ export default function DocsApp() {
     }
   }, [activeId]);
 
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setHighlightIndex(-1);
+      return;
+    }
+
+    if (searchResults.length === 0) {
+      setHighlightIndex(-1);
+      return;
+    }
+
+    setHighlightIndex((prev) =>
+      prev < 0 || prev >= searchResults.length ? 0 : prev
+    );
+  }, [searchQuery, searchResults]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+        if (searchInputRef.current) {
+          searchInputRef.current.focus();
+        }
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("keydown", handler);
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("keydown", handler);
+      }
+    };
+  }, []);
+
   const handleNavClick = (id) => {
     setActiveId(id);
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
     setSidebarOpen(false);
+  };
+
+  const handleSearchSelect = (id) => {
+    handleNavClick(id);
+    setSearchQuery("");
+    setSearchOpen(false);
+    setHighlightIndex(-1);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (!searchOpen) setSearchOpen(true);
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightIndex((prev) => {
+        const next = prev + 1;
+        if (searchResults.length === 0) return -1;
+        return Math.min(next, searchResults.length - 1);
+      });
+    }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (searchResults.length === 0) return;
+      setHighlightIndex((prev) => Math.max(prev - 1, 0));
+    }
+
+    if (e.key === "Enter") {
+      if (searchResults.length === 0) return;
+      const index = highlightIndex >= 0 ? highlightIndex : 0;
+      const result = searchResults[index];
+      if (result) handleSearchSelect(result.id);
+    }
+
+    if (e.key === "Escape") {
+      setSearchOpen(false);
+      setSearchQuery("");
+      setHighlightIndex(-1);
+      if (searchInputRef.current) {
+        searchInputRef.current.blur();
+      }
+    }
   };
 
   const baseDir =
@@ -117,13 +289,69 @@ export default function DocsApp() {
             <div className="relative">
               <Search className="pointer-events-none absolute left-2 top-2.5 h-4 w-4 text-slate-500" />
               <input
+                ref={searchInputRef}
+                value={searchQuery}
                 className="w-64 rounded-xl border border-slate-700 bg-slate-900/70 px-8 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/60"
                 placeholder="Search docs (Ctrl+K)"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchQuery(value);
+                  setSearchOpen(true);
+                  setHighlightIndex(value.trim() ? 0 : -1);
+                }}
+                onFocus={() => setSearchOpen(true)}
+                onBlur={() => {
+                  window.setTimeout(() => setSearchOpen(false), 100);
+                }}
+                onKeyDown={handleSearchKeyDown}
               />
+
+              {searchOpen && searchQuery.trim() && (
+                <div className="absolute left-0 right-0 mt-2 max-h-72 overflow-auto rounded-xl border border-slate-700 bg-slate-900/95 p-1 text-sm shadow-lg">
+                  {searchResults.length === 0 ? (
+                    <div className="px-3 py-2 text-slate-400">
+                      {isIndexing ? "Indexing docs..." : "No matching pages."}
+                    </div>
+                  ) : (
+                    searchResults.map((result, index) => {
+                      const isActive = index === highlightIndex;
+                      const showSection =
+                        result.sectionLabel &&
+                        result.sectionLabel !== result.label;
+
+                      return (
+                        <button
+                          key={result.id}
+                          type="button"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            handleSearchSelect(result.id);
+                          }}
+                          onMouseEnter={() => setHighlightIndex(index)}
+                          className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left ${
+                            isActive
+                              ? "bg-amber-500/15 text-amber-200"
+                              : "text-slate-200 hover:bg-slate-800"
+                          }`}
+                        >
+                          <span className="text-sm font-medium">
+                            {result.label}
+                          </span>
+                          {showSection && (
+                            <span className="text-xs text-slate-500">
+                              {result.sectionLabel}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
+              )}
             </div>
 
             <a
-              href="https://console.honeyops.test"
+              href="https://console.honeyops.net"
               className="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-900"
             >
               <BookOpen className="h-4 w-4" />
