@@ -511,8 +511,8 @@
             <div>
               <div class="font-semibold text-slate-100">Legal</div>
               <ul class="mt-3 space-y-2 text-slate-300">
-                <li><%= link_to "Cookie Policy", cookies_path, class: "hover:underline" %></li>
-                <li><%= link_to "Privacy Policy", privacy_path, class: "hover:underline" %></li>
+                <li><%= link_to "Cookie Policy", cookies_path, class: "hover:underline", data: { legal_open: "cookies" } %></li>
+                <li><%= link_to "Privacy Policy", privacy_path, class: "hover:underline", data: { legal_open: "privacy" } %></li>
               </ul>
             </div>
 
@@ -550,5 +550,359 @@
     </div>
   </footer>
 
+  <!-- Legal Modals -->
+  <div
+    id="legal-modal-privacy"
+    data-legal-modal="privacy"
+    class="fixed inset-0 z-50"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="legal-privacy-title"
+    hidden
+  >
+    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" data-legal-close></div>
+    <div class="relative mx-auto flex h-full w-full items-start justify-center px-4 py-10 sm:px-6">
+      <div class="w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl">
+        <div class="sticky top-0 flex items-center justify-between border-b border-slate-800 bg-slate-900/95 px-6 py-4">
+          <div>
+            <h2 id="legal-privacy-title" class="text-lg font-semibold text-slate-100">Privacy Policy</h2>
+            <p class="text-xs text-slate-400">Last updated: 2025</p>
+          </div>
+          <button
+            type="button"
+            data-legal-close
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:bg-slate-800"
+          >
+            Close
+          </button>
+        </div>
+        <div class="max-h-[70vh] overflow-y-auto px-6 py-6 text-sm text-slate-300 leading-relaxed space-y-6">
+          <p>
+            This Privacy Policy explains how HoneyOps (&quot;we&quot;, &quot;us&quot; or &quot;our&quot;) collects,
+            uses and protects personal data in connection with our website, customer portal and related services.
+          </p>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">1. Who we are</h3>
+            <p class="mt-2">
+              HoneyOps provides a honeypot management platform (&quot;Services&quot;) designed for organisations that want
+              to deploy and monitor honeypots across their infrastructure. In most cases, we act as the
+              <span class="font-medium text-slate-100">data controller</span> for account and user data associated with the use of our Services.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">2. Personal data we collect</h3>
+            <p class="mt-2">We collect and process the following categories of personal data:</p>
+            <ul class="mt-3 list-disc space-y-2 pl-6">
+              <li>
+                <span class="font-semibold text-slate-100">Account and contact data</span>:
+                name, surname, company name, business email address, country and billing details
+                provided when creating and managing an account.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">User and authentication data</span>:
+                login email address, hashed passwords (never stored in plain text), role within the account,
+                and status (active, invited, disabled) managed through our authentication system.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Service usage and configuration data</span>:
+                information relating to honeypots (labels, tags, policies, notification settings, maintenance windows),
+                and configuration of email, webhook or syslog/SIEM destinations.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Security and event data</span>:
+                logs and alerts generated when honeypots detect suspicious activity,
+                including technical details about the event (IP addresses, ports, protocols and other security telemetry).
+                This data is collected to enable incident detection, triage and forensic analysis.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Technical logs</span>:
+                IP address, browser type, timestamps and similar information captured in server logs
+                to maintain the security, availability and integrity of our Services.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Support communications</span>:
+                contents of emails or requests you send us when contacting support or Sales.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">3. How we use personal data</h3>
+            <p class="mt-2">We process personal data for the following purposes:</p>
+            <ul class="mt-3 list-disc space-y-2 pl-6">
+              <li>To create and manage customer accounts and user access to the HoneyOps console.</li>
+              <li>To authenticate users and enforce role-based access controls.</li>
+              <li>To deploy, monitor and manage honeypots and related security telemetry.</li>
+              <li>To generate alerts, reports and notifications as configured by the customer.</li>
+              <li>To provide customer support and respond to enquiries.</li>
+              <li>To maintain and improve the security, stability and performance of our Services.</li>
+              <li>To comply with legal obligations and enforce our terms of service.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">4. Legal basis for processing</h3>
+            <p class="mt-2">
+              Where the GDPR or similar laws apply, we process personal data on the following legal bases:
+            </p>
+            <ul class="mt-3 list-disc space-y-2 pl-6">
+              <li>
+                <span class="font-semibold text-slate-100">Contractual necessity</span>:
+                to provide and operate the Services you have requested as a customer or user.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Legitimate interests</span>:
+                to ensure the security of our infrastructure, prevent abuse and improve our Services,
+                provided that such interests are not overridden by your rights and freedoms.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Legal obligations</span>:
+                to comply with applicable laws and regulations.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">5. Cookies and tracking</h3>
+            <p class="mt-2">
+              HoneyOps uses only strictly necessary cookies to provide secure access to the console and protect our Services.
+              We do not use advertising cookies, social media tracking pixels or advanced analytics tools.
+              For more information, please see our <%= link_to "Cookie Policy", cookies_path, class: "text-amber-400 hover:underline", data: { legal_open: "cookies" } %>.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">6. How we share data</h3>
+            <p class="mt-2">We do not sell personal data. We may share personal data with:</p>
+            <ul class="mt-3 list-disc space-y-2 pl-6">
+              <li>
+                <span class="font-semibold text-slate-100">Service providers</span>:
+                trusted third parties that provide infrastructure, email delivery, backup, billing
+                or similar services, under written agreements and with appropriate data protection safeguards.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Authorised users</span>:
+                members of your organisation who have been granted access to the HoneyOps console, based on the roles and permissions configured in your account.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Authorities</span>:
+                where required by law or necessary to protect our rights, users or the public.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">7. International transfers</h3>
+            <p class="mt-2">
+              Depending on where you are located and where our infrastructure or service providers operate,
+              personal data may be processed in other countries. When we transfer personal data internationally,
+              we take appropriate measures to ensure an adequate level of protection, including the use of
+              contractual safeguards where required.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">8. Data retention</h3>
+            <p class="mt-2">
+              We retain personal data for as long as necessary to provide the Services, fulfil the purposes described
+              in this Policy, and comply with legal, accounting or reporting obligations. Security events and logs
+              may be retained for a period agreed with the customer or as reasonably necessary to support security
+              investigations and compliance requirements.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">9. Your rights</h3>
+            <p class="mt-2">
+              Depending on your location and applicable law, you may have the right to:
+            </p>
+            <ul class="mt-3 list-disc space-y-2 pl-6">
+              <li>Access the personal data we hold about you.</li>
+              <li>Request correction of inaccurate or incomplete data.</li>
+              <li>Request deletion of your personal data, subject to legal obligations.</li>
+              <li>Object to or restrict certain types of processing.</li>
+              <li>Request a copy of your data in a portable format where technically feasible.</li>
+              <li>Lodge a complaint with a supervisory authority.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="legal-modal-cookies"
+    data-legal-modal="cookies"
+    class="fixed inset-0 z-50"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="legal-cookies-title"
+    hidden
+  >
+    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" data-legal-close></div>
+    <div class="relative mx-auto flex h-full w-full items-start justify-center px-4 py-10 sm:px-6">
+      <div class="w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl">
+        <div class="sticky top-0 flex items-center justify-between border-b border-slate-800 bg-slate-900/95 px-6 py-4">
+          <div>
+            <h2 id="legal-cookies-title" class="text-lg font-semibold text-slate-100">Cookie Policy</h2>
+            <p class="text-xs text-slate-400">Last updated: 2025</p>
+          </div>
+          <button
+            type="button"
+            data-legal-close
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:bg-slate-800"
+          >
+            Close
+          </button>
+        </div>
+        <div class="max-h-[70vh] overflow-y-auto px-6 py-6 text-sm text-slate-300 leading-relaxed space-y-6">
+          <p>
+            This website (honeyops.net and related subdomains) uses only strictly necessary cookies to ensure the technical
+            operation and security of the HoneyOps platform. We do not use cookies for advertising, behavioural tracking,
+            or advanced analytics.
+          </p>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">1. What are cookies?</h3>
+            <p class="mt-2">
+              Cookies are small text files that are stored on your device when you visit a website. They help websites
+              remember information about your visit, such as your session or preferences, so that the site can function correctly.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">2. Cookies we use</h3>
+            <p class="mt-2">HoneyOps uses only essential cookies required for the provision of the service:</p>
+            <ul class="mt-3 space-y-2">
+              <li>
+                <span class="font-semibold text-slate-100">Session cookie</span>
+                (e.g. <code class="text-amber-300">_honeyops_session</code>):
+                used to keep you logged in securely to the HoneyOps console.
+              </li>
+              <li>
+                <span class="font-semibold text-slate-100">Security cookies</span>
+                (such as CSRF-related tokens): used to protect forms and logins against abuse
+                and fraudulent activity.
+              </li>
+            </ul>
+            <p class="mt-3">
+              These cookies are classified as <span class="font-medium text-slate-100">strictly necessary</span>
+              and do not require your consent under EU law, as they are essential for providing
+              the service you actively request (secure access to the HoneyOps platform).
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">3. Cookies we do not use</h3>
+            <p class="mt-2">HoneyOps does <span class="font-semibold">not</span> use:</p>
+            <ul class="mt-3 list-disc space-y-1 pl-6">
+              <li>Advertising or marketing cookies.</li>
+              <li>Advanced analytics cookies (such as Google Analytics, Matomo, etc.).</li>
+              <li>Social media tracking pixels or similar technologies.</li>
+              <li>Browser fingerprinting or equivalent tracking methods.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">4. Managing cookies in your browser</h3>
+            <p class="mt-2">
+              You can configure your browser to block or delete cookies at any time. However,
+              if you disable essential cookies, parts of the HoneyOps platform (including the
+              login process) may no longer function correctly.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-base font-semibold text-slate-100">5. Contact</h3>
+            <p class="mt-2">
+              If you have any questions about this Cookie Policy, please contact us at:
+              <a href="mailto:privacy@honeyops.net" class="text-amber-400 hover:underline">
+                privacy@honeyops.net
+              </a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const modalKeys = ["privacy", "cookies"];
+      const modals = {
+        privacy: document.querySelector('[data-legal-modal="privacy"]'),
+        cookies: document.querySelector('[data-legal-modal="cookies"]'),
+      };
+      const openButtons = document.querySelectorAll("[data-legal-open]");
+      const closeButtons = document.querySelectorAll("[data-legal-close]");
+      let activeModal = null;
+
+      const hideAll = () => {
+        Object.values(modals).forEach((modal) => {
+          if (!modal) return;
+          modal.hidden = true;
+          modal.setAttribute("aria-hidden", "true");
+        });
+        document.body.style.overflow = "";
+        activeModal = null;
+      };
+
+      const showModal = (key, updateHash = true) => {
+        const modal = modals[key];
+        if (!modal) return;
+        if (activeModal === key) return;
+        hideAll();
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        activeModal = key;
+        if (updateHash) {
+          history.replaceState(null, "", `#${key}`);
+        }
+      };
+
+      const closeModal = (updateHash = true) => {
+        if (!activeModal) return;
+        hideAll();
+        if (updateHash) {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+      };
+
+      const syncFromHash = () => {
+        const key = window.location.hash.replace("#", "");
+        if (modalKeys.includes(key)) {
+          showModal(key, false);
+        } else {
+          hideAll();
+        }
+      };
+
+      openButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          showModal(button.dataset.legalOpen);
+        });
+      });
+
+      closeButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          closeModal();
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+      });
+
+      window.addEventListener("hashchange", syncFromHash);
+      syncFromHash();
+    })();
+  </script>
 
 </div>
