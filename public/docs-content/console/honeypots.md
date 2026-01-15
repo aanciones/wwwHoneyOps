@@ -1,76 +1,110 @@
-# Honeypots Management Page
+# Honeypots
 
 ## Overview
 
-The **Honeypots Management Page** is the central interface for creating, monitoring, configuring, and managing honeypots.  
-It provides full lifecycle control, including **enrollment, licensing, policy assignment, and deletion**, all from a single table-driven view.
-
-This page is intended for **operators and administrators** responsible for honeypot deployment and maintenance.
+The **Honeypots** page is the main workspace for creating, enrolling, monitoring, and managing honeypots. It combines status, policy assignment, licensing, and lifecycle actions in a single table view.
 
 ---
 
-## Search and Global Controls
+## Search and global controls
 
 ### Search
+- Filter honeypots by **name or IP**
+- Updates as you type
 
-- Allows filtering honeypots by **name or IP address**
-- Updates results in real time
-- Useful for large environments with many honeypots
+### License summary
+- Shows **Licenses: used / total**
+- Shows **Available** seats
+- License toggles are disabled if the billing period has ended
 
-### License Summary
-
-At the top of the page, license usage is displayed:
-
-- **Used / Total licenses**
-- **Available licenses**
-- Visual indicators reflect license availability and billing status
-
-If the billing period has ended, license toggles are disabled.
-
-### Global Actions
-
-- **Refresh**: Reloads honeypots and license summary
-- **New Honeypot**: Opens the creation dialog
+### Global actions
+- **Refresh** reloads the list and license summary
+- **New Honeypot** opens the create dialog
 
 ---
 
-## Honeypots Table
+## Honeypots table
 
-Each honeypot is displayed as a row with the following columns:
+Each honeypot appears as a row with the following columns:
 
 ### Name
-- User-defined honeypot name
+- User defined name
 
 ### IP
-- Assigned IP address (if available)
+- Last reported IP address (if available)
 
 ### Status
-Shows the operational state:
-- **Pending** – Awaiting agent enrollment
-- **Active** – Agent connected and running
-- **Disabled / Archived** – Not operational
+- **Pending** - waiting for enrollment
+- **Active** - agent connected and reporting
+- **Disabled** - not operational
+- **Archived** - retired and inactive
 
-If a honeypot is active but has not checked in for more than 2 minutes, it is marked as **Disconnected**.
-
----
+If a honeypot is **Active** but has not checked in for more than 2 minutes, it is marked as **Disconnected**.
 
 ### Policy
-- Displays the currently assigned policy
-- Can be changed via the Edit action
+- Current policy assigned to the honeypot
+- Can be changed via **Edit**
 
----
-
-### Configuration Status
-Indicates whether the configuration is:
-- **Pending** – Changes not yet applied
-- **Synced** – Configuration successfully synchronized
-
----
+### Config
+- **Pending** - policy changes not yet applied
+- **Synced** - configuration applied and acknowledged
 
 ### License
-Each honeypot can independently toggle license assignment:
+- Toggle per honeypot
+- **Assigned** consumes a license seat
+- **Unlicensed** does not consume a seat
 
-- **Assigned** – License in use
-- **Unlicensed** – No license consumed
+Toggles are disabled when there are no available seats or the trial has ended.
 
-Rules e
+### Last seen
+- Timestamp of the most recent heartbeat
+
+### Actions
+- **View** - open details
+- **Re-enroll** - unlink the current agent and issue a new enrollment token
+- **Edit** - update name, location, and policy
+- **Delete** - permanently remove the honeypot and associated data
+
+---
+
+## Create and enroll a honeypot
+
+1. Click **New Honeypot**.
+2. Enter a name (required) and location/description (optional).
+3. Copy the **Enrollment token** from the modal.
+   - The token is shown only once.
+   - The token expires at the time shown in the modal.
+4. Paste the token into the appliance during enrollment.
+
+If you lose the token or it expires, use **Re-enroll** to generate a new one.
+
+---
+
+## View details
+
+The **View** action shows operational metadata, including:
+
+- Honeypot ID
+- Status and connection state
+- IP address
+- Last seen and linked timestamps
+- Agent version
+- Location/description
+- Assigned policy
+
+---
+
+## Edit details
+
+The **Edit** action allows you to:
+
+- Change the honeypot name
+- Update location/description
+- Assign a policy (including "none")
+- See which policy is marked as default
+
+---
+
+## Delete a honeypot
+
+Deletion is permanent and removes the honeypot and its stored data. Confirm the action in the dialog before proceeding.

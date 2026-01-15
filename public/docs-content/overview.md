@@ -19,7 +19,6 @@ This guide is structured to follow the full lifecycle of a HoneyOps deployment:
 - Core components:
   - The honeypot appliance (`.ova`)
   - The HoneyOps cloud console  
-- Telemetry sent by the platform (health & incident signals only)
 
 ### 2. Getting Started
 - Prerequisites (console access, hypervisor, network requirements)  
@@ -34,9 +33,7 @@ This guide is structured to follow the full lifecycle of a HoneyOps deployment:
 
 ### 4. Help & Troubleshooting
 - Common issues (no heartbeat, license exhausted, verification email not received…)  
-- Network checklist for the appliance  
 - Contacting support (what info to include)  
-- Glossary of core HoneyOps concepts  
 
 ---
 
@@ -57,5 +54,5 @@ description="Learn how to navigate the HoneyOps console: sidebar, search, dashbo
 ```card
 href="help-troubleshooting-overview"
 title="Help & Troubleshooting"
-description="Quick access to common issues, network checklist, how to contact support and a short glossary of core HoneyOps concepts."
+description="Quick access to common issues and how to contact support."
 ```

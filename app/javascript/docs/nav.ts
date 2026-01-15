@@ -26,11 +26,6 @@ export const nav = [
         label: "System Components",
         file: "introduction/system-components.md",
       },
-      {
-        id: "introduction-telemetry",
-        label: "Telemetry Overview",
-        file: "introduction/telemetry.md",
-      },
     ],
   },
 
@@ -45,11 +40,6 @@ export const nav = [
         id: "getting-started-prerequisites",
         label: "Prerequisites",
         file: "getting-started/prerequisites.md",
-      },
-      {
-        id: "getting-started-console-setup",
-        label: "Console Setup",
-        file: "getting-started/console-setup.md",
       },
       {
         id: "getting-started-deploy-first-honeypot",
@@ -117,19 +107,9 @@ export const nav = [
         file: "troubleshooting/common-issues.md",
       },
       {
-        id: "troubleshooting-network-checklist",
-        label: "Network Checklist",
-        file: "troubleshooting/network-checklist.md",
-      },
-      {
         id: "troubleshooting-support",
         label: "Contacting Support",
         file: "troubleshooting/support.md",
-      },
-      {
-        id: "troubleshooting-glossary",
-        label: "Glossary",
-        file: "troubleshooting/glossary.md",
       },
     ],
   },
