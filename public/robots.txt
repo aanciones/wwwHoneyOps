@@ -1,1 +1,4 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+User-agent: *
+Disallow:
+Sitemap: https://honeyops.net/sitemap.xml.gz
+Sitemap: https://docs.honeyops.net/sitemap.xml

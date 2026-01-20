@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def canonical_url
+    request.base_url + request.path
+  end
+
   def honey_icon(name, classes: "h-5 w-5 text-amber-300")
     content_tag(
       :svg,

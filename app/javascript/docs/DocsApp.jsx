@@ -1,6 +1,6 @@
 // app/javascript/docs/DocsApp.jsx
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import {
   Shield,
@@ -11,11 +11,61 @@ import {
   Link as LinkIcon,
 } from "lucide-react";
 
-import { nav, findPage, findSectionByChildId } from "./nav";
+import { nav, findSectionByChildId } from "./nav";
 
 
 const brandName = "HoneyOps";
 const brandTagline = "Honeypots as a Service";
+const docsBaseTitle = "HoneyOps Docs";
+const docsBaseDescription =
+  "HoneyOps technical documentation for deploying, configuring, and operating managed honeypots.";
+
+function fileToPath(file) {
+  if (!file) return "/";
+  const clean = file.replace(/\.md$/, "");
+  if (clean === "overview") return "/";
+  return `/${clean}`;
+}
+
+function normalizePath(pathname) {
+  if (!pathname) return "/";
+  let clean = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  if (clean.length > 1) {
+    clean = clean.replace(/\/+$/, "");
+  }
+  return clean || "/";
+}
+
+function buildDocsPages() {
+  const pages = [];
+  nav.forEach((section) => {
+    if (section.children && section.children.length > 0) {
+      section.children.forEach((child) => {
+        if (child.hidden) return;
+        pages.push({
+          id: child.id,
+          label: child.label,
+          sectionLabel: section.label,
+          file: child.file,
+          path: fileToPath(child.file),
+        });
+      });
+    } else if (section.file && !section.hidden) {
+      pages.push({
+        id: section.id,
+        label: section.label,
+        sectionLabel: section.label,
+        file: section.file,
+        path: fileToPath(section.file),
+      });
+    }
+  });
+  return pages;
+}
+
+const DOC_PAGES = buildDocsPages();
+const PAGE_BY_ID = new Map(DOC_PAGES.map((page) => [page.id, page]));
+const PAGE_BY_PATH = new Map(DOC_PAGES.map((page) => [page.path, page]));
 
 function stripMarkdown(input) {
   return input
@@ -28,11 +78,24 @@ function stripMarkdown(input) {
     .trim();
 }
 
+function buildMetaDescription(markdown) {
+  const text = stripMarkdown(markdown || "");
+  if (!text) return "";
+  if (text.length <= 160) return text;
+  const trimmed = text.slice(0, 157);
+  const cutoff = trimmed.lastIndexOf(" ");
+  return `${trimmed.slice(0, cutoff > 80 ? cutoff : trimmed.length)}...`;
+}
+
 export default function DocsApp() {
-  const initialId =
-    typeof window !== "undefined" && window.location.hash
-      ? window.location.hash.replace("#", "")
-      : "overview";
+  const initialId = (() => {
+    if (typeof window === "undefined") return "overview";
+    const hashId = window.location.hash.replace("#", "");
+    if (hashId && PAGE_BY_ID.has(hashId)) return hashId;
+    const path = normalizePath(window.location.pathname);
+    const page = PAGE_BY_PATH.get(path);
+    return page ? page.id : "overview";
+  })();
 
   const [activeId, setActiveId] = useState(initialId || "overview");
   const [content, setContent] = useState("");
@@ -45,28 +108,22 @@ export default function DocsApp() {
   const [isIndexing, setIsIndexing] = useState(false);
   const searchInputRef = useRef(null);
 
-  const searchPages = useMemo(() => {
-    const pages = [];
-    nav.forEach((section) => {
-      if (section.children && section.children.length > 0) {
-        section.children.forEach((child) => {
-          pages.push({
-            id: child.id,
-            label: child.label,
-            sectionLabel: section.label,
-            file: child.file,
-          });
-        });
-      } else if (section.file) {
-        pages.push({
-          id: section.id,
-          label: section.label,
-          sectionLabel: section.label,
-          file: section.file,
-        });
+  const searchPages = useMemo(() => DOC_PAGES, []);
+
+  const navigateToId = useCallback((id, options = {}) => {
+    const page = PAGE_BY_ID.get(id);
+    if (!page) return;
+
+    const nextPath = page.path;
+    if (typeof window !== "undefined") {
+      const currentPath = normalizePath(window.location.pathname);
+      if (currentPath !== nextPath) {
+        const method = options.replace ? "replaceState" : "pushState";
+        window.history[method](null, "", nextPath);
       }
-    });
-    return pages;
+    }
+
+    setActiveId(id);
   }, []);
 
   useEffect(() => {
@@ -123,7 +180,7 @@ export default function DocsApp() {
 
   // Cargar markdown (incluido overview)
   useEffect(() => {
-    const page = findPage(activeId);
+    const page = PAGE_BY_ID.get(activeId);
 
     if (!page || !page.file) {
       setContent("# Not found\n\nThis page does not exist yet.");
@@ -139,26 +196,40 @@ export default function DocsApp() {
       .catch(() => setContent("# Error\n\nCould not load this page."));
   }, [activeId]);
 
-  // Escuchar clicks en DocCard
   useEffect(() => {
-    const handler = (e) => {
-      const id = e.detail?.id;
-      if (id) {
-        setActiveId(id);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window === "undefined") return;
+
+    const handlePopState = () => {
+      const path = normalizePath(window.location.pathname);
+      const page = PAGE_BY_PATH.get(path);
+      if (page) {
+        setActiveId(page.id);
+      } else {
+        navigateToId("overview", { replace: true });
       }
     };
 
-    window.addEventListener("honeyops-doc-nav", handler);
-    return () => window.removeEventListener("honeyops-doc-nav", handler);
-  }, []);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [navigateToId]);
 
-  // Mantener hash en URL
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", `#${activeId}`);
+    if (typeof window === "undefined") return;
+
+    const hashId = window.location.hash.replace("#", "");
+    if (hashId && PAGE_BY_ID.has(hashId)) {
+      navigateToId(hashId, { replace: true });
     }
-  }, [activeId]);
+  }, [navigateToId]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const path = normalizePath(window.location.pathname);
+    if (!PAGE_BY_PATH.has(path)) {
+      navigateToId("overview", { replace: true });
+    }
+  }, [navigateToId]);
 
   useEffect(() => {
     if (!searchQuery.trim()) {
@@ -175,6 +246,31 @@ export default function DocsApp() {
       prev < 0 || prev >= searchResults.length ? 0 : prev
     );
   }, [searchQuery, searchResults]);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const page = PAGE_BY_ID.get(activeId);
+    const title = page ? `${page.label} | ${docsBaseTitle}` : docsBaseTitle;
+    document.title = title;
+
+    const description =
+      buildMetaDescription(content) || docsBaseDescription;
+    const metaDescription = document.querySelector(
+      'meta[name="description"]'
+    );
+    if (metaDescription) {
+      metaDescription.setAttribute("content", description);
+    }
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical && typeof window !== "undefined") {
+      canonical.setAttribute(
+        "href",
+        `${window.location.origin}${normalizePath(window.location.pathname)}`
+      );
+    }
+  }, [activeId, content]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -198,7 +294,7 @@ export default function DocsApp() {
   }, []);
 
   const handleNavClick = (id) => {
-    setActiveId(id);
+    navigateToId(id);
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -260,10 +356,7 @@ export default function DocsApp() {
           <button
             type="button"
             onClick={() => {
-              if (typeof window !== "undefined") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-              setActiveId("overview");
+              handleNavClick("overview");
             }}
             className="flex items-center gap-3"
           >
@@ -524,12 +617,13 @@ function markdownComponents(_baseDir, onNavigate) {
 
       if (isHashLink && onNavigate) {
         const targetId = href.replace(/^#/, "");
-        const targetPage = findPage(targetId);
+        const targetPage = PAGE_BY_ID.get(targetId);
+        const targetHref = targetPage ? targetPage.path : href;
 
         if (targetPage) {
           return (
             <a
-              href={href}
+              href={targetHref}
               onClick={(event) => {
                 event.preventDefault();
                 onNavigate(targetId);
@@ -616,6 +710,7 @@ function markdownComponents(_baseDir, onNavigate) {
               title={title}
               description={description}
               hrefId={hrefId}
+              onNavigate={onNavigate}
             />
           </div>
         );
@@ -640,17 +735,10 @@ function markdownComponents(_baseDir, onNavigate) {
          Card
 -------------------- */
 
-function DocCard({ title, description, hrefId, ...rest }) {
+function DocCard({ title, description, hrefId, onNavigate, ...rest }) {
   const handleClick = () => {
-    if (hrefId) {
-      window.location.hash = hrefId;
-
-      if (typeof window !== "undefined") {
-        const event = new CustomEvent("honeyops-doc-nav", {
-          detail: { id: hrefId },
-        });
-        window.dispatchEvent(event);
-      }
+    if (hrefId && onNavigate) {
+      onNavigate(hrefId);
     }
   };
 

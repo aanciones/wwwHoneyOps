@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "/sitemap.xml", to: "seo#sitemap"
+
   # --- DOMINIO DE DOCUMENTACIÓN ---
   # docs.honeyops.test → DocsController#index
   constraints(lambda { |req| req.subdomain == "docs" }) do
@@ -6,6 +8,8 @@ Rails.application.routes.draw do
 
     # Ejemplo de más rutas de documentación:
     # get "/getting-started", to: "docs#getting_started"
+
+    get "*path", to: "docs#index", constraints: ->(req) { !req.path.include?(".") }
   end
 
   # --- DOMINIO PRINCIPAL ---
