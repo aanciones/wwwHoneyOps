@@ -95,7 +95,22 @@ export const nav = [
   },
 
   // -------------------------------------
-  // 4. HELP & TROUBLESHOOTING
+  // 4. INTEGRATIONS
+  // -------------------------------------
+  {
+    id: "integrations",
+    label: "Integrations",
+    children: [
+      {
+        id: "integrations-zabbix",
+        label: "Zabbix (Monitoring)",
+        file: "integrations/zabbix.md",
+      },
+    ],
+  },
+
+  // -------------------------------------
+  // 5. HELP & TROUBLESHOOTING
   // -------------------------------------
   {
     id: "troubleshooting",

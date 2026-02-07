@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+  <version>7.0</version>
+  <template_groups>
+    <template_group>
+      <uuid>383646e278a44a2b8b831cd0f5047979</uuid>
+      <name>Templates/Applications</name>
+    </template_group>
+  </template_groups>
+  <templates>
+    <template>
+      <uuid>abe97adbbc684c5e96a9313347fcf692</uuid>
+      <template>HoneyOps_Agent</template>
+      <name>HoneyOps Agent</name>
+      <description>HoneyOps integration via API summary endpoint.</description>
+      <groups>
+        <group>
+          <name>Templates/Applications</name>
+        </group>
+      </groups>
+      <macros>
+        <macro>
+          <macro>{$HONEYOPS_ACCOUNT_ID}</macro>
+          <value></value>
+        </macro>
+        <macro>
+          <macro>{$HONEYOPS_SECRET}</macro>
+          <value></value>
+        </macro>
+      </macros>
+      <items>
+        <item>
+          <uuid>d1b38d76af92443b83144ce58cddc14f</uuid>
+          <name>HoneyOps API summary</name>
+          <type>HTTP_AGENT</type>
+          <key>honeyops.api.summary</key>
+          <delay>1m</delay>
+          <history>7d</history>
+          <trends>0</trends>
+          <value_type>TEXT</value_type>
+          <timeout>10s</timeout>
+          <url>https://console.honeyops.net/api/v1/integrations/zabbix/summary</url>
+          <request_method>GET</request_method>
+          <headers>
+            <header>
+              <name>X-HoneyOps-Account</name>
+              <value>{$HONEYOPS_ACCOUNT_ID}</value>
+            </header>
+            <header>
+              <name>X-HoneyOps-Secret</name>
+              <value>{$HONEYOPS_SECRET}</value>
+            </header>
+          </headers>
+          <status>ENABLED</status>
+        </item>
+
+        <item>
+          <uuid>3d7e3ce0a7974204abe577da56e26ede</uuid>
+          <name>HoneyOps honeypots total</name>
+          <type>DEPENDENT</type>
+          <key>honeyops.hpots.total</key>
+          <delay>0</delay>
+          <history>7d</history>
+          <value_type>UNSIGNED</value_type>
+          <master_item>
+            <key>honeyops.api.summary</key>
+          </master_item>
+          <preprocessing>
+            <step>
+              <type>JSONPATH</type>
+              <parameters>
+                <parameter>$.hpots.length()</parameter>
+              </parameters>
+            </step>
+          </preprocessing>
+          <status>ENABLED</status>
+        </item>
+
+        <item>
+          <uuid>58e32da4d3af4b1690291bec2743152c</uuid>
+          <name>HoneyOps honeypots disconnected</name>
+          <type>DEPENDENT</type>
+          <key>honeyops.hpots.disconnected.count</key>
+          <delay>0</delay>
+          <history>7d</history>
+          <value_type>UNSIGNED</value_type>
+          <master_item>
+            <key>honeyops.api.summary</key>
+          </master_item>
+          <preprocessing>
+            <step>
+              <type>JAVASCRIPT</type>
+              <parameters>
+                <parameter><![CDATA[
+var data = JSON.parse(value);
+var hpots = data.hpots || [];
+var count = 0;
+for (var i = 0; i < hpots.length; i++) {
+  if (hpots[i].status === "disconnected") count++;
+}
+return count;
+              ]]></parameter>
+              </parameters>
+            </step>
+          </preprocessing>
+          <status>ENABLED</status>
+        </item>
+
+        <item>
+          <uuid>af4d05e4ca66486dac51d009edeb1a69</uuid>
+          <name>HoneyOps active alerts total</name>
+          <type>DEPENDENT</type>
+          <key>honeyops.alerts.active.count</key>
+          <delay>0</delay>
+          <history>7d</history>
+          <value_type>UNSIGNED</value_type>
+          <master_item>
+            <key>honeyops.api.summary</key>
+          </master_item>
+          <preprocessing>
+            <step>
+              <type>JAVASCRIPT</type>
+              <parameters>
+                <parameter><![CDATA[
+var data = JSON.parse(value);
+var hpots = data.hpots || [];
+var total = 0;
+for (var i = 0; i < hpots.length; i++) {
+  var alerts = hpots[i].active_alerts || [];
+  total += alerts.length;
+}
+return total;
+              ]]></parameter>
+              </parameters>
+            </step>
+          </preprocessing>
+          <status>ENABLED</status>
+        </item>
+      </items>
+
+      <discovery_rules>
+        <discovery_rule>
+          <uuid>19288f2632cd475f9d96115e0d3617cb</uuid>
+          <name>HoneyOps honeypots discovery</name>
+          <type>DEPENDENT</type>
+          <key>honeyops.hpots.discovery</key>
+          <delay>0</delay>
+          <master_item>
+            <key>honeyops.api.summary</key>
+          </master_item>
+          <preprocessing>
+            <step>
+              <type>JAVASCRIPT</type>
+              <parameters>
+                <parameter><![CDATA[
+var data = JSON.parse(value);
+var hpots = data.hpots || [];
+var out = hpots.map(function(h) {
+  var alerts = h.active_alerts || [];
+  var brief = alerts.map(function(a) {
+    return a.short || a.title || ("Alert " + a.id);
+  }).join(" | ");
+  return {
+    "{#HPOT_ID}": h.id,
+    "{#HPOT_NAME}": h.name,
+    "{#HPOT_STATUS}": h.status,
+    "{#HPOT_ALERTS}": alerts.length,
+    "{#HPOT_ALERT_BRIEF}": brief
+  };
+});
+return JSON.stringify({ data: out });
+              ]]></parameter>
+              </parameters>
+            </step>
+          </preprocessing>
+          <item_prototypes>
+            <item_prototype>
+              <uuid>6e05056c6f144e2fa33c90793ccf0f72</uuid>
+              <name>HoneyOps: {#HPOT_NAME} status</name>
+              <type>DEPENDENT</type>
+              <key>honeyops.hpot.status[{#HPOT_ID}]</key>
+              <delay>0</delay>
+              <history>7d</history>
+              <value_type>UNSIGNED</value_type>
+              <master_item>
+                <key>honeyops.api.summary</key>
+              </master_item>
+              <preprocessing>
+                <step>
+                  <type>JAVASCRIPT</type>
+                  <parameters>
+                    <parameter><![CDATA[
+var data = JSON.parse(value);
+var id = "{#HPOT_ID}";
+var hpots = data.hpots || [];
+for (var i = 0; i < hpots.length; i++) {
+  if (hpots[i].id == id) {
+    return hpots[i].status === "connected" ? 1 : 0;
+  }
+}
+return 0;
+                  ]]></parameter>
+                  </parameters>
+                </step>
+              </preprocessing>
+              <status>ENABLED</status>
+            </item_prototype>
+
+            <item_prototype>
+              <uuid>e3225529de5b4bd6867647e9e0058d9a</uuid>
+              <name>HoneyOps: {#HPOT_NAME} alerts count</name>
+              <type>DEPENDENT</type>
+              <key>honeyops.hpot.alerts.count[{#HPOT_ID}]</key>
+              <delay>0</delay>
+              <history>7d</history>
+              <value_type>UNSIGNED</value_type>
+              <master_item>
+                <key>honeyops.api.summary</key>
+              </master_item>
+              <preprocessing>
+                <step>
+                  <type>JAVASCRIPT</type>
+                  <parameters>
+                    <parameter><![CDATA[
+var data = JSON.parse(value);
+var id = "{#HPOT_ID}";
+var hpots = data.hpots || [];
+for (var i = 0; i < hpots.length; i++) {
+  if (hpots[i].id == id) {
+    var alerts = hpots[i].active_alerts || [];
+    return alerts.length;
+  }
+}
+return 0;
+                  ]]></parameter>
+                  </parameters>
+                </step>
+              </preprocessing>
+              <status>ENABLED</status>
+            </item_prototype>
+
+            <item_prototype>
+              <uuid>75aa7dcf134b4da890ef76c2a30471af</uuid>
+              <name>HoneyOps: {#HPOT_NAME} alerts brief</name>
+              <type>DEPENDENT</type>
+              <key>honeyops.hpot.alerts.brief[{#HPOT_ID}]</key>
+              <delay>0</delay>
+              <history>7d</history>
+              <trends>0</trends>
+              <value_type>TEXT</value_type>
+              <master_item>
+                <key>honeyops.api.summary</key>
+              </master_item>
+              <preprocessing>
+                <step>
+                  <type>JAVASCRIPT</type>
+                  <parameters>
+                    <parameter><![CDATA[
+var data = JSON.parse(value);
+var id = "{#HPOT_ID}";
+var hpots = data.hpots || [];
+for (var i = 0; i < hpots.length; i++) {
+  if (hpots[i].id == id) {
+    var alerts = hpots[i].active_alerts || [];
+    return alerts.map(function(a) {
+      return a.short || a.title || ("Alert " + a.id);
+    }).join(" | ");
+  }
+}
+return "";
+                  ]]></parameter>
+                  </parameters>
+                </step>
+              </preprocessing>
+              <status>ENABLED</status>
+            </item_prototype>
+          </item_prototypes>
+
+          <trigger_prototypes>
+            <trigger_prototype>
+              <uuid>76a91961729a4c36aeffbaab5c6aac77</uuid>
+              <expression>last(/HoneyOps_Agent/honeyops.hpot.status[{#HPOT_ID}])=0</expression>
+              <name>HoneyOps: Honeypot {#HPOT_NAME} disconnected</name>
+              <priority>WARNING</priority>
+            </trigger_prototype>
+            <trigger_prototype>
+              <uuid>066cd4d690d74d09a356824eb690a53d</uuid>
+              <expression>last(/HoneyOps_Agent/honeyops.hpot.alerts.count[{#HPOT_ID}])&gt;0 and last(/HoneyOps_Agent/honeyops.hpot.alerts.brief[{#HPOT_ID}])&lt;&gt;""</expression>
+              <name>HoneyOps: {#HPOT_NAME} has active alerts ({ITEM.LASTVALUE1})</name>
+              <priority>HIGH</priority>
+              <opdata>{ITEM.LASTVALUE2}</opdata>
+            </trigger_prototype>
+          </trigger_prototypes>
+        </discovery_rule>
+      </discovery_rules>
+    </template>
+  </templates>
+</zabbix_export>

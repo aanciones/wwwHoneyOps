@@ -32,6 +32,7 @@
       <nav class="hidden items-center gap-6 text-sm font-medium md:flex">
         <a href="#features" class="text-slate-300 hover:text-amber-400">Features</a>
         <a href="#how" class="text-slate-300 hover:text-amber-400">How it works</a>
+        <a href="#integrations" class="text-slate-300 hover:text-amber-400">Integrations</a>
         <a href="#pricing" class="text-slate-300 hover:text-amber-400">Pricing</a>
         <a href="#faq" class="text-slate-300 hover:text-amber-400">FAQ</a>
       </nav>
@@ -287,6 +288,72 @@
     </div>
   </section>
 
+  <!-- Integrations -->
+  <section id="integrations" class="border-t border-slate-900 bg-slate-950/95 py-16 scroll-mt-14">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mx-auto mb-8 max-w-3xl text-center">
+        <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Integrations</div>
+        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+          Bring HoneyOps alerts into your monitoring stack
+        </h2>
+        <p class="mt-3 text-slate-300">
+          HoneyOps ships with a Zabbix integration so critical honeypot signals never get missed.
+        </p>
+      </div>
+
+      <div class="mb-10 flex items-center justify-center">
+        <img src="/zabbix.png" alt="Zabbix logo" class="h-20 w-auto object-contain sm:h-24" />
+      </div>
+
+      <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-sm">
+          <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
+            Zabbix Monitoring
+          </div>
+          <h3 class="text-lg font-semibold text-slate-100">Ready-made Zabbix template</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            Pull HoneyOps data directly into Zabbix using your account ID and API secret.
+          </p>
+
+          <ul class="mt-5 space-y-2 text-sm text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
+              <span>Detect disconnected honeypots and lost heartbeat signals.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
+              <span>Trigger high-severity alerts when HoneyOps reports active incidents.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
+              <span>Keep monitoring and security alerts in one place.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-sm">
+          <div class="mb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">
+            What you get
+          </div>
+          <div class="space-y-4 text-sm text-slate-300">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 text-amber-400"><%= honey_icon(:bell, classes: "h-4 w-4") %></span>
+              <p>Centralize HoneyOps alerts inside your Zabbix operations view.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 text-amber-400"><%= honey_icon(:activity, classes: "h-4 w-4") %></span>
+              <p>Keep uptime and security telemetry in one place for faster response.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 text-amber-400"><%= honey_icon(:shield, classes: "h-4 w-4") %></span>
+              <p>Expand integrations over time as new monitoring targets are added.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Pricing -->
   <section id="pricing" class="border-t border-slate-900 bg-slate-950 py-20 scroll-mt-14">
     <div class="mx-auto max-w-7xl px-6">
@@ -373,13 +440,9 @@
 
             <div class="mt-auto pt-4">
               <div class="flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow hover:bg-amber-400"
-                  onclick="openContactSalesModal()"
-                >
-                  Contact Sales
-                </button>
+                <p class="text-sm font-semibold text-slate-200">
+                  Send an email to <span class="text-amber-300">sales@honeyops.net</span>
+                </p>
                 <p class="text-xs text-slate-400">
                   Prefer another channel? You can also reach us via the contact section below.
                 </p>
@@ -523,13 +586,10 @@
               <p class="mt-3 text-slate-300">
                 Questions, larger deployments, or partner plans?
               </p>
-              <button
-                type="button"
-                class="mt-3 inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 font-semibold text-slate-200 hover:bg-slate-900"
-                onclick="openContactSalesModal()"
-              >
+              <span class="mt-3 inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 font-semibold text-slate-200 cursor-default">
                 Get in touch
-              </button>
+              </span>
+              <p class="mt-2 text-sm text-slate-400">info@honeyops.net</p>
               <div class="mt-4 flex items-center gap-2 text-slate-300">
                 <%= honey_icon(:linkedin, classes: "h-4 w-4 text-amber-400") %>
                 <a href="https://www.linkedin.com/company/honeyops" target="_blank" rel="noopener noreferrer" class="hover:underline">
