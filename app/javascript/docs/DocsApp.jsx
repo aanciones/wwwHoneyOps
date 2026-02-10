@@ -563,14 +563,14 @@ export default function DocsApp() {
           {/* Right: legal links */}
           <div className="flex items-center gap-4 text-[11px] text-slate-500">
             <a
-              href="https://honeyops.net/privacy"
+              href="https://honeyops.net/#privacy"
               className="transition-colors hover:text-amber-400"
             >
               Privacy Policy
             </a>
             <span className="text-slate-700">•</span>
             <a
-              href="https://honeyops.net/cookies"
+              href="https://honeyops.net/#cookies"
               className="transition-colors hover:text-amber-400"
             >
               Cookie Policy
