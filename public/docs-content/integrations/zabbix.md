@@ -28,14 +28,6 @@ Download the template XML file from the docs site:
 
 ![Zabbix template import](zabbix_import_template.png)
 
-4. Open the Template and go to **Macros** tab.
-5. Set the following values:
-
-- `{$HONEYOPS_ACCOUNT_ID}` = your HoneyOps **Account ID**
-- `{$HONEYOPS_SECRET}` = your HoneyOps **API secret**
-
-![Zabbix Macros import](zabbix_macros_template.png)
-
 ## 4. Create or select a host in Zabbix
 
 1. Go to **Configuration -> Hosts**.
@@ -43,6 +35,13 @@ Download the template XML file from the docs site:
 3. Attach the template **HoneyOps Agent** to the host.
 
 ![Zabbix host with template](zabbix_host_template.png)
+
+4. Go to **Macros** tab and set the following values:
+
+- `{$HONEYOPS_ACCOUNT_ID}` = your HoneyOps **Account ID**
+- `{$HONEYOPS_SECRET}` = your HoneyOps **API secret**
+
+![Zabbix Macros import](zabbix_macros_template.png)
 
 ## 5. Verify data is flowing
 
