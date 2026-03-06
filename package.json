@@ -14,11 +14,11 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.20",
-    "@tailwindcss/cli": "^4.1.17",
+    "@tailwindcss/cli": "4.1.18",
     "lucide-react": "^0.554.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^10.1.0",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "4.1.18"
   }
 }
