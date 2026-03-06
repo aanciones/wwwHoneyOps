@@ -16,13 +16,15 @@ This page lists common setup and operational problems and how to resolve them.
 
 - Confirm outbound HTTPS (443) connectivity to the console.
 - Verify DNS resolution for the console hostname.
-- Check the VM clock (NTP/time sync).
+- Check system time (NTP/time sync) on the VM or Windows host.
+- Windows path: verify `HoneyOpsAgent` service is installed and running.
 
 ### Honeypot shows Disconnected or Last seen not updating
 
-- Ensure the VM is running and has stable network access.
+- Ensure the endpoint is running and has stable network access.
 - Verify firewall rules allow outbound HTTPS.
-- If it persists, re-enroll the appliance.
+- Windows path: check Event Viewer -> Windows Logs -> Application for HoneyOpsAgent errors.
+- If it persists, re-enroll the agent.
 
 ---
 

@@ -14,9 +14,19 @@ Before deploying a HoneyOps honeypot, make sure these basics are in place.
 
 ## Infrastructure
 
-- A hypervisor that supports importing `.ova` appliances.
-- Ability to create and boot a VM with the resources required by your environment baseline.
-- Access to download the appliance from the console.
+Choose at least one supported deployment flavor:
+
+- **OVA appliance path**
+  - A hypervisor that supports importing `.ova` appliances.
+  - Ability to create and boot a VM with the resources required by your environment baseline.
+- **Windows agent path**
+  - A supported Windows host where you can run services.
+  - Local administrator permissions to install/uninstall services and manage firewall rules.
+  - PowerShell access for installation and troubleshooting commands.
+
+Also required:
+
+- Access to download the OVA image or Windows agent package from the console.
 
 ---
 

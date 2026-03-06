@@ -12,7 +12,7 @@ set :deploy_to, "/var/www/#{fetch(:application)}"
 
 # Deployment user
 set :deploy_user, "deploy"
-set :server_name, "portal.honeyops.net"
+set :server_name, "console.honeyops.net"
 
 # ===============================
 #   RUBY / RBENV

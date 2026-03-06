@@ -2,7 +2,7 @@
 
 HoneyOps is a cloud-managed honeypot platform designed to help security teams detect early-stage intrusions with minimal operational overhead.
 
-Traditional honeypots are difficult to deploy, maintain and monitor. HoneyOps eliminates that complexity by providing a **pre-built virtual appliance** and a **centralised management console**, letting you operate multiple honeypots across different environments with a unified workflow.
+Traditional honeypots are difficult to deploy, maintain and monitor. HoneyOps eliminates that complexity by providing a **pre-built OVA appliance or native Windows agent** plus a **centralised management console**, letting you operate multiple honeypots across different environments with a unified workflow.
 
 ---
 
@@ -28,14 +28,16 @@ Honeypots are an effective defensive tool because they:
 
 HoneyOps delivers all benefits of honeypots without the operational burden.
 
-### ✔ Pre-configured virtual appliance  
-You deploy a ready-to-run `.ova` image in your hypervisor (VMware, VirtualBox, Proxmox, Hyper-V, etc.). No tuning or OS hardening is required.
+### ✔ Flexible deployment flavors
+Choose the format that fits your environment:
+- **OVA appliance** - deploy a ready-to-run `.ova` in your hypervisor (VMware, VirtualBox, Proxmox, Hyper-V, etc.).
+- **Windows agent** - install HoneyOpsAgent as a Windows service on an existing host.
 
 ### ✔ Central cloud console  
 A secure web console where you manage all honeypots, monitor alerts, configure policies and handle licensing.
 
 ### ✔ Lightweight, privacy-safe telemetry  
-The appliance only sends:
+The honeypot endpoint only sends:
 - Health checks (heartbeat, version, resource usage)
 - Security incident telemetry (attacker interactions)
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Honeypots** page is the main workspace for creating, enrolling, monitoring, and managing honeypots. It combines status, policy assignment, licensing, and lifecycle actions in a single table view.
+The **Honeypots** page is the main workspace for creating, enrolling, monitoring, and managing honeypots. It combines status, policy assignment, licensing, and lifecycle actions in a single table view for both deployment flavors (OVA appliance and Windows agent).
 
 ---
 
@@ -74,7 +74,9 @@ Toggles are disabled when there are no available seats or the trial has ended.
 3. Copy the **Enrollment token** from the modal.
    - The token is shown only once.
    - The token expires at the time shown in the modal.
-4. Paste the token into the appliance during enrollment.
+4. Paste the token into the selected deployment flow during enrollment.
+   - OVA path: paste it in the VM setup flow.
+   - Windows path: paste it during `HoneyOpsAgent.exe --install`.
 
 If you lose the token or it expires, use **Re-enroll** to generate a new one.
 

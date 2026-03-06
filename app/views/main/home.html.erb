@@ -1,5 +1,5 @@
 <% content_for :title, "HoneyOps | Honeypots as a Service" %>
-<% content_for :meta_description, "Deploy realistic honeypots in minutes. HoneyOps delivers agentless OVA decoys with centralized alerts, policies, and reporting." %>
+<% content_for :meta_description, "Deploy realistic honeypots in minutes. HoneyOps supports OVA appliances and Windows agents with centralized alerts, policies, and reporting." %>
 
 <style>
   html {
@@ -69,7 +69,7 @@
             <%= honey_icon(:shield, classes: "h-4 w-4") %> Deception-first security
           </span>
           <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
-            <%= honey_icon(:server, classes: "h-4 w-4") %> Agentless OVA
+            <%= honey_icon(:server, classes: "h-4 w-4") %> OVA + Windows agent
           </span>
           <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
             <%= honey_icon(:network, classes: "h-4 w-4") %> On-prem &amp; cloud
@@ -82,7 +82,7 @@
 
         <p class="mt-6 text-lg leading-8 text-slate-300">
           Set up a powerful intrusion-detection trap in minutes — simple to deploy, effortless to manage, and ready to alert you at the first sign of trouble.
-          HoneyOps delivers realistic decoys as a lightweight <code class="text-amber-300">.ova</code> VM, managed from a single secure console.
+          HoneyOps delivers realistic decoys as a lightweight <code class="text-amber-300">.ova</code> VM or a native Windows agent, managed from a single secure console.
         </p>
 
         <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -99,7 +99,7 @@
         </p>
       </div>
 
-      <!-- VM Card -->
+      <!-- Deployment Card -->
       <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl backdrop-blur">
         <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-2">
@@ -110,25 +110,25 @@
         </div>
 
         <div class="rounded-xl overflow-hidden border border-slate-800 bg-black shadow-inner">
-          <img src="/hpot_screen.png" alt="HoneyOps VM" class="w-full object-cover">
+          <img src="/hpot_screen.png" alt="HoneyOps deployment" class="w-full object-cover">
         </div>
 
         <ul class="mt-4 space-y-2 text-sm text-slate-300">
           <li class="flex items-center gap-2">
             <%= honey_icon(:download, classes: "h-4 w-4 text-amber-400") %>
-            Download the <code class="text-amber-300">.ova</code> image
+            Choose your package: <code class="text-amber-300">.ova</code> or Windows agent
           </li>
           <li class="flex items-center gap-2">
             <%= honey_icon(:key, classes: "h-4 w-4 text-amber-400") %>
-            Secure enrollment with a one-time hook key
+            Secure enrollment with a one-time token
           </li>
           <li class="flex items-center gap-2">
             <%= honey_icon(:settings, classes: "h-4 w-4 text-amber-400") %>
-            Name, policy &amp; maintenance window
+            Apply policy, services &amp; maintenance windows
           </li>
           <li class="flex items-center gap-2">
             <%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %>
-            You're already safer
+            Start receiving telemetry and alerts
           </li>
         </ul>
       </div>
@@ -245,18 +245,18 @@
       <div class="mx-auto mb-10 max-w-3xl text-center">
         <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Setup</div>
         <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-          From first VM to first alert in five steps
+          From first deployment to first alert in five steps
         </h2>
         <p class="mt-3 text-slate-300">
-          No agents. No firewall surgery. Just import our OVA, enroll the honeypot, and start watching for high-signal alerts.
+          Choose your deployment flavor: import the OVA appliance or install the Windows agent, enroll once, and start watching for high-signal alerts.
         </p>
       </div>
 
       <ol class="mx-auto max-w-4xl space-y-5">
         <% [
           { n: 1, title: "Create your account", desc: "Sign up in the HoneyOps console to manage your honeypots, policies and users from a central, secure dashboard." },
-          { n: 2, title: "Download the .ova",   desc: "Import the HoneyOps virtual appliance into your preferred hypervisor (VirtualBox, VMware, ESXi, Proxmox, etc.)." },
-          { n: 3, title: "Enroll the honeypot", desc: "Boot the VM, retrieve the one-time pairing key, and register the honeypot so it becomes securely managed by your account." },
+          { n: 2, title: "Choose deployment type", desc: "Download the .ova for your hypervisor or the native Windows agent package from the HoneyOps console." },
+          { n: 3, title: "Install and enroll", desc: "Import and boot the VM or install the Windows service, then use the enrollment token to link the honeypot to your account." },
           { n: 4, title: "Configure its policy", desc: "Define listening ports, maintenance windows, and the notification channel for alerts (email, webhook, syslog/SIEM)." },
           { n: 5, title: "Stay alert",          desc: "Once active, every interaction with your honeypots becomes a high-signal alert. Review, triage and act directly from the console." }
         ].each do |step| %>
@@ -478,16 +478,20 @@
       <div class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
         <% [
           {
+            q: "What deployment formats are supported?",
+            a: "HoneyOps supports two flavors: a .ova virtual appliance and a native Windows agent service."
+          },
+          {
             q: "What hypervisors does the .ova support?",
             a: "Any OVA-compatible hypervisor such as VMware Workstation, ESXi, Proxmox, and Oracle VirtualBox."
           },
           {
             q: "Can I run on a static IP?",
-            a: "Yes. You can configure either DHCP or a static IP directly from the VM console during initial setup."
+            a: "Yes. OVA deployments support DHCP or static IP during VM setup, and Windows deployments use the host network configuration."
           },
           {
             q: "How does the pairing token work?",
-            a: "On first boot, the honeypot generates a unique pairing token displayed on the console. Paste it into HoneyOps when creating a new honeypot, and the agent will automatically link to your account."
+            a: "The console issues a one-time enrollment token. Use it during OVA setup or Windows agent install to link the honeypot securely to your account."
           },
           {
             q: "What notifications will I receive?",

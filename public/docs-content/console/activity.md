@@ -51,23 +51,6 @@ Selecting “All honeypots” displays activity from all available honeypots.
 
 ---
 
-### Page Size
-
-The number of activities shown per page can be adjusted:
-
-- 25
-- 50
-- 100
-- 200
-
----
-
-## Refreshing Data
-
-The **Refresh** button reloads the activity list using the current filters and settings, ensuring you are viewing the latest available data.
-
----
-
 ## Pagination and Ordering
 
 The activity list supports cursor-based navigation:
@@ -128,7 +111,7 @@ This detailed view is useful for investigation and forensic analysis.
 ## Error Handling
 
 If data cannot be loaded, a warning message is displayed explaining the issue.  
-Users can retry loading the data using the **Refresh** button.
+Users can retry loading the data after checking connectivity and current filters.
 
 ---
 

@@ -54,23 +54,6 @@ Alerts can be filtered by their current state:
 
 ---
 
-### Page Size
-
-The number of alerts displayed per page can be adjusted:
-
-- 25
-- 50
-- 100
-- 200
-
----
-
-### Refresh
-
-The **Refresh** button reloads the alerts list using the current filters to ensure up-to-date information.
-
----
-
 ## Alert States
 
 Alerts can have different states that reflect their lifecycle:
