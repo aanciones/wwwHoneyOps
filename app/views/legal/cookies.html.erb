@@ -1,87 +1,71 @@
 <% content_for :title, "HoneyOps | Cookie Policy" %>
-<% content_for :meta_description, "Cookie policy for HoneyOps, detailing essential session and security cookies and how to manage them." %>
+<% content_for :meta_description, "Cookie Policy for HoneyOps describing strictly necessary cookies and browser management options." %>
 
 <div class="min-h-screen bg-slate-950 text-slate-100">
-  <div class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-      Cookie Policy
-    </h1>
-    <p class="mt-2 text-sm text-slate-400">
-      Last updated: 2025
-    </p>
+  <%= render "main/site_header" %>
 
-    <p class="mt-6 text-slate-300">
-      This website (honeyops.net and related subdomains) uses only
-      strictly necessary cookies to ensure the technical operation and security of the
-      HoneyOps platform. We do not use cookies for advertising, behavioural tracking,
-      or advanced analytics.
-    </p>
+  <main>
+    <section class="border-b border-slate-900 bg-slate-950 py-16">
+      <div class="mx-auto max-w-4xl px-6">
+        <h1 class="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">Cookie Policy</h1>
+        <p class="mt-3 text-sm text-slate-400">Last updated: March 12, 2026</p>
+        <p class="mt-6 text-slate-300">
+          This policy explains how HoneyOps uses cookies on honeyops.net and related service domains.
+          We use only cookies that are strictly necessary for secure operation of the platform.
+        </p>
+      </div>
+    </section>
 
-    <h2 class="mt-8 text-xl font-semibold text-slate-100">
-      1. What are cookies?
-    </h2>
-    <p class="mt-3 text-slate-300">
-      Cookies are small text files that are stored on your device when you visit a
-      website. They help websites remember information about your visit, such as your
-      session or preferences, so that the site can function correctly.
-    </p>
+    <section class="bg-slate-950 py-16">
+      <div class="mx-auto max-w-4xl space-y-8 px-6 text-slate-300">
+        <section>
+          <h2 class="text-xl font-semibold text-slate-100">1. What are cookies?</h2>
+          <p class="mt-3 text-sm">
+            Cookies are small text files stored on your device by websites to maintain state and
+            remember information needed for normal functionality.
+          </p>
+        </section>
 
-    <h2 class="mt-8 text-xl font-semibold text-slate-100">
-      2. Cookies we use
-    </h2>
-    <p class="mt-3 text-slate-300">
-      HoneyOps uses only essential cookies required for the provision of the service:
-    </p>
+        <section>
+          <h2 class="text-xl font-semibold text-slate-100">2. Cookies we use</h2>
+          <p class="mt-3 text-sm">HoneyOps uses only essential cookies, including:</p>
+          <ul class="mt-3 list-disc space-y-2 pl-6 text-sm">
+            <li><span class="font-semibold text-slate-100">Session cookie</span> (for example `_honeyops_session`) to maintain secure login sessions.</li>
+            <li><span class="font-semibold text-slate-100">Security cookies</span> used for protection mechanisms such as CSRF mitigation.</li>
+          </ul>
+        </section>
 
-    <ul class="mt-3 space-y-2 text-sm text-slate-300">
-      <li>
-        <span class="font-semibold text-slate-100">Session cookie</span>
-        (e.g. <code class="text-amber-300">_honeyops_session</code>):
-        used to keep you logged in securely to the HoneyOps console.
-      </li>
-      <li>
-        <span class="font-semibold text-slate-100">Security cookies</span>
-        (such as CSRF-related tokens): used to protect forms and logins against abuse
-        and fraudulent activity.
-      </li>
-    </ul>
+        <section>
+          <h2 class="text-xl font-semibold text-slate-100">3. Cookies we do not use</h2>
+          <ul class="mt-3 list-disc space-y-2 pl-6 text-sm">
+            <li>Advertising or marketing cookies.</li>
+            <li>Social media tracking pixels.</li>
+            <li>Behavioral profiling or fingerprinting techniques.</li>
+            <li>Non-essential analytics cookies.</li>
+          </ul>
+        </section>
 
-    <p class="mt-3 text-slate-300">
-      These cookies are classified as <span class="font-medium">strictly necessary</span>
-      and do not require your consent under EU law, as they are essential for providing
-      the service you actively request (secure access to the HoneyOps platform).
-    </p>
+        <section>
+          <h2 class="text-xl font-semibold text-slate-100">4. Browser controls</h2>
+          <p class="mt-3 text-sm">
+            You can block or delete cookies in your browser settings. If essential cookies are disabled,
+            parts of the HoneyOps platform may not function correctly, including authentication.
+          </p>
+        </section>
 
-    <h2 class="mt-8 text-xl font-semibold text-slate-100">
-      3. Cookies we do not use
-    </h2>
-    <p class="mt-3 text-slate-300">
-      HoneyOps does <span class="font-semibold">not</span> use:
-    </p>
-    <ul class="mt-3 list-disc space-y-1 pl-6 text-slate-300 text-sm">
-      <li>Advertising or marketing cookies.</li>
-      <li>Advanced analytics cookies (such as Google Analytics, Matomo, etc.).</li>
-      <li>Social media tracking pixels or similar technologies.</li>
-      <li>Browser fingerprinting or equivalent tracking methods.</li>
-    </ul>
+        <section>
+          <h2 class="text-xl font-semibold text-slate-100">5. Contact</h2>
+          <p class="mt-3 text-sm">
+            For any question regarding cookies and privacy,
+            contact <a href="mailto:privacy@honeyops.net" class="text-amber-400 hover:underline">privacy@honeyops.net</a>.
+          </p>
+          <p class="mt-2 text-sm">
+            See also our <%= link_to "Privacy Policy", privacy_path, class: "text-amber-400 hover:underline" %>.
+          </p>
+        </section>
+      </div>
+    </section>
+  </main>
 
-    <h2 class="mt-8 text-xl font-semibold text-slate-100">
-      4. Managing cookies in your browser
-    </h2>
-    <p class="mt-3 text-slate-300">
-      You can configure your browser to block or delete cookies at any time. However,
-      if you disable essential cookies, parts of the HoneyOps platform (including the
-      login process) may no longer function correctly.
-    </p>
-
-    <h2 class="mt-8 text-xl font-semibold text-slate-100">
-      5. Contact
-    </h2>
-    <p class="mt-3 text-slate-300">
-      If you have any questions about this Cookie Policy, please contact us at:
-      <a href="mailto:privacy@honeyops.net" class="text-amber-400 hover:underline">
-        info@honeyops.net
-      </a>.
-    </p>
-  </div>
+  <%= render "main/site_footer" %>
 </div>

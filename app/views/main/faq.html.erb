@@ -1,0 +1,82 @@
+<% content_for :title, "HoneyOps FAQ | Deployment, Alerts, and Operations" %>
+<% content_for :meta_description, "Frequently asked questions about HoneyOps deployment formats, integrations, alerting, data collection, and operational best practices." %>
+
+<div class="min-h-screen bg-slate-950 text-slate-100">
+  <%= render "main/site_header", active: :faq %>
+
+  <main>
+    <section class="border-b border-slate-900 bg-slate-950 py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-4xl text-center">
+          <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">FAQ</div>
+          <h1 class="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
+            Frequently asked questions
+          </h1>
+          <p class="mt-4 text-lg text-slate-300">
+            Answers about deployment, integrations, billing, and security operations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-950 py-16">
+      <div class="mx-auto max-w-5xl px-6">
+        <p class="mb-8 text-center text-sm text-slate-400">
+          Quick answers for technical and operational questions.
+        </p>
+
+        <div class="space-y-6">
+        <% [
+          {
+            q: "What deployment formats are supported?",
+            a: "HoneyOps supports two deployment options: an OVA virtual appliance and a native Windows agent service. You can choose the format that best fits each environment and still manage both from the same console workflow."
+          },
+          {
+            q: "Which hypervisors are compatible with the OVA?",
+            a: "Any OVA-compatible hypervisor is a valid target, including common setups based on VMware, Proxmox, and VirtualBox. If your platform supports standard OVA import, you can deploy HoneyOps with the same process your team already uses for virtual appliances."
+          },
+          {
+            q: "Can I deploy with static IP addresses?",
+            a: "Yes. OVA deployments can be configured with static or DHCP networking depending on your segmentation policy, and Windows deployments follow the host networking configuration. This makes it easy to align HoneyOps with existing addressing and routing standards."
+          },
+          {
+            q: "How does enrollment work?",
+            a: "The console issues a one-time pairing token for each enrollment operation. During installation, the honeypot uses that token to link securely to your account, so only approved instances can register and start sending telemetry."
+          },
+          {
+            q: "Where can alerts be sent?",
+            a: "Policy rules support email notifications and operational destinations such as webhook and SIEM-compatible channels. You can route detections to the same monitoring and response tools your team already uses every day."
+          },
+          {
+            q: "Do honeypots auto-update?",
+            a: "Honeypots can periodically check for agent updates to keep the platform current. Update behavior depends on your configuration and release policy, so you can align maintenance with your internal change windows."
+          },
+          {
+            q: "What data is collected?",
+            a: "HoneyOps collects security interaction telemetry and operational metadata required for incident triage and health monitoring. The focus is on deception events and platform status, not on collecting normal user activity from your production workloads."
+          },
+          {
+            q: "Can HoneyOps integrate with Zabbix?",
+            a: "Yes. HoneyOps provides a Zabbix template and a clear configuration flow so incident signals and connectivity state can be surfaced directly in Zabbix. This helps keep security detections visible in the same operational dashboard used by your monitoring team."
+          },
+          {
+            q: "Is there a trial?",
+            a: "Yes. You can start with 1 trial honeypot for 30 days to validate deployment, alerting, and day-to-day operations. After the trial, billing moves to the standard per-honeypot monthly model."
+          },
+          {
+            q: "How is access controlled for teams?",
+            a: "The console provides user and role controls so only authorized team members can view or modify honeypot configuration and incidents. This allows security and operations teams to collaborate while keeping permissions aligned with internal governance."
+          }
+        ].each do |item| %>
+          <article class="border-b border-slate-800 pb-6 last:border-b-0">
+            <h2 class="font-semibold text-amber-200"><%= item[:q] %></h2>
+            <p class="mt-2 text-sm leading-7 text-slate-300"><%= item[:a] %></p>
+          </article>
+        <% end %>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%= render "main/site_footer" %>
+</div>

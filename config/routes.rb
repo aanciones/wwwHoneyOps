@@ -1,28 +1,28 @@
 Rails.application.routes.draw do
+  get "/favicon.ico", to: redirect("/favicon.png")
   get "/sitemap.xml", to: "seo#sitemap"
 
   # --- DOMINIO DE DOCUMENTACIÓN ---
-  # docs.honeyops.test → DocsController#index
-  constraints(lambda { |req| req.subdomain == "docs" }) do
-    root to: "docs#index", as: :docs_root
-
-    # Ejemplo de más rutas de documentación:
-    # get "/getting-started", to: "docs#getting_started"
-
-    get "*path", to: "docs#index", constraints: ->(req) { !req.path.include?(".") }
-  end
+  # docs.honeyops.test -> DocsController#index
+  get "/", to: "docs#index", as: :docs_root, constraints: ->(req) { req.subdomain == "docs" }
+  get "*path", to: "docs#index", constraints: ->(req) { req.subdomain == "docs" && !req.path.include?(".") }
 
   # --- DOMINIO PRINCIPAL ---
-  # honeyops.test y www.honeyops.test → MainController#home
+  # honeyops.test y www.honeyops.test -> MainController
   constraints(lambda { |req|
     req.subdomain.blank? || req.subdomain == "www"
   }) do
     root to: "main#home"
 
+    get "/how-it-works", to: "main#how_it_works", as: :how_it_works
+    get "/integrations", to: "main#integrations", as: :integrations
+    get "/pricing", to: "main#pricing", as: :pricing
+    get "/faq", to: "main#faq", as: :faq
+    get "/contact", to: "main#contact", as: :contact
+
     # Legal
     get "/cookies", to: "legal#cookies", as: :cookies
-    get "/privacy", to: "legal#privacy", as: :privacy   # opcional, para más adelante
-
+    get "/privacy", to: "legal#privacy", as: :privacy
   end
 
   # --- MANTENIMIENTO / SALUD ---

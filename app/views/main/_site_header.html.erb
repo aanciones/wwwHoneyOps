@@ -1,0 +1,59 @@
+<% active ||= nil %>
+<% nav_link = ->(key) { active == key ? "text-amber-400" : "text-slate-300 hover:text-amber-400" } %>
+
+<header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <%= link_to root_path, class: "flex items-center gap-3" do %>
+      <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2">
+        <span class="text-amber-400">
+          <%= honey_icon(:shield, classes: "h-5 w-5") %>
+        </span>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-base font-bold leading-tight text-slate-100">HoneyOps</span>
+        <span class="text-xs leading-tight text-slate-400">Honeypots as a Service</span>
+      </div>
+    <% end %>
+
+    <nav class="hidden items-center gap-5 text-sm font-medium md:flex">
+      <%= link_to "Home", root_path, class: nav_link.call(:home) %>
+      <%= link_to "How it works", how_it_works_path, class: nav_link.call(:how_it_works) %>
+      <%= link_to "Integrations", integrations_path, class: nav_link.call(:integrations) %>
+      <%= link_to "Pricing", pricing_path, class: nav_link.call(:pricing) %>
+      <%= link_to "FAQ", faq_path, class: nav_link.call(:faq) %>
+      <%= link_to "Contact", contact_path, class: nav_link.call(:contact) %>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="https://console.honeyops.net"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-900"
+      >
+        <%= honey_icon(:log_in, classes: "h-4 w-4 text-amber-400") %>
+        <span class="hidden sm:inline">Console</span>
+      </a>
+      <a
+        href="https://docs.honeyops.net"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-3 py-2 text-sm font-semibold text-slate-950 shadow hover:bg-amber-400"
+      >
+        <%= honey_icon(:docs, classes: "h-4 w-4 text-slate-950") %>
+        <span class="hidden sm:inline">Docs</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-800 md:hidden">
+    <div class="mx-auto flex max-w-7xl gap-4 overflow-x-auto px-6 py-3 text-xs font-medium">
+      <%= link_to "Home", root_path, class: nav_link.call(:home) %>
+      <%= link_to "How it works", how_it_works_path, class: nav_link.call(:how_it_works) %>
+      <%= link_to "Integrations", integrations_path, class: nav_link.call(:integrations) %>
+      <%= link_to "Pricing", pricing_path, class: nav_link.call(:pricing) %>
+      <%= link_to "FAQ", faq_path, class: nav_link.call(:faq) %>
+      <%= link_to "Contact", contact_path, class: nav_link.call(:contact) %>
+    </div>
+  </div>
+</header>

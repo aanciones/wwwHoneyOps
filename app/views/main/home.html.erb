@@ -1,984 +1,225 @@
 <% content_for :title, "HoneyOps | Honeypots as a Service" %>
 <% content_for :meta_description, "Deploy realistic honeypots in minutes. HoneyOps supports OVA appliances and Windows agents with centralized alerts, policies, and reporting." %>
 
-<style>
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
-
 <div class="min-h-screen bg-slate-950 text-slate-100">
-  <!-- Header -->
-  <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-      <a href="#top" onclick="scrollTopOverride(event)" class="flex items-center gap-3">
-        <div class="flex items-center gap-3">
-          <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2">
-            <span class="text-amber-400">
-              <%= honey_icon(:shield, classes: "h-6 w-6") %>
+  <%= render "main/site_header", active: :home %>
+
+  <main>
+    <section class="relative overflow-hidden border-b border-slate-900">
+      <div class="absolute inset-0 -z-10 bg-[radial-gradient(1100px_560px_at_50%_-90px,rgba(245,158,11,0.18),transparent)]"></div>
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2">
+        <div>
+          <div class="mb-4 flex flex-wrap gap-2">
+            <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
+              <%= honey_icon(:shield, classes: "h-4 w-4") %> Deception-first security
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
+              <%= honey_icon(:server, classes: "h-4 w-4") %> OVA + Windows agent
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
+              <%= honey_icon(:network, classes: "h-4 w-4") %> On-prem and cloud
             </span>
           </div>
-          <div class="flex flex-col">
-            <span class="text-lg font-bold leading-tight text-slate-100">
-              HoneyOps
-            </span>
-            <span class="text-xs leading-tight text-slate-400">
-              Honeypots as a Service
-            </span>
-          </div>
-        </div>
-      </a>
 
-      <nav class="hidden items-center gap-6 text-sm font-medium md:flex">
-        <a href="#features" class="text-slate-300 hover:text-amber-400">Features</a>
-        <a href="#how" class="text-slate-300 hover:text-amber-400">How it works</a>
-        <a href="#integrations" class="text-slate-300 hover:text-amber-400">Integrations</a>
-        <a href="#pricing" class="text-slate-300 hover:text-amber-400">Pricing</a>
-        <a href="#faq" class="text-slate-300 hover:text-amber-400">FAQ</a>
-      </nav>
+          <h1 class="text-4xl font-extrabold tracking-tight text-slate-100 sm:text-6xl">
+            Honeypots as a Service
+          </h1>
 
-      <div class="flex items-center gap-3">
-        <a
-          href="https://console.honeyops.net"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-900"
-        >
-          <%= honey_icon(:log_in, classes: "h-4 w-4 text-amber-400") %> Console
-        </a>
-        <a
-          href="https://docs.honeyops.net"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow hover:bg-amber-400"
-        >
-          <%= honey_icon(:docs, classes: "h-4 w-4 text-slate-950") %>
-          Docs
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="top" class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 bg-[radial-gradient(1200px_600px_at_50%_-100px,rgba(245,158,11,0.18),transparent)]"></div>
-    <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2">
-      <div>
-        <div class="mb-4 flex flex-wrap gap-2">
-          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
-            <%= honey_icon(:shield, classes: "h-4 w-4") %> Deception-first security
-          </span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
-            <%= honey_icon(:server, classes: "h-4 w-4") %> OVA + Windows agent
-          </span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-sm text-amber-200">
-            <%= honey_icon(:network, classes: "h-4 w-4") %> On-prem &amp; cloud
-          </span>
-        </div>
-
-        <h1 class="text-4xl font-extrabold tracking-tight text-slate-100 sm:text-6xl">
-          Honeypots as a Service
-        </h1>
-
-        <p class="mt-6 text-lg leading-8 text-slate-300">
-          Set up a powerful intrusion-detection trap in minutes — simple to deploy, effortless to manage, and ready to alert you at the first sign of trouble.
-          HoneyOps delivers realistic decoys as a lightweight <code class="text-amber-300">.ova</code> VM or a native <code class="text-amber-300">Windows agent</code>, managed from a single secure console.
-        </p>
-
-        <div class="mt-8 flex flex-wrap items-center gap-3">
-          <a href="#pricing" class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 font-semibold text-slate-950 shadow hover:bg-amber-400">
-            See pricing
-          </a>
-          <a href="#how" class="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:bg-slate-900">
-            How it works
-          </a>
-        </div>
-
-        <p class="mt-4 text-xs text-slate-400">
-          1 trial honeypot for 30 days. Then $10/month per honeypot.
-        </p>
-      </div>
-
-      <!-- Deployment Card -->
-      <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl backdrop-blur">
-        <div class="mb-4 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-amber-400"><%= honey_icon(:cpu, classes: "h-5 w-5") %></span>
-            <span class="text-sm font-semibold text-slate-100">Getting started</span>
-          </div>
-          <span class="rounded-full bg-emerald-400/15 px-2 py-1 text-xs font-semibold text-emerald-300">Ready</span>
-        </div>
-
-        <div class="rounded-xl overflow-hidden border border-slate-800 bg-black shadow-inner">
-          <img src="/hpot_screen.png" alt="HoneyOps deployment" class="w-full object-cover">
-        </div>
-
-        <ul class="mt-4 space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2">
-            <%= honey_icon(:download, classes: "h-4 w-4 text-amber-400") %>
-            Choose your package: <code class="text-amber-300">.ova</code> or <code class="text-amber-300">Windows agent</code>
-          </li>
-          <li class="flex items-center gap-2">
-            <%= honey_icon(:key, classes: "h-4 w-4 text-amber-400") %>
-            Secure enrollment with a one-time token
-          </li>
-          <li class="flex items-center gap-2">
-            <%= honey_icon(:settings, classes: "h-4 w-4 text-amber-400") %>
-            Apply policy, services &amp; maintenance windows
-          </li>
-          <li class="flex items-center gap-2">
-            <%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %>
-            Start receiving telemetry and alerts
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="border-t border-slate-900 bg-slate-950 py-20 scroll-mt-14">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="mx-auto mb-10 max-w-3xl text-center">
-        <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Platform</div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-          Everything you need to run and act on honeypots
-        </h2>
-        <p class="mt-3 text-slate-300">
-          From provisioning to triage, HoneyOps keeps your team focused on signal, not noise.
-        </p>
-      </div>
-
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <% [
-          { icon: :server,  title: "Honeypots",    desc: "Create, pair, tag, and monitor realistic decoys across sites and clouds." },
-          { icon: :settings, title: "Policies",    desc: "Define per-pot rules: incident destination, health-check cadence, maintenance windows and mute periods." },
-          { icon: :activity, title: "Activity",    desc: "Activity logging on honeypots with all the information needed to perform forensic analysis." },
-          { icon: :bell,     title: "Alerts",      desc: "Activity on honeypots becomes a trackable alert that you must review, comment on, and close." },
-          { icon: :report,   title: "Reports",     desc: "Digest activity trends and export weekly, monthly, or on-demand reports for your stakeholders." },
-          { icon: :users,    title: "Users & Roles", desc: "Granular access for the IT team to ensure optimal management of activity and alerts." },
-        ].each do |feature| %>
-          <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm hover:shadow md:p-7">
-            <div class="mb-4 inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
-              <%= honey_icon(feature[:icon], classes: "h-6 w-6") %>
-            </div>
-            <h3 class="text-lg font-semibold text-slate-100"><%= feature[:title] %></h3>
-            <p class="mt-2 text-slate-300"><%= feature[:desc] %></p>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why honeypots matter -->
-  <section class="border-t border-slate-900 bg-slate-950/95 py-16">
-    <div class="mx-auto max-w-7xl px-6 grid gap-10 lg:grid-cols-2 lg:items-center">
-      <!-- Text -->
-      <div>
-        <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">
-          Why detection still matters
-        </div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-          When prevention fails, you still need a tripwire inside your network
-        </h2>
-        <p class="mt-4 text-slate-300">
-          Most organisations invest heavily in preventive controls – firewalls, VPNs, endpoint protection,
-          authentication policies. That’s essential. But if an attacker manages to slip past those layers,
-          you need a way to <span class="font-semibold text-slate-100">detect that they are already inside</span>
-          and moving through your environment.
-        </p>
-        <p class="mt-4 text-slate-300">
-          A honeypot gives you exactly that: a realistic, low–risk asset that should never be touched in
-          normal operations. If an attacker scans it, logs in, or tries to move laterally through it,
-          you immediately know something is wrong – and you know where to start looking.
-        </p>
-        <ul class="mt-6 space-y-2 text-sm text-slate-300">
-          <li class="flex gap-2">
-            <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
-            <span><span class="font-medium text-slate-100">Assume breach</span> instead of relying only on perimeter controls.</span>
-          </li>
-          <li class="flex gap-2">
-            <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
-            <span><span class="font-medium text-slate-100">Turn attacker curiosity into signal</span> with believable decoys.</span>
-          </li>
-          <li class="flex gap-2">
-            <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
-            <span><span class="font-medium text-slate-100">Gain time to respond</span> before real assets are touched.</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Visual / image placeholder -->
-      <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl">
-        <div class="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-400">
-          Conceptual diagram
-        </div>
-        <div class="rounded-2xl border border-dashed border-amber-500/40 bg-slate-950/60 p-5 text-sm text-slate-300">
-          <p class="font-medium text-slate-100 mb-3">
-            How a honeypot turns a silent intrusion into a clear alert
-          </p>
-          <ol class="space-y-2 text-xs sm:text-sm">
-            <li>
-              <span class="font-semibold text-amber-300">1. </span>
-              Attacker bypasses preventive controls and lands inside the network.
-            </li>
-            <li>
-              <span class="font-semibold text-amber-300">2. </span>
-              While scanning or moving laterally, they interact with a HoneyOps honeypot.
-            </li>
-            <li>
-              <span class="font-semibold text-amber-300">3. </span>
-              The honeypot triggers a high-fidelity alert into your console, SIEM or email.
-            </li>
-            <li>
-              <span class="font-semibold text-amber-300">4. </span>
-              Your team investigates early, before production assets are compromised.
-            </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How it works -->
-  <section id="how" class="py-20 scroll-mt-14">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="mx-auto mb-10 max-w-3xl text-center">
-        <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Setup</div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-          From first deployment to first alert in five steps
-        </h2>
-        <p class="mt-3 text-slate-300">
-          Choose your deployment flavor: import the OVA appliance or install the Windows agent, enroll once, and start watching for high-signal alerts.
-        </p>
-      </div>
-
-      <ol class="mx-auto max-w-4xl space-y-5">
-        <% [
-          { n: 1, title: "Create your account", desc: "Sign up in the HoneyOps console to manage your honeypots, policies and users from a central, secure dashboard." },
-          { n: 2, title: "Choose deployment type", desc: "Download the .ova for your hypervisor or the native Windows agent package from the HoneyOps console." },
-          { n: 3, title: "Install and enroll", desc: "Import and boot the VM or install the Windows service, then use the enrollment token to link the honeypot to your account." },
-          { n: 4, title: "Configure its policy", desc: "Define listening ports, maintenance windows, and the notification channel for alerts (email, webhook, syslog/SIEM)." },
-          { n: 5, title: "Stay alert",          desc: "Once active, every interaction with your honeypots becomes a high-signal alert. Review, triage and act directly from the console." }
-        ].each do |step| %>
-          <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
-              <%= step[:n] %>
-            </div>
-            <div>
-              <h3 class="text-base font-semibold text-slate-100"><%= step[:title] %></h3>
-              <p class="mt-1 text-sm text-slate-300"><%= step[:desc] %></p>
-            </div>
-          </li>
-        <% end %>
-      </ol>
-
-      <div class="mx-auto mt-10 max-w-3xl rounded-2xl border border-dashed border-amber-500/30 bg-amber-500/10 p-6 text-sm text-amber-200">
-        <p class="flex items-start gap-2">
-          <span class="mt-0.5 text-amber-300">
-            <%= honey_icon(:bell, classes: "h-4 w-4") %>
-          </span>
-          <span>
-            <span class="font-semibold">Policy controls</span> let you set the
-            <span class="font-medium">incident destination</span> (email, webhook, syslog or SIEM),
-            the <span class="font-medium">status reporting cadence</span> (daily / weekly / monthly),
-            plus a <span class="font-medium">maintenance window</span> to temporarily mute notifications during planned work.
-          </span>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Integrations -->
-  <section id="integrations" class="border-t border-slate-900 bg-slate-950/95 py-16 scroll-mt-14">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="mx-auto mb-8 max-w-3xl text-center">
-        <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Integrations</div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-          Bring HoneyOps alerts into your monitoring stack
-        </h2>
-        <p class="mt-3 text-slate-300">
-          HoneyOps ships with a Zabbix integration so critical honeypot signals never get missed.
-        </p>
-      </div>
-
-      <div class="mb-10 flex items-center justify-center">
-        <img src="/zabbix.png" alt="Zabbix logo" class="h-20 w-auto object-contain sm:h-24" />
-      </div>
-
-      <div class="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-sm">
-          <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
-            Zabbix Monitoring
-          </div>
-          <h3 class="text-lg font-semibold text-slate-100">Ready-made Zabbix template</h3>
-          <p class="mt-2 text-sm text-slate-300">
-            Pull HoneyOps data directly into Zabbix using your account ID and API secret.
+          <p class="mt-6 text-lg leading-8 text-slate-300">
+            Set up a powerful intrusion-detection trap in minutes — simple to deploy, effortless to manage, and ready to alert you at the first sign of trouble. HoneyOps delivers realistic decoys as a lightweight .ova VM or a native Windows agent, managed from a single secure console.
           </p>
 
-          <ul class="mt-5 space-y-2 text-sm text-slate-300">
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <%= link_to "How it works", how_it_works_path, class: "inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 font-semibold text-slate-950 shadow hover:bg-amber-400" %>
+            <%= link_to "See pricing", pricing_path, class: "inline-flex items-center gap-2 rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:bg-slate-900" %>
+          </div>
+
+          <p class="mt-4 text-xs text-slate-400">
+            Start with 1 trial honeypot for 30 days. Then $10/month per active honeypot.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl backdrop-blur">
+          <div class="mb-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400"><%= honey_icon(:cpu, classes: "h-5 w-5") %></span>
+              <span class="text-sm font-semibold text-slate-100">Deployment preview</span>
+            </div>
+            <span class="rounded-full bg-emerald-400/15 px-2 py-1 text-xs font-semibold text-emerald-300">Ready</span>
+          </div>
+
+          <div class="overflow-hidden rounded-xl border border-slate-800 bg-black shadow-inner">
+            <img src="/hpot_screen.png" alt="HoneyOps deployment screen" class="w-full object-cover">
+          </div>
+
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex items-center gap-2">
+              <%= honey_icon(:download, classes: "h-4 w-4 text-amber-400") %>
+              Download your package (<code class="text-amber-300">.ova</code> or Windows agent)
+            </li>
+            <li class="flex items-center gap-2">
+              <%= honey_icon(:key, classes: "h-4 w-4 text-amber-400") %>
+              Pair securely with a one-time enrollment token
+            </li>
+            <li class="flex items-center gap-2">
+              <%= honey_icon(:bell, classes: "h-4 w-4 text-amber-400") %>
+              Route alerts to email, webhook, or SIEM destinations
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-slate-900 bg-slate-950 py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto mb-10 max-w-3xl text-center">
+          <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Platform</div>
+          <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+            A complete honeypot operations platform
+          </h2>
+          <p class="mt-3 text-slate-300">
+            HoneyOps covers the full lifecycle: deploy realistic decoys, enforce policies, monitor health,
+            triage alerts, and report on security activity from one central console.
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <% [
+            { icon: :server, title: "Honeypot inventory", desc: "Create, pair, tag, and monitor honeypots across sites, business units, and networks." },
+            { icon: :settings, title: "Policy engine", desc: "Define per-honeypot behavior: incident destination, heartbeat cadence, mute periods, and maintenance windows." },
+            { icon: :activity, title: "Security telemetry", desc: "Capture interaction events with enough context for incident triage and forensic investigation." },
+            { icon: :bell, title: "Incident alerts", desc: "Automatically open trackable alerts when decoys are touched, with status workflows for response teams." },
+            { icon: :report, title: "Reporting", desc: "Generate weekly, monthly, and on-demand reports for technical teams and business stakeholders." },
+            { icon: :users, title: "Users and roles", desc: "Use role-based access control so every team member sees and changes only what they should." }
+          ].each do |feature| %>
+            <article class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+              <div class="mb-4 inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
+                <%= honey_icon(feature[:icon], classes: "h-6 w-6") %>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-100"><%= feature[:title] %></h3>
+              <p class="mt-2 text-sm text-slate-300"><%= feature[:desc] %></p>
+            </article>
+          <% end %>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-slate-900 bg-slate-950/95 py-16">
+      <div class="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2 lg:items-center">
+        <div>
+          <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Why honeypots</div>
+          <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+            A tripwire for the moments prevention fails
+          </h2>
+          <p class="mt-4 text-slate-300">
+            Firewalls, endpoint controls, and MFA reduce risk, but no preventive stack is perfect.
+            HoneyOps adds a low-noise detection layer inside your environment, where attacker behavior
+            becomes visible as soon as decoys are touched.
+          </p>
+          <ul class="mt-6 space-y-2 text-sm text-slate-300">
             <li class="flex items-start gap-2">
               <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
-              <span>Detect disconnected honeypots and lost heartbeat signals.</span>
+              <span>Assume breach and detect lateral movement early.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
-              <span>Trigger high-severity alerts when HoneyOps reports active incidents.</span>
+              <span>Convert attacker curiosity into high-confidence signal.</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span>
-              <span>Keep monitoring and security alerts in one place.</span>
+              <span>Gain response time before production assets are impacted.</span>
             </li>
           </ul>
         </div>
 
-        <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-sm">
-          <div class="mb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">
-            What you get
+        <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl">
+          <div class="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-400">
+            Detection flow
           </div>
-          <div class="space-y-4 text-sm text-slate-300">
-            <div class="flex items-start gap-3">
-              <span class="mt-0.5 text-amber-400"><%= honey_icon(:bell, classes: "h-4 w-4") %></span>
-              <p>Centralize HoneyOps alerts inside your Zabbix operations view.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-0.5 text-amber-400"><%= honey_icon(:activity, classes: "h-4 w-4") %></span>
-              <p>Keep uptime and security telemetry in one place for faster response.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-0.5 text-amber-400"><%= honey_icon(:shield, classes: "h-4 w-4") %></span>
-              <p>Expand integrations over time as new monitoring targets are added.</p>
-            </div>
+          <ol class="space-y-3 text-sm text-slate-300">
+            <li><span class="font-semibold text-amber-300">1.</span> Attacker bypasses outer controls and enters the network.</li>
+            <li><span class="font-semibold text-amber-300">2.</span> Reconnaissance or lateral movement reaches a HoneyOps decoy.</li>
+            <li><span class="font-semibold text-amber-300">3.</span> HoneyOps creates a structured incident alert with technical context.</li>
+            <li><span class="font-semibold text-amber-300">4.</span> Your team investigates and contains activity before further spread.</li>
+          </ol>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <%= link_to "How it works", how_it_works_path, class: "inline-flex rounded-xl border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800" %>
+            <%= link_to "See integrations", integrations_path, class: "inline-flex rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-amber-400" %>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Pricing -->
-  <section id="pricing" class="border-t border-slate-900 bg-slate-950 py-20 scroll-mt-14">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="mx-auto mb-10 max-w-3xl text-center">
-        <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">Pricing</div>
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-          Simple, startup-friendly pricing
-        </h2>
-        <p class="mt-3 text-slate-300">
-          Start with 1 trial honeypot for 30 days. After that, it’s $10/month per active honeypot.
-        </p>
-      </div>
+    <section class="bg-slate-950 py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          <div class="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
+            <div class="absolute inset-0 -z-10 bg-[radial-gradient(600px_300px_at_10%_0%,rgba(245,158,11,0.16),transparent)]"></div>
 
-      <div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
-        <!-- Trial -->
-        <div class="relative rounded-3xl border border-amber-500/60 bg-amber-500/10 p-8 shadow-sm">
-          <div class="flex h-full flex-col">
-            <div class="absolute -top-3 left-8 rounded-full bg-amber-500 px-3 py-1 text-xs font-semibold text-slate-950 shadow">
-              30-day trial
-            </div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-amber-400">Platform snapshot</p>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
+              Real-world adoption and measurable signal
+            </h2>
+            <p class="mt-3 max-w-2xl text-sm text-slate-300">
+              HoneyOps is built for teams that need practical detection outcomes, not dashboard noise.
+            </p>
 
-            <div class="flex items-center gap-3">
-              <div class="inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
-                <%= honey_icon(:shield, classes: "h-6 w-6") %>
+            <div class="mt-8 grid gap-4 sm:grid-cols-3">
+              <div class="rounded-2xl border border-amber-500/40 bg-amber-500/10 p-4">
+                <p class="text-3xl font-extrabold text-amber-300">500+</p>
+                <p class="mt-1 text-xs uppercase tracking-wider text-amber-100">Active honeypots</p>
               </div>
-              <div>
-                <h3 class="text-lg font-semibold text-slate-100">Trial honeypot</h3>
-                <p class="text-sm text-slate-300">
-                  Validate HoneyOps with a full-featured honeypot before you scale.
-                </p>
+              <div class="rounded-2xl border border-slate-700 bg-slate-950/70 p-4">
+                <p class="text-3xl font-extrabold text-slate-100">300+</p>
+                <p class="mt-1 text-xs uppercase tracking-wider text-slate-300">Satisfied customers</p>
+              </div>
+              <div class="rounded-2xl border border-slate-700 bg-slate-950/70 p-4">
+                <p class="text-3xl font-extrabold text-slate-100">24/7</p>
+                <p class="mt-1 text-xs uppercase tracking-wider text-slate-300">Continuous detection</p>
               </div>
             </div>
+          </div>
 
-            <div class="mt-6 flex items-baseline gap-1">
-              <span class="text-4xl font-extrabold text-amber-300">$0</span>
-              <span class="text-slate-400">for 30 days</span>
+          <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Explore the platform</p>
+            <div class="mt-4 divide-y divide-slate-800">
+              <%= link_to how_it_works_path, class: "group flex items-center justify-between py-4" do %>
+                <div>
+                  <p class="text-sm font-semibold text-slate-100 group-hover:text-amber-300">How it works</p>
+                  <p class="text-xs text-slate-400">Deployment to first alert</p>
+                </div>
+                <span class="text-slate-500 group-hover:text-amber-300">-></span>
+              <% end %>
+
+              <%= link_to integrations_path, class: "group flex items-center justify-between py-4" do %>
+                <div>
+                  <p class="text-sm font-semibold text-slate-100 group-hover:text-amber-300">Integrations</p>
+                  <p class="text-xs text-slate-400">Zabbix and alert pipelines</p>
+                </div>
+                <span class="text-slate-500 group-hover:text-amber-300">-></span>
+              <% end %>
+
+              <%= link_to pricing_path, class: "group flex items-center justify-between py-4" do %>
+                <div>
+                  <p class="text-sm font-semibold text-slate-100 group-hover:text-amber-300">Pricing</p>
+                  <p class="text-xs text-slate-400">Trial and per-honeypot plan</p>
+                </div>
+                <span class="text-slate-500 group-hover:text-amber-300">-></span>
+              <% end %>
+
+              <%= link_to faq_path, class: "group flex items-center justify-between py-4" do %>
+                <div>
+                  <p class="text-sm font-semibold text-slate-100 group-hover:text-amber-300">FAQ</p>
+                  <p class="text-xs text-slate-400">Common deployment questions</p>
+                </div>
+                <span class="text-slate-500 group-hover:text-amber-300">-></span>
+              <% end %>
             </div>
-
-            <ul class="mt-6 space-y-2 text-sm">
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">1 active honeypot</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:server, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">All core platform features</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:bell, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">Email alert notifications</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:ticket, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">Basic email support</span>
-              </li>
-            </ul>
-
-            <p class="mt-auto pt-4 text-xs text-slate-400">
-              Start the trial from the console and deploy your first honeypot in minutes.
-            </p>
-          </div>
-        </div>
-
-        <!-- Per honeypot -->
-        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-sm">
-          <div class="flex h-full flex-col">
-            <div class="flex items-center gap-3">
-              <div class="inline-flex rounded-xl bg-amber-500/15 p-3 text-amber-300">
-                <%= honey_icon(:server, classes: "h-6 w-6") %>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold text-slate-100">Per honeypot</h3>
-                <p class="text-sm text-slate-300">
-                  Add as many honeypots as you need and pay only for active ones.
-                </p>
-              </div>
-            </div>
-
-            <div class="mt-6 flex items-baseline gap-1">
-              <span class="text-4xl font-extrabold text-amber-300">$10</span>
-              <span class="text-slate-400">/honeypot /month</span>
-            </div>
-
-            <ul class="mt-6 space-y-2 text-sm">
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">Scale up or down any time</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:server, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">Same core platform features</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:bell, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">Email alert notifications</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <%= honey_icon(:ticket, classes: "h-4 w-4 text-amber-400") %>
-                <span class="text-slate-300">Email support</span>
-              </li>
-            </ul>
-
-            <p class="mt-auto pt-4 text-xs text-slate-400">
-              Larger deployments or partner plans? Contact us for custom terms.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="py-20 scroll-mt-14">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="mx-auto mb-10 max-w-3xl text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
-          Frequently asked questions
-        </h2>
-      </div>
-
-      <div class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
-        <% [
-          {
-            q: "What deployment formats are supported?",
-            a: "HoneyOps supports two flavors: a .ova virtual appliance and a native Windows agent service."
-          },
-          {
-            q: "What hypervisors does the .ova support?",
-            a: "Any OVA-compatible hypervisor such as VMware Workstation, ESXi, Proxmox, and Oracle VirtualBox."
-          },
-          {
-            q: "Can I run on a static IP?",
-            a: "Yes. OVA deployments support DHCP or static IP during VM setup, and Windows deployments use the host network configuration."
-          },
-          {
-            q: "How does the pairing token work?",
-            a: "The console issues a one-time enrollment token. Use it during OVA setup or Windows agent install to link the honeypot securely to your account."
-          },
-          {
-            q: "What notifications will I receive?",
-            a: "You can configure email notifications for incidents and health checks. You may also set maintenance windows to temporarily pause notifications during planned work."
-          },
-          {
-            q: "Is there an API?",
-            a: "A public JSON API is coming soon. It will allow you to automate honeypot provisioning, manage policies, and pull incidents into your existing security tooling."
-          },
-          {
-            q: "Do honeypots auto-update?",
-            a: "Yes. Honeypots periodically check for new agent versions and can update automatically, or you may choose manual updates from the dashboard."
-          },
-          {
-            q: "What data does the honeypot collect?",
-            a: "Only security-related interaction data and minimal operational metadata. No legitimate network traffic or internal system data is collected."
-          },
-          {
-            q: "Are honeypots monitored?",
-            a: "Yes. If a honeypot is detected as disconnected or unresponsive, HoneyOps immediately triggers an alert so you can verify the cause and ensure it is not related to a potential intrusion."
-          }
-        ].each do |item| %>
-          <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm">
-            <h4 class="font-semibold text-slate-100"><%= item[:q] %></h4>
-            <p class="mt-2 text-sm text-slate-300"><%= item[:a] %></p>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Footer -->
-  <footer id="contact" class="border-t border-slate-900 bg-slate-950 py-12 text-sm">
-    <div class="mx-auto max-w-7xl px-6">
-
-      <!-- Top part: left 40% + right 60% -->
-      <div class="grid gap-8 lg:grid-cols-5">
-
-        <!-- LEFT: HoneyOps blurb (40%) -->
-        <div class="lg:col-span-2">
-          <div class="flex items-center gap-2 text-slate-100">
-            <span class="text-amber-400"><%= honey_icon(:shield, classes: "h-5 w-5") %></span>
-            <span class="font-semibold">HoneyOps</span>
-          </div>
-          <p class="mt-3 text-slate-300 text-base max-w-md">
-            Honeypots as a Service. Built for fast, reliable deception at any scale.
-          </p>
-        </div>
-
-        <!-- RIGHT: 4 columns (60%) -->
-        <div class="lg:col-span-3">
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-
-            <!-- Product -->
-            <div>
-              <div class="font-semibold text-slate-100">Product</div>
-              <ul class="mt-3 space-y-2 text-slate-300">
-                <li><a href="#features" class="hover:underline">Features</a></li>
-                <li><a href="#how" class="hover:underline">How it works</a></li>
-                <li><a href="#pricing" class="hover:underline">Pricing</a></li>
-                <li><a href="#faq" class="hover:underline">FAQ</a></li>
-              </ul>
-            </div>
-
-            <!-- Areas -->
-            <div>
-              <div class="font-semibold text-slate-100">Areas</div>
-              <ul class="mt-3 space-y-2 text-slate-300">
-                <li>
-                  <a href="https://console.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                    Console
-                  </a>
-                </li>
-                <li>
-                  <a href="https://docs.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                    Honey Docs
-                  </a>
-                </li>
-
-                <!-- Tus nuevas secciones -->
-                <li>
-                  <a href="https://status.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                    Status Page
-                  </a>
-                </li>
-                <li>
-                  <a href="https://blog.honeyops.net" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Legal -->
-            <div>
-              <div class="font-semibold text-slate-100">Legal</div>
-              <ul class="mt-3 space-y-2 text-slate-300">
-                <li><%= link_to "Cookie Policy", cookies_path, class: "hover:underline", data: { legal_open: "cookies" } %></li>
-                <li><%= link_to "Privacy Policy", privacy_path, class: "hover:underline", data: { legal_open: "privacy" } %></li>
-              </ul>
-            </div>
-
-            <!-- Contact -->
-            <div>
-              <div class="font-semibold text-slate-100">Contact</div>
-              <p class="mt-3 text-slate-300">
-                Questions, larger deployments, or partner plans?
-              </p>
-              <span class="mt-3 inline-flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 font-semibold text-slate-200 cursor-default">
-                Get in touch
-              </span>
-              <p class="mt-2 text-sm text-slate-400">info@honeyops.net</p>
-              <div class="mt-4 flex items-center gap-2 text-slate-300">
-                <%= honey_icon(:linkedin, classes: "h-4 w-4 text-amber-400") %>
-                <a href="https://www.linkedin.com/company/honeyops" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                  Follow us on LinkedIn
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Bottom centered line -->
-      <div class="mt-10 text-center text-xs text-slate-500">
-        © 2025 HoneyOps. All rights reserved. All trademarks and brands are the property of their respective owners.
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- Legal Modals -->
-  <div
-    id="legal-modal-privacy"
-    data-legal-modal="privacy"
-    class="fixed inset-0 z-50"
-    aria-hidden="true"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="legal-privacy-title"
-    hidden
-  >
-    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" data-legal-close></div>
-    <div class="relative mx-auto flex h-full w-full items-start justify-center px-4 py-10 sm:px-6">
-      <div class="w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl">
-        <div class="sticky top-0 flex items-center justify-between border-b border-slate-800 bg-slate-900/95 px-6 py-4">
-          <div>
-            <h2 id="legal-privacy-title" class="text-lg font-semibold text-slate-100">Privacy Policy</h2>
-            <p class="text-xs text-slate-400">Last updated: 2025</p>
-          </div>
-          <button
-            type="button"
-            data-legal-close
-            class="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:bg-slate-800"
-          >
-            Close
-          </button>
-        </div>
-        <div class="max-h-[70vh] overflow-y-auto px-6 py-6 text-sm text-slate-300 leading-relaxed space-y-6">
-          <p>
-            This Privacy Policy explains how HoneyOps (&quot;we&quot;, &quot;us&quot; or &quot;our&quot;) collects,
-            uses and protects personal data in connection with our website, customer portal and related services.
-          </p>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">1. Who we are</h3>
-            <p class="mt-2">
-              HoneyOps provides a honeypot management platform (&quot;Services&quot;) designed for organisations that want
-              to deploy and monitor honeypots across their infrastructure. In most cases, we act as the
-              <span class="font-medium text-slate-100">data controller</span> for account and user data associated with the use of our Services.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">2. Personal data we collect</h3>
-            <p class="mt-2">We collect and process the following categories of personal data:</p>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li>
-                <span class="font-semibold text-slate-100">Account and contact data</span>:
-                name, surname, company name, business email address, country and billing details
-                provided when creating and managing an account.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">User and authentication data</span>:
-                login email address, hashed passwords (never stored in plain text), role within the account,
-                and status (active, invited, disabled) managed through our authentication system.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Service usage and configuration data</span>:
-                information relating to honeypots (labels, tags, policies, notification settings, maintenance windows),
-                and configuration of email, webhook or syslog/SIEM destinations.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Security and event data</span>:
-                logs and alerts generated when honeypots detect suspicious activity,
-                including technical details about the event (IP addresses, ports, protocols and other security telemetry).
-                This data is collected to enable incident detection, triage and forensic analysis.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Technical logs</span>:
-                IP address, browser type, timestamps and similar information captured in server logs
-                to maintain the security, availability and integrity of our Services.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Support communications</span>:
-                contents of emails or requests you send us when contacting support or Sales.
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">3. How we use personal data</h3>
-            <p class="mt-2">We process personal data for the following purposes:</p>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li>To create and manage customer accounts and user access to the HoneyOps console.</li>
-              <li>To authenticate users and enforce role-based access controls.</li>
-              <li>To deploy, monitor and manage honeypots and related security telemetry.</li>
-              <li>To generate alerts, reports and notifications as configured by the customer.</li>
-              <li>To provide customer support and respond to enquiries.</li>
-              <li>To maintain and improve the security, stability and performance of our Services.</li>
-              <li>To comply with legal obligations and enforce our terms of service.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">4. Legal basis for processing</h3>
-            <p class="mt-2">
-              Where the GDPR or similar laws apply, we process personal data on the following legal bases:
-            </p>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li>
-                <span class="font-semibold text-slate-100">Contractual necessity</span>:
-                to provide and operate the Services you have requested as a customer or user.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Legitimate interests</span>:
-                to ensure the security of our infrastructure, prevent abuse and improve our Services,
-                provided that such interests are not overridden by your rights and freedoms.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Legal obligations</span>:
-                to comply with applicable laws and regulations.
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">5. Cookies and tracking</h3>
-            <p class="mt-2">
-              HoneyOps uses only strictly necessary cookies to provide secure access to the console and protect our Services.
-              We do not use advertising cookies, social media tracking pixels or advanced analytics tools.
-              For more information, please see our <%= link_to "Cookie Policy", cookies_path, class: "text-amber-400 hover:underline", data: { legal_open: "cookies" } %>.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">6. How we share data</h3>
-            <p class="mt-2">We do not sell personal data. We may share personal data with:</p>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li>
-                <span class="font-semibold text-slate-100">Service providers</span>:
-                trusted third parties that provide infrastructure, email delivery, backup, billing
-                or similar services, under written agreements and with appropriate data protection safeguards.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Authorised users</span>:
-                members of your organisation who have been granted access to the HoneyOps console, based on the roles and permissions configured in your account.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Authorities</span>:
-                where required by law or necessary to protect our rights, users or the public.
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">7. International transfers</h3>
-            <p class="mt-2">
-              Depending on where you are located and where our infrastructure or service providers operate,
-              personal data may be processed in other countries. When we transfer personal data internationally,
-              we take appropriate measures to ensure an adequate level of protection, including the use of
-              contractual safeguards where required.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">8. Data retention</h3>
-            <p class="mt-2">
-              We retain personal data for as long as necessary to provide the Services, fulfil the purposes described
-              in this Policy, and comply with legal, accounting or reporting obligations. Security events and logs
-              may be retained for a period agreed with the customer or as reasonably necessary to support security
-              investigations and compliance requirements.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">9. Your rights</h3>
-            <p class="mt-2">
-              Depending on your location and applicable law, you may have the right to:
-            </p>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li>Access the personal data we hold about you.</li>
-              <li>Request correction of inaccurate or incomplete data.</li>
-              <li>Request deletion of your personal data, subject to legal obligations.</li>
-              <li>Object to or restrict certain types of processing.</li>
-              <li>Request a copy of your data in a portable format where technically feasible.</li>
-              <li>Lodge a complaint with a supervisory authority.</li>
-            </ul>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <div
-    id="legal-modal-cookies"
-    data-legal-modal="cookies"
-    class="fixed inset-0 z-50"
-    aria-hidden="true"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="legal-cookies-title"
-    hidden
-  >
-    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" data-legal-close></div>
-    <div class="relative mx-auto flex h-full w-full items-start justify-center px-4 py-10 sm:px-6">
-      <div class="w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl">
-        <div class="sticky top-0 flex items-center justify-between border-b border-slate-800 bg-slate-900/95 px-6 py-4">
-          <div>
-            <h2 id="legal-cookies-title" class="text-lg font-semibold text-slate-100">Cookie Policy</h2>
-            <p class="text-xs text-slate-400">Last updated: 2025</p>
-          </div>
-          <button
-            type="button"
-            data-legal-close
-            class="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:bg-slate-800"
-          >
-            Close
-          </button>
-        </div>
-        <div class="max-h-[70vh] overflow-y-auto px-6 py-6 text-sm text-slate-300 leading-relaxed space-y-6">
-          <p>
-            This website (honeyops.net and related subdomains) uses only strictly necessary cookies to ensure the technical
-            operation and security of the HoneyOps platform. We do not use cookies for advertising, behavioural tracking,
-            or advanced analytics.
-          </p>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">1. What are cookies?</h3>
-            <p class="mt-2">
-              Cookies are small text files that are stored on your device when you visit a website. They help websites
-              remember information about your visit, such as your session or preferences, so that the site can function correctly.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">2. Cookies we use</h3>
-            <p class="mt-2">HoneyOps uses only essential cookies required for the provision of the service:</p>
-            <ul class="mt-3 space-y-2">
-              <li>
-                <span class="font-semibold text-slate-100">Session cookie</span>
-                (e.g. <code class="text-amber-300">_honeyops_session</code>):
-                used to keep you logged in securely to the HoneyOps console.
-              </li>
-              <li>
-                <span class="font-semibold text-slate-100">Security cookies</span>
-                (such as CSRF-related tokens): used to protect forms and logins against abuse
-                and fraudulent activity.
-              </li>
-            </ul>
-            <p class="mt-3">
-              These cookies are classified as <span class="font-medium text-slate-100">strictly necessary</span>
-              and do not require your consent under EU law, as they are essential for providing
-              the service you actively request (secure access to the HoneyOps platform).
-            </p>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">3. Cookies we do not use</h3>
-            <p class="mt-2">HoneyOps does <span class="font-semibold">not</span> use:</p>
-            <ul class="mt-3 list-disc space-y-1 pl-6">
-              <li>Advertising or marketing cookies.</li>
-              <li>Advanced analytics cookies (such as Google Analytics, Matomo, etc.).</li>
-              <li>Social media tracking pixels or similar technologies.</li>
-              <li>Browser fingerprinting or equivalent tracking methods.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">4. Managing cookies in your browser</h3>
-            <p class="mt-2">
-              You can configure your browser to block or delete cookies at any time. However,
-              if you disable essential cookies, parts of the HoneyOps platform (including the
-              login process) may no longer function correctly.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="text-base font-semibold text-slate-100">5. Contact</h3>
-            <p class="mt-2">
-              If you have any questions about this Cookie Policy, please contact us at:
-              <a href="mailto:privacy@honeyops.net" class="text-amber-400 hover:underline">
-                privacy@honeyops.net
-              </a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    (() => {
-      const modalKeys = ["privacy", "cookies"];
-      const modals = {
-        privacy: document.querySelector('[data-legal-modal="privacy"]'),
-        cookies: document.querySelector('[data-legal-modal="cookies"]'),
-      };
-      const openButtons = document.querySelectorAll("[data-legal-open]");
-      const closeButtons = document.querySelectorAll("[data-legal-close]");
-      let activeModal = null;
-
-      const hideAll = () => {
-        Object.values(modals).forEach((modal) => {
-          if (!modal) return;
-          modal.hidden = true;
-          modal.setAttribute("aria-hidden", "true");
-        });
-        document.body.style.overflow = "";
-        activeModal = null;
-      };
-
-      const showModal = (key, updateHash = true) => {
-        const modal = modals[key];
-        if (!modal) return;
-        if (activeModal === key) return;
-        hideAll();
-        modal.hidden = false;
-        modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-        activeModal = key;
-        if (updateHash) {
-          history.replaceState(null, "", `#${key}`);
-        }
-      };
-
-      const closeModal = (updateHash = true) => {
-        if (!activeModal) return;
-        hideAll();
-        if (updateHash) {
-          history.replaceState(null, "", window.location.pathname + window.location.search);
-        }
-      };
-
-      const syncFromHash = () => {
-        const key = window.location.hash.replace("#", "");
-        if (modalKeys.includes(key)) {
-          showModal(key, false);
-        } else {
-          hideAll();
-        }
-      };
-
-      openButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-          event.preventDefault();
-          showModal(button.dataset.legalOpen);
-        });
-      });
-
-      closeButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-          event.preventDefault();
-          closeModal();
-        });
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeModal();
-      });
-
-      window.addEventListener("hashchange", syncFromHash);
-      syncFromHash();
-    })();
-  </script>
-
+  <%= render "main/site_footer" %>
 </div>

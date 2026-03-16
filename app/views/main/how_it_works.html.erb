@@ -1,0 +1,90 @@
+<% content_for :title, "How HoneyOps Works | From Deployment to Detection" %>
+<% content_for :meta_description, "Learn the HoneyOps deployment flow: create account, install OVA or Windows agent, apply policy, and route detection alerts to your operations team." %>
+
+<div class="min-h-screen bg-slate-950 text-slate-100">
+  <%= render "main/site_header", active: :how_it_works %>
+
+  <main>
+    <section class="border-b border-slate-900 bg-slate-950 py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-4xl text-center">
+          <div class="mb-2 text-sm font-semibold uppercase tracking-widest text-amber-400">How It Works</div>
+          <h1 class="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
+            From first deployment to first alert in five steps
+          </h1>
+          <p class="mt-4 text-lg text-slate-300">
+            Deploy in your preferred format, enroll once, and start receiving high-signal detections
+            through the channels your team already uses.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-slate-900 bg-slate-950 py-16">
+      <div class="mx-auto max-w-5xl px-6">
+        <ol class="space-y-5">
+          <% [
+            { n: 1, title: "Create your HoneyOps account", desc: "Set up your workspace and invite your security or operations team members with role-based permissions." },
+            { n: 2, title: "Choose deployment mode", desc: "Download either the OVA appliance for virtualized environments or the native Windows agent package." },
+            { n: 3, title: "Install and pair", desc: "Import the OVA or install the Windows service, then enroll using a one-time token from the console." },
+            { n: 4, title: "Apply policy", desc: "Define destination channels, heartbeat cadence, mute periods, and maintenance windows per honeypot." },
+            { n: 5, title: "Triage incidents", desc: "When a decoy is touched, HoneyOps creates a trackable alert so your team can investigate and close it." }
+          ].each do |step| %>
+            <li class="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
+              <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-500/10 text-sm font-semibold text-amber-300">
+                <%= step[:n] %>
+              </div>
+              <div>
+                <h2 class="text-base font-semibold text-slate-100"><%= step[:title] %></h2>
+                <p class="mt-1 text-sm text-slate-300"><%= step[:desc] %></p>
+              </div>
+            </li>
+          <% end %>
+        </ol>
+      </div>
+    </section>
+
+    <section class="border-b border-slate-900 bg-slate-950/95 py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto mb-8 max-w-3xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">Installation models</h2>
+          <p class="mt-3 text-slate-300">
+            Both deployment options are designed to be easy to install and easy to maintain over time.
+          </p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+        <article class="rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-sm">
+          <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">Deployment option</div>
+          <h2 class="text-xl font-semibold text-slate-100">OVA appliance</h2>
+          <p class="mt-2 text-sm text-slate-300">
+            Best for hypervisor-driven environments and segmented networks. Import, boot, configure network,
+            and enroll with the generated token.
+          </p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span><span>Works with common OVA-compatible hypervisors.</span></li>
+            <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span><span>Supports static or DHCP addressing based on your network policy.</span></li>
+            <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span><span>Fast provisioning for branch sites and datacenter segments.</span></li>
+          </ul>
+        </article>
+
+        <article class="rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-sm">
+          <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">Deployment option</div>
+          <h2 class="text-xl font-semibold text-slate-100">Windows agent</h2>
+          <p class="mt-2 text-sm text-slate-300">
+            Best when your stack is endpoint-heavy or Windows-centric. Install as a managed service
+            and enroll securely from the same console workflow.
+          </p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span><span>Native installation flow for Windows hosts.</span></li>
+            <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span><span>Centralized policy and alert routing, same as OVA deployments.</span></li>
+            <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-8 rounded-full bg-amber-400/70"></span><span>Consistent operations for mixed infrastructure environments.</span></li>
+          </ul>
+        </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%= render "main/site_footer" %>
+</div>
