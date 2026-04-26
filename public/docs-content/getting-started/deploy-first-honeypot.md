@@ -1,6 +1,12 @@
-# Deploy Your First Honeypot
+# Deploy Your First Honeypot as a Service with HoneyOps Honeypots as a Service
 
-This guide walks you through deploying your first HoneyOps honeypot and enrolling it in the console.
+This guide walks you through deploying your first HoneyOps honeypot as a service endpoint and
+enrolling it in the console. It is written for teams adopting honeypots as a service and wanting
+to move from evaluation to first deployment quickly.
+
+If you are evaluating the product first, review the main
+[HoneyOps honeypot as a service platform](https://honeyops.net/) and the public
+[deployment overview](https://honeyops.net/how-it-works) before starting the technical setup.
 
 HoneyOps supports two deployment flavors:
 

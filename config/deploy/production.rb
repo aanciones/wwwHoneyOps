@@ -1,4 +1,4 @@
-server "46.224.78.20", user: "deploy", roles: %w[app db web]
+server "188.245.91.61", user: "deploy", roles: %w[app db web]
 
 set :branch, "main"
 set :rails_env, "production"

@@ -1,12 +1,17 @@
-# HoneyOps Technical Documentation
+# HoneyOps Honeypot as a Service and Honeypots as a Service Documentation
 
-Welcome to the HoneyOps technical documentation.
+Welcome to the HoneyOps honeypot as a service and honeypots as a service documentation.
 
-HoneyOps is a SaaS platform for deploying and operating honeypots. You receive a lightweight
-`.ova` appliance or a native Windows agent service that you run inside your own infrastructure,
-and a cloud console where you manage honeypots, alerts, policies and licensing.  
+HoneyOps is a [honeypot as a service platform](https://honeyops.net/) for teams that need
+[honeypots as a service](https://honeyops.net/) with a lightweight `.ova` appliance or a native
+Windows agent service that you run inside your own infrastructure, plus a cloud console where
+you manage honeypots, alerts, policies and licensing.  
 The honeypot endpoint only sends **health checks** and **security incident telemetry** - it never
 collects production data.
+
+If you want the product overview before diving into implementation details, start on the main
+[HoneyOps honeypot as a service website](https://honeyops.net/) or review
+[how HoneyOps works](https://honeyops.net/how-it-works).
 
 ---
 

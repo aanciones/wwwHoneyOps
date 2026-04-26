@@ -1,8 +1,19 @@
-# What is HoneyOps
+# What is HoneyOps Honeypot as a Service and Honeypots as a Service
 
-HoneyOps is a cloud-managed honeypot platform designed to help security teams detect early-stage intrusions with minimal operational overhead.
+HoneyOps is a [honeypot as a service platform](https://honeyops.net/) designed to help security
+teams detect early-stage intrusions with minimal operational overhead. It gives you managed
+honeypots, centralized operations, and early warning for suspicious activity from one cloud
+console. HoneyOps is built for organizations that want honeypots as a service without the
+traditional operational burden.
 
-Traditional honeypots are difficult to deploy, maintain and monitor. HoneyOps eliminates that complexity by providing a **pre-built OVA appliance or native Windows agent** plus a **centralised management console**, letting you operate multiple honeypots across different environments with a unified workflow.
+Traditional honeypots are difficult to deploy, maintain and monitor. HoneyOps eliminates that
+complexity by providing a **pre-built OVA appliance or native Windows agent** plus a
+**centralised management console**, letting you operate multiple honeypots across different
+environments with a unified workflow.
+
+For the commercial overview, pricing, and deployment model, see the main
+[HoneyOps honeypot as a service site](https://honeyops.net/) and
+[How it works](https://honeyops.net/how-it-works).
 
 ---
 
@@ -26,7 +37,7 @@ Honeypots are an effective defensive tool because they:
 
 ## What HoneyOps provides
 
-HoneyOps delivers all benefits of honeypots without the operational burden.
+HoneyOps delivers the benefits of a honeypot as a service model without the operational burden.
 
 ### ✔ Flexible deployment flavors
 Choose the format that fits your environment:
