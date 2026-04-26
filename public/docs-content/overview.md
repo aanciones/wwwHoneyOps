@@ -1,6 +1,6 @@
-# HoneyOps Honeypot as a Service and Honeypots as a Service Documentation
+# HoneyOps Technical Documentation
 
-Welcome to the HoneyOps honeypot as a service and honeypots as a service documentation.
+Welcome to the HoneyOps technical documentation.
 
 HoneyOps is a [honeypot as a service platform](https://honeyops.net/) for teams that need
 [honeypots as a service](https://honeyops.net/) with a lightweight `.ova` appliance or a native

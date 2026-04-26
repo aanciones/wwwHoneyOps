@@ -1,4 +1,4 @@
-# What is HoneyOps Honeypot as a Service and Honeypots as a Service
+# What is HoneyOps
 
 HoneyOps is a [honeypot as a service platform](https://honeyops.net/) designed to help security
 teams detect early-stage intrusions with minimal operational overhead. It gives you managed

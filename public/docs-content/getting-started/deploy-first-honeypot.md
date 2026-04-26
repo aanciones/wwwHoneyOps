@@ -1,4 +1,4 @@
-# Deploy Your First Honeypot as a Service with HoneyOps Honeypots as a Service
+# Deploy Your First Honeypot
 
 This guide walks you through deploying your first HoneyOps honeypot as a service endpoint and
 enrolling it in the console. It is written for teams adopting honeypots as a service and wanting
