@@ -1,5 +1,5 @@
 <% content_for :title, "HoneyOps Pricing | Trial and Per-Honeypot Plans" %>
-<% content_for :meta_description, "HoneyOps pricing is simple: 1 trial honeypot for 30 days, then $10/month per active honeypot with full platform capabilities." %>
+<% content_for :meta_description, "HoneyOps pricing is simple: 1 trial honeypot for 30 days, then 15 €/month per active honeypot with a 3-honeypot minimum, including full platform capabilities." %>
 
 <div class="min-h-screen bg-slate-950 text-slate-100">
   <%= render "main/site_header", active: :pricing %>
@@ -13,7 +13,7 @@
             Straightforward pricing that scales with your deployment
           </h1>
           <p class="mt-4 text-lg text-slate-300">
-            Start with a full-featured trial and move to predictable per-honeypot billing.
+            Start with a full-featured trial and move to predictable per-honeypot billing with a simple minimum commitment.
           </p>
         </div>
       </div>
@@ -32,7 +32,7 @@
             </div>
             <div>
               <h2 class="text-lg font-semibold text-slate-100">Trial honeypot</h2>
-              <p class="text-sm text-slate-300">Validate fit before scaling.</p>
+              <p class="text-sm text-slate-300">Best for evaluation and internal validation.</p>
             </div>
           </div>
 
@@ -43,6 +43,7 @@
 
           <ul class="mt-6 space-y-2 text-sm text-slate-300">
             <li class="flex items-center gap-2"><%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %><span>1 active honeypot</span></li>
+            <li class="flex items-center gap-2"><%= honey_icon(:activity, classes: "h-4 w-4 text-amber-400") %><span>30-day evaluation period</span></li>
             <li class="flex items-center gap-2"><%= honey_icon(:server, classes: "h-4 w-4 text-amber-400") %><span>OVA or Windows deployment mode</span></li>
             <li class="flex items-center gap-2"><%= honey_icon(:bell, classes: "h-4 w-4 text-amber-400") %><span>Email notifications and policy controls</span></li>
             <li class="flex items-center gap-2"><%= honey_icon(:ticket, classes: "h-4 w-4 text-amber-400") %><span>Basic email support</span></li>
@@ -56,20 +57,20 @@
             </div>
             <div>
               <h2 class="text-lg font-semibold text-slate-100">Production plan</h2>
-              <p class="text-sm text-slate-300">Pay only for active honeypots.</p>
+              <p class="text-sm text-slate-300">Best for continuous protection in live environments.</p>
             </div>
           </div>
 
           <div class="mt-6 flex items-baseline gap-1">
-            <span class="text-4xl font-extrabold text-amber-300">$10</span>
+            <span class="text-4xl font-extrabold text-amber-300">15 €</span>
             <span class="text-slate-400">per honeypot / month</span>
           </div>
-
           <ul class="mt-6 space-y-2 text-sm text-slate-300">
-            <li class="flex items-center gap-2"><%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %><span>All core HoneyOps capabilities</span></li>
-            <li class="flex items-center gap-2"><%= honey_icon(:activity, classes: "h-4 w-4 text-amber-400") %><span>Incident workflows and reporting</span></li>
-            <li class="flex items-center gap-2"><%= honey_icon(:users, classes: "h-4 w-4 text-amber-400") %><span>Role-based team access</span></li>
-            <li class="flex items-center gap-2"><%= honey_icon(:ticket, classes: "h-4 w-4 text-amber-400") %><span>Email support</span></li>
+            <li class="flex items-center gap-2"><%= honey_icon(:shield, classes: "h-4 w-4 text-amber-400") %><span>Minimum contract: 3 honeypots</span></li>
+            <li class="flex items-center gap-2"><%= honey_icon(:activity, classes: "h-4 w-4 text-amber-400") %><span>Continuous production use</span></li>
+            <li class="flex items-center gap-2"><%= honey_icon(:server, classes: "h-4 w-4 text-amber-400") %><span>OVA or Windows deployment mode</span></li>
+            <li class="flex items-center gap-2"><%= honey_icon(:bell, classes: "h-4 w-4 text-amber-400") %><span>Email notifications and policy controls</span></li>
+            <li class="flex items-center gap-2"><%= honey_icon(:ticket, classes: "h-4 w-4 text-amber-400") %><span>Email support for live environments</span></li>
           </ul>
         </article>
       </div>
@@ -78,8 +79,9 @@
     <section class="bg-slate-950 py-16">
       <div class="mx-auto max-w-4xl px-6 text-center">
         <p class="text-sm leading-7 text-slate-300">
-          Billing is straightforward: only active honeypots are billed, trial and production deployments
-          follow the same operational workflow, and partner or high-volume terms can be discussed case by case.
+          Billing is straightforward: after the 30-day trial, active honeypots are billed at 15 € per month,
+          with a minimum contract volume of 3 honeypots. Trial and production deployments follow the same
+          operational workflow, and partner or high-volume terms can be discussed case by case.
         </p>
         <p class="mt-5 text-sm leading-7 text-slate-300">
           Planning a larger rollout across many sites? Contact
